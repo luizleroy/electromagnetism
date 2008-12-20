@@ -1,0 +1,48 @@
+\section{Produto Exterior}
+\subsection{Introdução}
+\begin{itemize}
+ \item Forma de produto mais natural e fundamental para elementos de espaços lineares ou espaços vetoriais;
+ \item Não constitui uma operação fechada, isto é, o produto de dois elementos não resulta em um elemento do mesmo espaço;
+ \item Os elementos gerados pelos produtos formam uma série de espaços lineares, que podem, na sua totalidade, definir uma álgebra fechada;
+ \item O produto exterior está fundamentalmente relacionado com a notação de dependência linear: os elementos de um espaço são linearmene dependentes se e somente se o produto exterior entre eles for zero;
+ \item As propriedades dos determinantes seguem naturalmente dos axiomas do produto exterior;
+ \item o produto exterior possui interpretação geométrica simples: pode-se usar o equivalente multi-dimensional do elemento básico (i-elemento ou elemento 1) do qual ele é constituído. Se o espaço possuir uma métrica, sua media ou magnitude pode ser interpretada como comprimento, área, volume ou um hiper-volume dependendo do p-elemento do produto;
+ \item O produto exterior não requer um espaço vetorial equipado com uma métrica. Essa característica o diferencia do cálculo vetorial 3D onde o produto vetorial requer uma métrica. Sabe-se que o vetor resultante é ortogonal aos seus dois fatores (ortogonalidade é um conceito métrico). Vários resultados que usam o produto vetorial podem ser colocados em termos de produto exterior evitando hipóteses desnecessárias.
+\end{itemize}
+
+\subsection{Notaçao}
+\begin{enumerate}
+ \item $\Lambda^0$ é o corpo dos números reais (0-elementos ou escalares) e serão denotados por (a,b,c...);
+ \item $\Lambda^1$ ou $V$, espaço linear ou espaço vetorial de dimensão $n$ definido sobre $\Lambda^0$ seus elementos são 1-elementos $(x,y,z)$. ($\sigma_1, \sigma_2, ..., \sigma_n)$ denota uma base de $\Lambda^1$;
+ \item $\Lambda^2$ espaço linear constituído pelas somas dos produtos exteriores de 1-elementos tomados dois a dois;
+ \item O produto exterior é denotado pelo operador $\wedge$ (wedge).
+\end{enumerate}
+
+\subsection{Propriedades Básicas do Produto Exterior}
+Vamos começar com o espaço $\Lambda^1$ tendo como elementos $(x,y,z...)$. Neste caso, as seguintes propriedades são válidas:
+$$
+a(x\wedge y)=(ax)\wedge y
+$$
+$$
+x\wedge(y+z)=x\wedge y + x\wedge z
+$$
+$$
+(y+x) \wedge x = y \wedge x + z \wedge x
+$$
+$$
+x \wedge x = 0 \qquad produto \quad nulo
+$$
+$$
+x \wedge y = - x \wedge y \qquad anti \quad simetria
+$$
+
+Podemos verificar a propriedade de anti-simetria usando as propriedades de distributividade e produto nulo (ou nilpotência):
+
+%TODO:Continuar a edição deste ponto!
+
+\subsection{Construindo a Base de $\Lambda^2$ em $\Re^3$}
+
+\subsubsection{Elementos Decomponíveis}
+Um 2-elemento é decomponível se ele é o produto exterior de dois 1-elemento. E geral, um 2-elemento constituído pela soma de 2-elementos decomponíveis não pode ser expresso como o produto de dois 1-elemento (exceto para o caso em que $dim(\Lambda^1\leq3)$.
+
+\subsection{Construindo a base de $\Lambda^P$ em $\Re^n$}
