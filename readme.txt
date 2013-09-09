@@ -1,7 +1,0 @@
-algorithms
-
-electromagnetism
-
-optmization
-
-?
