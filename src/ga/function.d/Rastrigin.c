@@ -1,3 +1,4 @@
+const size_t N = 10;
 double function(vector<double> x) {
 	cout << "I'am Rastrigin..." << endl;
 	//cout << "My x.size (5 or 10): " << (size_t) x.size() << endl;
