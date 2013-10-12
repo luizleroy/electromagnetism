@@ -5,15 +5,17 @@ CC 		= g++
 CFLAGS  = -g -Wall
 		  #-O2 -fopenmp
 
-TARGET = mSGA 
+TARGET = ga.cpp 
+#EXT    = cpp 
 
-all: clean $(TARGET) test
 
-$(TARGET): $(TARGET).cpp
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).cpp
+all: clean ga test
+
+ga: $(TARGET)
+	$(CC) $(CFLAGS) -o ga $(TARGET)
 
 clean:
-	$(RM) $(TARGET)
+	$(RM) ga
 
 test:
-	time -p ./$(TARGET)
+	time -p ./ga

@@ -4,16 +4,16 @@ CC 		= g++
   #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  = -g -Wall
 		  #-O2 -fopenmp
+# the build target executable:
 
-TARGET = mSGA 
 
-all: clean $(TARGET) test
+all: clean ga test
 
-$(TARGET): $(TARGET).cpp
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).cpp
+ga: ga.cpp
+	$(CC) $(CFLAGS) -o ga ga.cpp
 
 clean:
-	$(RM) $(TARGET)
+	$(RM) ga
 
 test:
-	time -p ./$(TARGET)
+	time -p ./ga
