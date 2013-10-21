@@ -1,5 +1,7 @@
 package com.google.code.optimization;
 
+import com.google.code.optimization.functions.MinimizationWeightSpeed;
+
 /**
  * Hello world!
  *
@@ -8,6 +10,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+		MinimizationWeightSpeed f = new MinimizationWeightSpeed();
+		f.write();
     }
 }
