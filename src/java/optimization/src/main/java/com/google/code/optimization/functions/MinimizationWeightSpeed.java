@@ -92,13 +92,13 @@ public class MinimizationWeightSpeed extends EngFunction {
 	public void write() {
 		List<Double> x = new MyArrayList<Double>();
 		for (int i = 0; i < SAMPLES; i++) {
-			x.add(2.6 + (3.6 - 2.6) * random.nextDouble());
-			x.add(0.7 + (0.8 - 0.7) * random.nextDouble());
-			x.add(17. + (28. - 17.) * random.nextDouble());
-			x.add(7.3 + (8.3 - 7.3) * random.nextDouble());
-			x.add(7.8 + (8.3 - 7.8) * random.nextDouble());
-			x.add(2.9 + (3.9 - 2.9) * random.nextDouble());
-			x.add(5. + (5.5 - 5.) * random.nextDouble());
+			x.add(2.6 + (3.6 - 2.6) * Const.random.nextDouble());
+			x.add(0.7 + (0.8 - 0.7) * Const.random.nextDouble());
+			x.add(17. + (28. - 17.) * Const.random.nextDouble());
+			x.add(7.3 + (8.3 - 7.3) * Const.random.nextDouble());
+			x.add(7.8 + (8.3 - 7.8) * Const.random.nextDouble());
+			x.add(2.9 + (3.9 - 2.9) * Const.random.nextDouble());
+			x.add(5. + (5.5 - 5.) *   Const.random.nextDouble());
 			this.setX(x);
 			Double result = this.get((ArrayList<Double>) this.getX());
 			System.out.println(x);

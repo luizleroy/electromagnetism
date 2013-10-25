@@ -53,10 +53,10 @@ public class DesignPressureVessel extends EngFunction {
 	public void write() {
 		List<Double> x = new MyArrayList<Double>();
 		for (int i = 0; i < SAMPLES; i++) {
-			x.add(1 + 98 * random.nextDouble());
-			x.add(1 + 98 * random.nextDouble());
-			x.add(10 + 190 * random.nextDouble());
-			x.add(10 + 190 * random.nextDouble());
+			x.add(1 + 98 * Const.random.nextDouble());
+			x.add(1 + 98 * Const.random.nextDouble());
+			x.add(10 + 190 * Const.random.nextDouble());
+			x.add(10 + 190 * Const.random.nextDouble());
 			this.setX(x);
 			Double result = this.get((ArrayList<Double>) this.getX());
 			System.out.println(x);

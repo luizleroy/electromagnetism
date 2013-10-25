@@ -50,9 +50,9 @@ public class MinimizationWeightTension extends EngFunction {
 	public void write() {
 		List<Double> x = new MyArrayList<Double>();
 		for (int i = 0; i < SAMPLES; i++) {
-			x.add(0.05 + (2. - 0.05) * random.nextDouble());
-			x.add(0.25 + (1.3 - 0.25) * random.nextDouble());
-			x.add(2. + (15. - 2.) * random.nextDouble());
+			x.add(0.05 + (2. - 0.05) * Const.random.nextDouble());
+			x.add(0.25 + (1.3 - 0.25) * Const.random.nextDouble());
+			x.add(2. + (15. - 2.) * Const.random.nextDouble());
 			this.setX(x);
 			Double result = this.get((ArrayList<Double>) this.getX());
 			System.out.println(x);
