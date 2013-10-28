@@ -9,28 +9,18 @@ public abstract class Function {
 	File f;
 	public /*static final*/ Integer dim;
 	protected static final int SAMPLES = 10;
-	protected /*static final*/ List<Double> up = new ArrayList<Double>();
-	protected /*static final*/ List<Double> dn = new ArrayList<Double>();
+	protected List<Double> up;
+	protected List<Double> dn;
 
 	public Function(int dim) {
 		this.dim = dim;
 	}
 
-	public List<Double> getUp() {
-		return up;
-	}
+	public abstract List<Double> getUp();
+	public abstract List<Double> getDn();
 
-	public void setUp(List<Double> up) {
-		this.up = up;
-	}
-
-	public List<Double> getDn() {
-		return dn;
-	}
-
-	public void setDn(List<Double> dn) {
-		this.dn = dn;
-	}
+	public abstract void setUp(List<Double> up);
+	public abstract void setDn(List<Double> dn);
 
 	protected ArrayList<Double> x;
 

@@ -9,6 +9,7 @@ import com.google.code.optimization.MyArrayList;
 public class DesignPressureVessel extends EngFunction {
 	public DesignPressureVessel(int dim) {
 		super(dim);
+		this.setEngUpDn();
 	}
 
 	public DesignPressureVessel() {
@@ -50,7 +51,28 @@ public class DesignPressureVessel extends EngFunction {
 		return target;
 	}
 
+	@Override
+	protected void setEngUpDn() {
+		// FIXME validar com o artigo / Reutilizar Dn e Up em public void write()
+		List<Double> pgDn = new ArrayList<Double>();
+		List<Double> pgUp = new ArrayList<Double>();
+		
+		pgDn.add(1.);
+		pgDn.add(1.);
+		pgDn.add(10.);
+		pgDn.add(10.);
+		
+		pgUp.add(99.);
+		pgUp.add(99.);
+		pgUp.add(200.);
+		pgUp.add(200.);
+		
+		this.setDn(pgDn);
+		this.setUp(pgUp);
+	}
+
 	public void write() {
+		// FIXME validar com o artigo / Reutilizar Dn e Up em public void write()
 		List<Double> x = new MyArrayList<Double>();
 		for (int i = 0; i < SAMPLES; i++) {
 			x.add(1 + 98 * Const.random.nextDouble());
@@ -74,4 +96,5 @@ public class DesignPressureVessel extends EngFunction {
 			System.out.print(Const.decimalFormat.format(print.get(i)) + " ");
 		}
 	}
+
 }

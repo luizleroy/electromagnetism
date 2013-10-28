@@ -9,6 +9,7 @@ import com.google.code.optimization.MyArrayList;
 public class MinimizationWeightSpeed extends EngFunction {
 	public MinimizationWeightSpeed(int dim) {
 		super(dim);
+		this.setEngUpDn();
 	}
 
 	public MinimizationWeightSpeed() {
@@ -88,17 +89,42 @@ public class MinimizationWeightSpeed extends EngFunction {
 
 		return target;
 	}
+	
+	@Override
+	protected void setEngUpDn() {
+		List<Double> pgDn = new ArrayList<Double>();
+		List<Double> pgUp = new ArrayList<Double>();
+		
+		pgDn.add(2.6);
+		pgDn.add(0.7);
+		pgDn.add(17.);
+		pgDn.add(7.3);
+		pgDn.add(7.8);
+		pgDn.add(2.9);
+		pgDn.add(5.);
+		
+		pgUp.add(3.6);
+		pgUp.add(0.8);
+		pgUp.add(28.);
+		pgUp.add(8.3);
+		pgUp.add(8.3);
+		pgUp.add(3.9);
+		pgUp.add(5.5);
+		
+		this.setDn(pgDn);
+		this.setUp(pgUp);
+	}
 
 	public void write() {
 		List<Double> x = new MyArrayList<Double>();
 		for (int i = 0; i < SAMPLES; i++) {
-			x.add(2.6 + (3.6 - 2.6) * Const.random.nextDouble());
-			x.add(0.7 + (0.8 - 0.7) * Const.random.nextDouble());
-			x.add(17. + (28. - 17.) * Const.random.nextDouble());
-			x.add(7.3 + (8.3 - 7.3) * Const.random.nextDouble());
-			x.add(7.8 + (8.3 - 7.8) * Const.random.nextDouble());
-			x.add(2.9 + (3.9 - 2.9) * Const.random.nextDouble());
-			x.add(5. + (5.5 - 5.) *   Const.random.nextDouble());
+			x.add(this.getDn().get(0) + (this.getUp().get(0) - this.getDn().get(0)) * Const.random.nextDouble());
+			x.add(this.getDn().get(1) + (this.getUp().get(1) - this.getDn().get(1)) * Const.random.nextDouble());
+			x.add(this.getDn().get(2) + (this.getUp().get(2) - this.getDn().get(2)) * Const.random.nextDouble());
+			x.add(this.getDn().get(3) + (this.getUp().get(3) - this.getDn().get(3)) * Const.random.nextDouble());
+			x.add(this.getDn().get(4) + (this.getUp().get(4) - this.getDn().get(4)) * Const.random.nextDouble());
+			x.add(this.getDn().get(5) + (this.getUp().get(5) - this.getDn().get(5)) * Const.random.nextDouble());
+			x.add(this.getDn().get(6) + (this.getUp().get(6) - this.getDn().get(6)) * Const.random.nextDouble());
 			this.setX(x);
 			Double result = this.get((ArrayList<Double>) this.getX());
 			System.out.println(x);

@@ -10,6 +10,7 @@ import com.google.code.optimization.MyArrayList;
 public class DesignWeldedBeam extends EngFunction {
 	public DesignWeldedBeam(int dim) {
 		super(dim);
+		this.setEngUpDn();
 	}
 
 	public DesignWeldedBeam() {
@@ -48,14 +49,33 @@ public class DesignWeldedBeam extends EngFunction {
 
 		return target;
 	}
+	
+	@Override
+	protected void setEngUpDn() {
+		List<Double> pgDn = new ArrayList<Double>();
+		List<Double> pgUp = new ArrayList<Double>();
+		
+		pgDn.add(0.1);
+		pgDn.add(0.1);
+		pgDn.add(0.1);
+		pgDn.add(0.1);
+		
+		pgUp.add(2.);
+		pgUp.add(10.);
+		pgUp.add(10.);
+		pgUp.add(2.);
+		
+		this.setDn(pgDn);
+		this.setUp(pgUp);
+	}
 
 	public void write() {
 		List<Double> x = new MyArrayList<Double>();
 		for (int i = 0; i < SAMPLES; i++) {
-			x.add(0.1 + (0.1 - 2.0) * Const.random.nextDouble());
-			x.add(0.1 + (0.1 - 10.0) * Const.random.nextDouble());
-			x.add(0.1 + (0.1 - 10.0) * Const.random.nextDouble());
-			x.add(0.1 + (0.1 - 2.) * Const.random.nextDouble());
+			x.add(this.getDn().get(0) + (this.getUp().get(0) - this.getDn().get(0)) * Const.random.nextDouble());
+			x.add(this.getDn().get(1) + (this.getUp().get(1) - this.getDn().get(1)) * Const.random.nextDouble());
+			x.add(this.getDn().get(2) + (this.getUp().get(2) - this.getDn().get(2)) * Const.random.nextDouble());
+			x.add(this.getDn().get(3) + (this.getUp().get(3) - this.getDn().get(3)) * Const.random.nextDouble());
 			this.setX(x);
 			Double result = this.get((ArrayList<Double>) this.getX());
 			System.out.println(x);

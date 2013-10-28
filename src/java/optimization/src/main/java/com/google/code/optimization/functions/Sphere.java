@@ -1,11 +1,17 @@
 package com.google.code.optimization.functions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Sphere extends Function {
+	
+	/**
+	 * Sphere of Ones
+	 * @param dim
+	 */
 	public Sphere(int dim) {
 		super(dim);
-		// TODO Auto-generated constructor stub
+		this.setUpDn();
 	}
 
 	@Override
@@ -17,5 +23,37 @@ public class Sphere extends Function {
 			target += xi*xi;
 		}
 		return target;
+	}
+
+	@Override
+	public List<Double> getUp() {
+		return up;
+	}
+
+	@Override
+	public List<Double> getDn() {
+		return dn;
+	}
+
+	@Override
+	public void setUp(List<Double> up) {
+		this.up = up;
+	}
+
+	@Override
+	public void setDn(List<Double> dn) {
+		this.dn = dn;
+	}
+	
+	private void setUpDn() {
+		double u = 1.;
+		List<Double> pgDn = new ArrayList<Double>();
+		List<Double> pgUp = new ArrayList<Double>();
+		for(int i = 0; i < dim; i++) {
+			pgDn.add(-1*Math.abs(u));
+			pgUp.add(Math.abs(u));
+		}
+		this.setDn(pgDn);
+		this.setUp(pgUp);
 	}
 }

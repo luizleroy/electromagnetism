@@ -9,6 +9,7 @@ import com.google.code.optimization.MyArrayList;
 public class MinimizationWeightTension extends EngFunction {
 	public MinimizationWeightTension(int dim) {
 		super(dim);
+		this.setEngUpDn();
 	}
 
 	public MinimizationWeightTension() {
@@ -46,13 +47,30 @@ public class MinimizationWeightTension extends EngFunction {
 
 		return target;
 	}
+	
+	@Override
+	protected void setEngUpDn() {
+		List<Double> pgDn = new ArrayList<Double>();
+		List<Double> pgUp = new ArrayList<Double>();
+		
+		pgDn.add(0.05);
+		pgDn.add(0.25);
+		pgDn.add(2.);
+		
+		pgUp.add(2.);
+		pgUp.add(1.3);
+		pgUp.add(15.);
+		
+		this.setDn(pgDn);
+		this.setUp(pgUp);
+	}
 
 	public void write() {
 		List<Double> x = new MyArrayList<Double>();
 		for (int i = 0; i < SAMPLES; i++) {
-			x.add(0.05 + (2. - 0.05) * Const.random.nextDouble());
-			x.add(0.25 + (1.3 - 0.25) * Const.random.nextDouble());
-			x.add(2. + (15. - 2.) * Const.random.nextDouble());
+			x.add(this.getDn().get(0) + (this.getUp().get(0) - this.getDn().get(0)) * Const.random.nextDouble());
+			x.add(this.getDn().get(1) + (this.getUp().get(1) - this.getDn().get(1)) * Const.random.nextDouble());
+			x.add(this.getDn().get(2) + (this.getUp().get(2) - this.getDn().get(2)) * Const.random.nextDouble());
 			this.setX(x);
 			Double result = this.get((ArrayList<Double>) this.getX());
 			System.out.println(x);
