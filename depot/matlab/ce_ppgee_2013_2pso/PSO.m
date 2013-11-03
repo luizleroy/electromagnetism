@@ -12,7 +12,7 @@ for i=1:length(S_lim(1,:))
     V_k(:,i)=V_lim(2,i)-(V_lim(2,i)-V_lim(1,i)).*rand(n_part,1);
 end
 
-F=teste(S_k,funcao,offset);
+F=teste(S_k,funcao,offset)
 pbest=F;
 s_pbest=S_k;
 [gbest(1),indice]=min(pbest);
@@ -24,7 +24,7 @@ s_k_medio=mean(s_pbest);
 d(1)=sqrt(sum((s_gbest(1,:)-s_k_medio).^2));
 
 for i=1:n_part
-    plot(S_k(i,1),S_k(i,2),'o');
+    %plot(S_k(i,1),S_k(i,2),'o');
 end
 % plot(s_gbest(1,1),s_gbest(1,2),'*r');
 % pause;
@@ -35,7 +35,7 @@ for j=1:iter_max
     %V_k=w*(V_k+C(1)*a*(s_pbest-S_k)+C(2)*b*(removerows(wextend('ar','sp1',s_gbest(j,:),0.5*length(S_k(:,1))),'ind',length(S_k(:,1))+1)-S_k));
        S_k(t,:)=S_k(t,:)+V_k(t,:);
     end
-    F=teste(S_k,funcao,offset);
+    F=teste(S_k,funcao,offset)
     for i=1:n_part
         if pbest(i)>F(i)
             pbest(i)=F(i);

@@ -1,3 +1,61 @@
+// FIXME CLASSE ABSTRATA TEMPORÁRIA !!! CORRIGIR POR FAVOR!!! 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//public abstract class EngFunction extends Function {
+//	public EngFunction(int dim) {
+//		super(dim);
+//	}
+//
+//	public abstract List<Double> getRestricN(List<Double> x);
+//	
+//
+//	@Override
+//	public List<Double> getUp() {
+//		return up;
+//	}
+//
+//	@Override
+//	public List<Double> getDn() {
+//		return dn;
+//	}
+//
+//	@Override
+//	public void setUp(List<Double> up) {
+//		this.up = up;
+//	}
+//
+//	@Override
+//	public void setDn(List<Double> dn) {
+//		this.dn = dn;
+//	}
+//	
+//	protected abstract void setEngUpDn();
+//}
+
+
+
+
+
+
+
+
+
+
+
 package com.google.code.optimization.functions;
 
 import java.util.ArrayList;
@@ -6,17 +64,16 @@ import java.util.List;
 import com.google.code.optimization.Const;
 import com.google.code.optimization.MyArrayList;
 
-public class DesignPressureVessel extends EngFunction {
-	public DesignPressureVessel(int dim) {
-		super(dim);
-		this.setEngUpDn();
-	}
+public abstract class DesignPressureVessel implements TestFunction {
+//	public DesignPressureVessel(int dim) {
+//		super(dim);
+//		this.setEngUpDn();
+//	}
 
-	public DesignPressureVessel() {
-		this(4);
-	}
+//	public DesignPressureVessel() {
+//		this(4);
+//	}
 
-	@Override
 	public Double get(ArrayList<Double> x) {
 		double x1 = x.get(0);
 		double xx1 = x1 * x1;
@@ -29,7 +86,6 @@ public class DesignPressureVessel extends EngFunction {
 				+ 19.84 * xx1 * x3;
 	}
 
-	@Override
 	public List<Double> getRestricN(List<Double> x) {
 		List<Double> target = new ArrayList<Double>(4);
 		double x1 = x.get(0);
@@ -51,7 +107,6 @@ public class DesignPressureVessel extends EngFunction {
 		return target;
 	}
 
-	@Override
 	protected void setEngUpDn() {
 		// FIXME validar com o artigo / Reutilizar Dn e Up em public void write()
 		List<Double> pgDn = new ArrayList<Double>();
@@ -67,28 +122,28 @@ public class DesignPressureVessel extends EngFunction {
 		pgUp.add(200.);
 		pgUp.add(200.);
 		
-		this.setDn(pgDn);
-		this.setUp(pgUp);
+//		this.setDn(pgDn);
+//		this.setUp(pgUp);
 	}
 
-	public void write() {
-		// FIXME validar com o artigo / Reutilizar Dn e Up em public void write()
-		List<Double> x = new MyArrayList<Double>();
-		for (int i = 0; i < SAMPLES; i++) {
-			x.add(1 + 98 * Const.random.nextDouble());
-			x.add(1 + 98 * Const.random.nextDouble());
-			x.add(10 + 190 * Const.random.nextDouble());
-			x.add(10 + 190 * Const.random.nextDouble());
-			this.setX(x);
-			Double result = this.get((ArrayList<Double>) this.getX());
-			System.out.println(x);
-			System.out.print(Const.decimalFormat.format(result) + " ");
-			printRestricN(x);
-			System.out.println();
-			System.out.println();
-			x.clear();
-		}
-	}
+//	public void write() {
+//		// FIXME validar com o artigo / Reutilizar Dn e Up em public void write()
+//		List<Double> x = new MyArrayList<Double>();
+//		for (int i = 0; i < SAMPLES; i++) {
+//			x.add(1 + 98 * Const.random.nextDouble());
+//			x.add(1 + 98 * Const.random.nextDouble());
+//			x.add(10 + 190 * Const.random.nextDouble());
+//			x.add(10 + 190 * Const.random.nextDouble());
+//			this.setX(x);
+//			Double result = this.get((ArrayList<Double>) this.getX());
+//			System.out.println(x);
+//			System.out.print(Const.decimalFormat.format(result) + " ");
+//			printRestricN(x);
+//			System.out.println();
+//			System.out.println();
+//			x.clear();
+//		}
+//	}
 
 	private void printRestricN(List<Double> x) {
 		List<Double> print = getRestricN(x);
