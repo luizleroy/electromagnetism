@@ -7,6 +7,10 @@ public class Function {
 			return new Rastrigin();
 		case "bohachevsky":
 			return new Bohachevsky();
+		case "identity0":
+			return new Identity0();
+		case "designPressureVessel":
+			return new DesignPressureVessel();
 		default:
 			throw new RuntimeException();
 		}

@@ -3,7 +3,7 @@ package com.google.code.optimization.functions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sphere implements TestFunction {
+public class Sphere {
 	
 	/**
 	 * Sphere of Ones
@@ -57,15 +57,4 @@ public class Sphere implements TestFunction {
 //		this.setUp(pgUp);
 //	}
 
-	@Override
-	public Double get(Double[] x) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Double[] getG(Double[] x) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -2,20 +2,15 @@ package com.google.code.optimization.functions;
 
 import com.google.code.optimization.Const;
 
-/**
- * @author luizleroy
- * 
- */
-public class Rastrigin implements TestFunction {
-	private static final double modInit = 5.12;
-	private static final double offSet = 1.;
+public class Identity0 implements TestFunction {
+	private static final double modInit = 5.0;
 
 	private double[] dnValue = new double[Const.dims];
 	private double[] upValue = new double[Const.dims];
 	private double[] optimum = new double[Const.dims];
 	private long counter;
 
-	Rastrigin() {
+	Identity0() {
 		this.setDnValue();
 		this.setUpValue();
 		this.setOptimum();
@@ -41,7 +36,7 @@ public class Rastrigin implements TestFunction {
 	}
 
 	private void setOptimum() {
-		this.init(this.optimum, offSet);
+		this.init(this.optimum, -5.);
 	}
 
 	@Override
@@ -57,14 +52,9 @@ public class Rastrigin implements TestFunction {
 
 	@Override
 	public double get(double[] x) {
-		Double target = (double) (10 * Const.dims);
-		for (int i = 0; i < Const.dims; i++) {
-			double xi = x[i] - 1.;
-			double xxi = xi * xi;
-			target = target + xxi - 10 * Math.cos(2 * Math.PI * xi);
-		}
+		//
 		this.counter++;
-		return target;
+		return x[0] > this.upValue[0] || x[0] < this.dnValue[0] ? 0 : x[0];
 	}
 
 	@Override

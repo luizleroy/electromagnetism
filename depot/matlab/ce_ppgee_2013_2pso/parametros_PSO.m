@@ -1,7 +1,7 @@
 function [S_lim,V_lim,C,W,n_part,iter_max,funcao,offset]=parametros_PSO
 
 opcao=11;
-nVar=1;
+nVar=3;
 
 [funcao domInf domSup offset] = TabelaFuncoes(opcao,nVar);
 
@@ -15,13 +15,13 @@ V_lim(2,:)=ones(1,nVar);
 
 %[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1];
 
-C=[1.3 0.5];
+C=[1.0 0.6];
 
 W=[0.1 1.1];
 
-n_part=9;
+n_part=500;
 
-iter_max=3;
+iter_max=400;
 
 
 
