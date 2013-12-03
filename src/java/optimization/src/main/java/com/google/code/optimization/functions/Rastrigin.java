@@ -1,6 +1,6 @@
 package com.google.code.optimization.functions;
 
-import com.google.code.optimization.Const;
+import com.google.code.optimization.Tests;
 
 /**
  * @author luizleroy
@@ -8,11 +8,11 @@ import com.google.code.optimization.Const;
  */
 public class Rastrigin implements TestFunction {
 	private static final double modInit = 5.12;
-	private static final double offSet = 1.;
+	private static final double offSet = 0.;
 
-	private double[] dnValue = new double[Const.dims];
-	private double[] upValue = new double[Const.dims];
-	private double[] optimum = new double[Const.dims];
+	private double[] dnValue = new double[Tests.dims];
+	private double[] upValue = new double[Tests.dims];
+	private double[] optimum = new double[Tests.dims];
 	private long counter;
 
 	Rastrigin() {
@@ -50,16 +50,16 @@ public class Rastrigin implements TestFunction {
 	}
 
 	private void init(double t[], double val) {
-		for (int i = 0; i < Const.dims; i++) {
+		for (int i = 0; i < Tests.dims; i++) {
 			t[i] = val;
 		}
 	}
 
 	@Override
 	public double get(double[] x) {
-		Double target = (double) (10 * Const.dims);
-		for (int i = 0; i < Const.dims; i++) {
-			double xi = x[i] - 1.;
+		Double target = (double) (10 * Tests.dims);
+		for (int i = 0; i < Tests.dims; i++) {
+			double xi = x[i] - offSet;
 			double xxi = xi * xi;
 			target = target + xxi - 10 * Math.cos(2 * Math.PI * xi);
 		}
@@ -70,5 +70,10 @@ public class Rastrigin implements TestFunction {
 	@Override
 	public long getCounter() {
 		return counter;
+	}
+
+	@Override
+	public void resetCounter() {
+		counter = 0L;
 	}
 }

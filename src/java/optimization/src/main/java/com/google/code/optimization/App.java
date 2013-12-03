@@ -15,11 +15,10 @@ import com.google.code.optimization.ga.GA;
 import com.google.code.optimization.pso.PSO;
 
 public class App {
-	static String help = "Create Help!";
-
-	// TO TEST MODULE (VIA JTEST JUNIT ETC.)
-	// FIXME criar, após estabilização, testes via maven
-	public static void main(String[] args) {
+/*
+	// MODIFICADO PARA STRING BUILDER: MANTER HISTÓRICO
+	public static void main(StringBuilder[] args) {
+		String help = "Create Help!";
 		System.out.print(new Date().toLocaleString() + "\t");
 		// create the Options
 		Options options = new Options();
@@ -45,19 +44,19 @@ public class App {
 			// parse the command line arguments
 			CommandLine line = parser.parse(options, args);
 			if (line.hasOption("_opt")) {
-				Const.dims = Integer.parseInt(line.getOptionValue("dims"));
-				Const.dots = Integer.parseInt(line.getOptionValue("dots"));
-				Const.loop = Integer.parseInt(line.getOptionValue("loop"));
-				Const.sFun = line.getOptionValue("_opt");
-				System.out.print(Const.sFun + "\t" + Const.dims + "\t");
+				Tests.dims = Integer.parseInt(line.getOptionValue("dims"));
+				Tests.dots = Integer.parseInt(line.getOptionValue("dots"));
+				Tests.loop = Integer.parseInt(line.getOptionValue("loop"));
+				Tests.sFun = line.getOptionValue("_opt");
+				System.out.print(Tests.sFun + "\t" + Tests.dims + "\t");
 				
 				gambiarra = "PSO";
 				System.out.print(gambiarra+"\t");
 
-				System.out.print(Const.loop + "\t" + Const.numTest + "\t"
-						+ Const.dots + "\t");
+				System.out.print(Tests.loop + "\t" + Tests.numTest + "\t"
+						+ Tests.dots + "\t");
 				double[] result = { 0., 0., 0. };
-				for (int i = 0; i < Const.numTest; i++) {
+				for (int i = 0; i < Tests.numTest; i++) {
 //					double[] parcialResult = GA.ga();
 					double[] parcialResult = PSO.pso();
 					result[0] += parcialResult[0];
@@ -67,9 +66,9 @@ public class App {
 				
 				DecimalFormat integerFormat = new DecimalFormat("0");
 				DecimalFormat engFormat = new DecimalFormat("0.000#E0");
-				System.out.print(integerFormat.format(result[0] / Const.numTest) + "\t");
-				System.out.print(integerFormat.format(result[1] / Const.numTest) + "\t");
-				System.out.print(engFormat.format(result[2] / Const.numTest) + "\t");
+				System.out.print(integerFormat.format(result[0] / Tests.numTest) + "\t");
+				System.out.print(integerFormat.format(result[1] / Tests.numTest) + "\t");
+				System.out.print(engFormat.format(result[2] / Tests.numTest) + "\t");
 			}
 			if (line.hasOption("_inp")) {
 				throw new RuntimeException(
@@ -95,4 +94,5 @@ public class App {
 		System.out.println("-----------------------------");
 		System.exit(0);
 	}
+*/
 }

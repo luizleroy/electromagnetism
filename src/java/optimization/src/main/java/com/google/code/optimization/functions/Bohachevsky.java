@@ -1,16 +1,14 @@
 package com.google.code.optimization.functions;
 
-import java.util.Arrays;
-
-import com.google.code.optimization.Const;
+import com.google.code.optimization.Tests;
 
 public class Bohachevsky implements TestFunction {
 	private static final double modInit = 5.12;
 	private static final double offSet = 0.;
 
-	private double[] dnValue = new double[Const.dims];
-	private double[] upValue = new double[Const.dims];
-	private double[] optimum = new double[Const.dims];
+	private double[] dnValue = new double[Tests.dims];
+	private double[] upValue = new double[Tests.dims];
+	private double[] optimum = new double[Tests.dims];
 	private long counter;
 
 	Bohachevsky() {
@@ -48,14 +46,14 @@ public class Bohachevsky implements TestFunction {
 	}
 
 	private void init(double t[], double val) {
-		for (int i = 0; i < Const.dims; i++) {
+		for (int i = 0; i < Tests.dims; i++) {
 			t[i] = val;
 		}
 	}
 
 	@Override
 	public double get(double[] x) {
-		Integer n = Const.dims;
+		Integer n = Tests.dims;
 		double target = 0;
 		for (Integer i = 0; i < n - 1; i++) {
 			double xi = x[i] - offSet;
@@ -68,17 +66,14 @@ public class Bohachevsky implements TestFunction {
 		this.counter++;
 		return target;
 	}
+	
+	@Override
+	public void resetCounter() {
+		counter = 0L;
+	}
 
 	@Override
 	public long getCounter() {
 		return counter;
-	}
-	
-	public static void main(String args[]) {
-		Const.dims = 4;
-		Bohachevsky bohachevsky = new Bohachevsky();
-		double x[] = bohachevsky.getOptimum();
-		System.out.println(Arrays.toString(x));
-		System.out.println(bohachevsky.get(x));
 	}
 }

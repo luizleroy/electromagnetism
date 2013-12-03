@@ -1,196 +1,91 @@
 package com.google.code.optimization.ga;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
-import com.google.code.optimization.Const;
-import com.google.code.optimization.functions.Function;
-import com.google.code.optimization.functions.TestFunction;
-
+import com.google.code.optimization.Tests;
 
 public class GA {
 
-	private static final int sBits = 16;
-	private static final float pc = 0.6f;
-	private static final float pm = 0.5f;
-	private static final int nPop = Const.dots;
-	private static final int nGE = Const.loop;
-	private static final TestFunction func = Function.factoryMethod(Const.sFun);
-	private static final int sChain = sBits * Const.dims;
-
-	private static Map<BitSet, Double> map;
-	private static List<BitSet> list;
-
 	public static double[] ga() {
-		map = new HashMap<BitSet, Double>();
-		list = new ArrayList<BitSet>();
-		// initialization
-		long initialTime = System.currentTimeMillis();
-		GA.random();
-		for (int i = 0; i < GA.nGE; i++) {
-			GA.selection();
-			GA.crosover();
-			GA.mutation();
+		BitSet list[] = new BitSet[Tests.dots];
+		randomBitSet(list);
+		BitSet best = new BitSet(Tests.bits);
+		randomBitSet(best);
+		for (int i = 0; i < Tests.loop; i++) {
+			BitSet bitSetA = list[i%Tests.dots];
+			int selector = Tests.random.nextInt(Tests.dots);
+			BitSet bitSetB = list[selector];
+			double a = inv(Tests.func.get(interpolation(bitSetA)));
+			double b = inv(Tests.func.get(interpolation(bitSetB)));
+			if (a > b) {
+				list[selector] = bitSetA;
+			}
+			
+			if (Tests.random.nextFloat() < Tests.pc) {
+				int cross = Tests.random.nextInt(Tests.dots);
+				bitSetB = list[cross];
+				int ptoCrossover = Tests.random.nextInt(Tests.bits); // fenótipo X cromossomo
+				for (int j = 0; j < ptoCrossover; j++) {
+					bitSetB.set(j, bitSetA.get(j));
+				}
+			}
+			
+			if (Tests.random.nextFloat() < Tests.pm) {
+				bitSetA.flip(Tests.random.nextInt(Tests.bits));
+			}
+			//Arrays.sort(T[] arg0, Comparator <? super T> arg1)
+			int index = findMaxIndexByValue(list);
+			if (inv(Tests.func.get(interpolation(list[index]))) > inv(Tests.func.get(interpolation(best)))) {
+				best =  list[index];
+			}
 		}
-		// end alghoritm
-		long finalTime = System.currentTimeMillis();
-		double mse = 0.;
-		Double max = Collections.max(map.values());
-		// FIXME FIXME FIXME estudar como trabalhar com a estrutura: deve-se
-		// consumi-la da memória? Teste seu tamanho!
-		BitSet chain = getFirstKeyByValue(max);
-		double[] best = interpolation(chain);
-		for (int i = 0; i < Const.dims; i++) {
-			mse += Math.pow((best[i] - func.getOptimum()[i]), 2);
-		}
-		mse = Math.sqrt(mse);
-		double[] result = { (double) (finalTime - initialTime), func.getCounter(), mse };
-		map.clear();
-		list.clear();
-		return result;
+		double interpolation[] = interpolation(best);
+		System.out.println(Arrays.toString(interpolation));
+		return interpolation;
 	}
-
-	private static BitSet getFirstKeyByValue(Double max) {
-		BitSet bs = null;
-		for (Entry<BitSet, Double> entry : map.entrySet()) {
-			if (max.equals(entry.getValue())) {
-				bs = entry.getKey();
-				break;
+	
+	private static int findMaxIndexByValue(BitSet[] list) {
+		int maxIndex = 0;
+		double maxValue = inv(Tests.func.get(interpolation(list[maxIndex])));
+		for (int i = 1; i < list.length; i++) {
+			double d = inv(Tests.func.get(interpolation(list[i])));
+			if (d > maxValue) {
+				maxIndex = i;
+				maxValue = d;
 			}
 		}
-		return bs;
-	}
-
-	private static void mutation() {
-		int numMutation = (int) (GA.nPop * GA.pm);
-		for (int i = 0; i < numMutation; i++) {
-			int index = Const.random.nextInt(GA.nPop);
-			BitSet bitSet = list.get(index);
-			bitSet.flip(Const.random.nextInt(GA.sChain));
-			Double d = GA.map.get(bitSet);
-			if (d == null) {
-				d = GA.inv(GA.func.get(GA.interpolation(bitSet)));
-				GA.map.put(bitSet, d);
-			}
-			list.set(index, bitSet);
-		}
-	}
-
-	private static void crosover() {
-		int numCrossover = (int) (GA.nPop * GA.pc);
-		for (int i = 0; i < numCrossover; i++) {
-			BitSet bitSetI = (BitSet) (list.get(Const.random.nextInt(GA.nPop)))
-					.clone();
-			BitSet bitSetII = (BitSet) list.get(Const.random.nextInt(GA.nPop))
-					.clone();
-			int ptoCrossover = Const.random.nextInt(GA.sChain);
-			for (int j = 0; j < ptoCrossover; j++) {
-				bitSetI.set(j, bitSetII.get(j));
-			}
-			for (int j = ptoCrossover + 1; j < GA.sChain; j++) {
-				bitSetII.set(j, bitSetI.get(j));
-			}
-			Double II = GA.map.get(bitSetII);
-			if (II == null) {
-				II = GA.inv(GA.func.get(GA.interpolation(bitSetII)));
-				GA.map.put(bitSetII, II);
-			}
-			Double I = GA.map.get(bitSetI);
-			if (I == null) {
-				I = GA.inv(GA.func.get(GA.interpolation(bitSetI)));
-				GA.map.put(bitSetI, I);
-			}
-			list.add(bitSetI);
-			list.add(bitSetII);
-		}
+		return maxIndex;
 	}
 
 	private static Double inv(Double phi) {
 		return (1. / (phi + 1e-16));
 	}
 
-	private static void selection() {
-		int qtdCross = GA.nPop / 2;
-		for (int i = 0; i < qtdCross; i++) {
-			int iI = Const.random.nextInt(GA.nPop);
-			BitSet bitSetI = list.get(iI);
-			Double I = GA.map.get(bitSetI);
-			if (I == null) {
-				I = GA.inv(GA.func.get(GA.interpolation(bitSetI)));
-				GA.map.put(bitSetI, I);
-			}
-			int iII = Const.random.nextInt(GA.nPop);
-			BitSet bitSetII = list.get(iII);
-			Double II = GA.map.get(bitSetII);
-			if (II == null) {
-				II = GA.inv(GA.func.get(GA.interpolation(bitSetII)));
-				GA.map.put(bitSetII, II);
-			}
-			if (I > II) {
-				list.add(iII, bitSetI);
-				if (!list.contains(iII)) {
-					map.remove(bitSetII);
-				}
-			} else {
-				list.add(iI, bitSetII);
-				if (!list.contains(iI)) {
-					map.remove(bitSetI);
-				}
-			}
+	private static void randomBitSet(BitSet list[]) {
+		for (int i = 0; i < Tests.dots; i++) {
+			list[i] = new BitSet(Tests.bits);
+			randomBitSet(list[i]);
 		}
 	}
 
-	private static void random() {
-		for (int i = 0; i < GA.nPop; i++) {
-			BitSet chain = randomBitSet(GA.sChain);
-			GA.map.put(chain, GA.inv(GA.func.get(GA.interpolation(chain))));
-			GA.list.add(chain);
+	private static void randomBitSet(BitSet chain) {
+		for (int i = 0; i < Tests.bits; i++) {
+			chain.set(i, Tests.random.nextBoolean());
 		}
 	}
 
-	private static List<BitSet> randomList() {
-		for (int i = 0; i < GA.nPop; i++) {
-			BitSet chain = randomBitSet(GA.sChain);
-			GA.list.add(chain);
-		}
-		return GA.list;
-	}
-
-	private static BitSet randomBitSet(int allBits) {
-		BitSet chain = new BitSet(allBits);
-		for (int j = 0; j < allBits; j++) {
-			chain.set(j, Const.random.nextBoolean());
-		}
-		return chain;
-	}
-
+	// TODO for learn (pensar): big string bits (more than short) ??? And, bits that go to trash?
 	private static double[] interpolation(BitSet chain) {
-		double x[] = new double[Const.dims];
+		short bitsXi = Tests.bits/Tests.dims;
+		double x[] = new double[Tests.dims];
+		double pow = Math.pow(2.,bitsXi);
 		BitSet bitSet;
-		double tBitsMinus1 = Math.pow(2, GA.sBits) - 1;
-		for (int i = 0; i < Const.dims; i++) {
-			bitSet = chain.get(GA.sBits * i, GA.sBits * (i + 1));
-			x[i] = func.getDnValue()[i] + GA.bitSet2Double(bitSet)
-					* (func.getUpValue()[i] - func.getDnValue()[i]) / tBitsMinus1;
+		for (int i = 0; i < Tests.dims; i++) {
+			bitSet = chain.get(bitsXi * i, bitsXi * (i + 1));
+			double bitSet2Long = bitSet.length() == 0 ? 0 : bitSet.toLongArray()[0];
+			x[i] = Tests.func.getDnValue()[i] + (bitSet2Long)/(pow)*(Tests.func.getUpValue()[i] - Tests.func.getDnValue()[i]);
 		}
 		return x;
-	}
-
-	private static double bitSet2Double(BitSet bitSet) {
-		// TODO 4 optimization: convert to long array (base 64)
-		double target = 0;
-		double pow = 1;
-		for (int i = 0; i < bitSet.length(); i++) {
-			if (bitSet.get(i)) {
-				target += pow;
-			}
-			pow *= 2;
-		}
-		return target;
 	}
 }

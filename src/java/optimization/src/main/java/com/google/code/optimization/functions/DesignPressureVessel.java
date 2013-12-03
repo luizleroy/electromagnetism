@@ -94,7 +94,7 @@ public class DesignPressureVessel implements TestFunction {
 			double sum = Math.max(g[i], 0.);
 			p += sum*sum;
 		}
-		double r = 1000_000_000.;//counter TODO UNCONSTRAINED PROBLEM!
+		double r = 1000_000_000.;
 		counter++;
 		return ff + r*p;
 	}
@@ -109,5 +109,10 @@ public class DesignPressureVessel implements TestFunction {
 		double x[] = dpv.getOptimum();
 		System.out.println(Arrays.toString(x));
 		System.out.println(dpv.get(x));
+	}
+	
+	@Override
+	public void resetCounter() {
+		counter = 0L;
 	}
 }

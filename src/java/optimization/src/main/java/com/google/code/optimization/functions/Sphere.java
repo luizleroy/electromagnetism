@@ -1,7 +1,5 @@
 package com.google.code.optimization.functions;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Sphere {
 	

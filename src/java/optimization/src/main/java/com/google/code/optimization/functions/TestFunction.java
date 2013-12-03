@@ -17,4 +17,6 @@ public interface TestFunction {
 	double get(double[] x);
 
 	long getCounter();
+
+	void resetCounter();
 }
