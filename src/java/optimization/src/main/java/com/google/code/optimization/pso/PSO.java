@@ -20,9 +20,10 @@ public class PSO {
 			}
 		}
 
-		double ff[] = PSO.ff(shifts);
-		double pbest[] = ff.clone();
+		double ff[] = new double[Tests.dots];
+		double pbest[] = PSO.ff(shifts);
 		double sPBest[][] = shifts.clone();
+		
 		// for final iteration (USING IEAT next iteration!!!)
 		double gbest[] = new double[Tests.loop + 1]; // OneMoreValue
 		double sGBest[][] = new double[Tests.loop + 1][Tests.dims]; // OneMoreValue
@@ -56,6 +57,7 @@ public class PSO {
 					}
 				}
 			}
+			
 			int index = ArrayUtils.findMinIndex(pbest);
 			Double min = pbest[index];
 

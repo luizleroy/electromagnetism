@@ -64,7 +64,7 @@ public class Rastrigin implements TestFunction {
 			target = target + xxi - 10 * Math.cos(2 * Math.PI * xi);
 		}
 		this.counter++;
-		return target;
+		return 1.;//target;
 	}
 
 	@Override
