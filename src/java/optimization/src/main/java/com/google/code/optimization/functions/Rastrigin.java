@@ -8,7 +8,7 @@ import com.google.code.optimization.Tests;
  */
 public class Rastrigin implements TestFunction {
 	private static final double modInit = 5.12;
-	private static final double offSet = 0.;
+	private static final double offSet = -3.1;
 
 	private double[] dnValue = new double[Tests.dims];
 	private double[] upValue = new double[Tests.dims];

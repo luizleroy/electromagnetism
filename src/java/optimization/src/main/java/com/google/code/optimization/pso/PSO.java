@@ -1,7 +1,5 @@
 package com.google.code.optimization.pso;
 
-import java.util.Arrays;
-
 import com.google.code.optimization.ArrayUtils;
 import com.google.code.optimization.Tests;
 
@@ -72,7 +70,6 @@ public class PSO {
 			}
 		}
 		// end alghoritm
-		System.out.println(Arrays.toString(sGBest[0]));
 		return sGBest[Tests.loop];
 	}
 

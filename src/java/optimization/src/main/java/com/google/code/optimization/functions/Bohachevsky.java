@@ -4,7 +4,7 @@ import com.google.code.optimization.Tests;
 
 public class Bohachevsky implements TestFunction {
 	private static final double modInit = 5.12;
-	private static final double offSet = 0.;
+	private static final double offSet = -1.1;
 
 	private double[] dnValue = new double[Tests.dims];
 	private double[] upValue = new double[Tests.dims];
