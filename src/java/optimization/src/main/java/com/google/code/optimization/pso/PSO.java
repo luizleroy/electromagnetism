@@ -1,15 +1,24 @@
 package com.google.code.optimization.pso;
 
+import java.util.Arrays;
+
 import com.google.code.optimization.ArrayUtils;
 import com.google.code.optimization.Tests;
 
 public class PSO {
+	
+	private static double[] ff(double[][] shifts) {
+		double[] target = new double[shifts.length];
+		for (int i = 0; i < shifts.length; i++) {
+			target[i] = Tests.func.get(shifts[i]);
+		}
+		return target;
+	}
 
 	public static double[] pso() {
 		// initialization
 		double shifts[][] = new double[Tests.dots][Tests.dims];
 		double velocities[][] = new double[Tests.dots][Tests.dims];
-
 		for (int i = 0; i < Tests.dims; i++) {
 			for (int j = 0; j < Tests.dots; j++) {
 				double r1 = Tests.random.nextDouble();
@@ -21,15 +30,15 @@ public class PSO {
 			}
 		}
 
-		// for final iteration (USING IEAT next iteration!!!)
-		double gbest[] = new double[Tests.loop + 1]; // OneMoreValue
+		double gBest[] = new double[Tests.loop + 1]; // OneMoreValue
+		double s_gBest[][] = new double[Tests.loop + 1][Tests.dims]; // OneMoreValue
 		double ff[] = new double[Tests.dots];
-		double sGBest[][] = new double[Tests.loop + 1][Tests.dims]; // OneMoreValue
-		double pbest[] = PSO.ff(shifts);
-		double sPBest[][] = shifts.clone();
-		int indice = ArrayUtils.findMinIndex(pbest);
-		gbest[0] = pbest[indice];
-		sGBest[0] = shifts[indice].clone();
+		double s_pBest[][] = shifts.clone();
+		double pBest[] = PSO.ff(shifts);
+
+		int indice = ArrayUtils.findMinIndex(pBest);
+		gBest[0] = pBest[indice];
+		s_gBest[0] = shifts[indice].clone();
 		// end initialization
 
 		// algorithm
@@ -40,9 +49,9 @@ public class PSO {
 				for (int i = 0; i < Tests.dims; i++) {
 					velocities[t][i] = w * velocities[t][i];
 					velocities[t][i] += Tests.c1 * Tests.random.nextDouble()
-							* (sPBest[t][i] - shifts[t][i]);
+							* (s_pBest[t][i] - shifts[t][i]);
 					velocities[t][i] += Tests.c2 * Tests.random.nextDouble()
-							* (sGBest[j][i] - shifts[t][i]);
+							* (s_gBest[j][i] - shifts[t][i]);
 					shifts[t][i] = shifts[t][i] + velocities[t][i];
 				}
 			}
@@ -50,34 +59,29 @@ public class PSO {
 			ff = PSO.ff(shifts);
 
 			for (int i = 0; i < Tests.dots; i++) {
-				if (pbest[i] > ff[i]) {
-					pbest[i] = ff[i];
+				if (pBest[i] > ff[i]) {
+					pBest[i] = ff[i];
 					for (int d = 0; d < Tests.dims; d++) {
-						sPBest[i][d] = shifts[i][d];
+						s_pBest[i][d] = shifts[i][d];
 					}
 				}
 			}
 
-			int index = ArrayUtils.findMinIndex(pbest);
-			Double min = pbest[index];
+			int index = ArrayUtils.findMinIndex(pBest);
+			Double min = pBest[index];
 
-			if (gbest[j] > min) {
-				gbest[j + 1] = min;
-				sGBest[j + 1] = shifts[index].clone();
+			if (gBest[j] > min) {
+				gBest[j + 1] = min;
+				s_gBest[j + 1] = shifts[index].clone();
 			} else {
-				gbest[j + 1] = gbest[j];
-				sGBest[j + 1] = sGBest[j].clone();
+				gBest[j + 1] = gBest[j];
+				s_gBest[j + 1] = s_gBest[j].clone();
 			}
 		}
 		// end alghoritm
-		return sGBest[Tests.loop];
-	}
-
-	private static double[] ff(double[][] shifts) {
-		double[] target = new double[shifts.length];
-		for (int i = 0; i < shifts.length; i++) {
-			target[i] = Tests.func.get(shifts[i]);
-		}
-		return target;
+		System.out.println(Arrays.toString(gBest));
+		System.out.println(gBest[Tests.loop]);
+		System.out.println(Arrays.toString(s_gBest[Tests.loop]));
+		return s_gBest[Tests.loop];
 	}
 }

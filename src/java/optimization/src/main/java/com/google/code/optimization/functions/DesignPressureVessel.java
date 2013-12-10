@@ -2,6 +2,8 @@ package com.google.code.optimization.functions;
 
 import java.util.Arrays;
 
+import com.google.code.optimization.Tests;
+
 public class DesignPressureVessel implements TestFunction {
 
 	private double[] dnValue = new double[4];
@@ -17,10 +19,10 @@ public class DesignPressureVessel implements TestFunction {
 	}
 
 	private void setDnValue() {
-		dnValue[0] = 1.*0.0625;
-		dnValue[1] = 1.*0.0625;
-		dnValue[2] = 42.;
-		dnValue[3] = 176.;
+		dnValue[0] = 0.6;
+		dnValue[1] = 0.3;
+		dnValue[2] = 40.;
+		dnValue[3] = 170.;
 	}
 
 	@Override
@@ -29,10 +31,10 @@ public class DesignPressureVessel implements TestFunction {
 	}
 
 	private void setUpValue() {
-		upValue[0] = 99.*0.0625;
-		upValue[1] = 99.*0.0625;
-		upValue[2] = 43.;
-		upValue[3] = 177.;
+		upValue[0] = 0.9;
+		upValue[1] = 0.5;
+		upValue[2] = 50.;
+		upValue[3] = 180.;
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class DesignPressureVessel implements TestFunction {
 		target[0] = g1;
 		double g2 = -x2 + 0.00954 * x3;
 		target[1] = g2;
-		double g3 = -Math.PI * xx3 * xx4 - 4 / 3 * Math.PI * xxx3 + 1_296_000.0;
+		double g3 = -Math.PI * xx3 * xx4 - 1.3333333333333333333333333333333 * Math.PI * xxx3 + 1_296_000.0;
 		target[2] = g3;
 		double g4 = x4 - 240.;
 		target[3] = g4;
@@ -94,7 +96,7 @@ public class DesignPressureVessel implements TestFunction {
 			double sum = Math.max(g[i], 0.);
 			p += sum*sum;
 		}
-		double r = 1000_000_000.;
+		double r = 1.6437e+12;
 		counter++;
 		return ff + r*p;
 	}
@@ -109,6 +111,24 @@ public class DesignPressureVessel implements TestFunction {
 		double x[] = dpv.getOptimum();
 		System.out.println(Arrays.toString(x));
 		System.out.println(dpv.get(x));
+		System.out.println(Arrays.toString(dpv.getRestriction(x)));
+		System.out.println();
+		double my[] = {0.6389221390241124, 0.3359477585646171, 29.941413265087274, 172.27627637623542};
+		System.out.println(Arrays.toString(my));
+		System.out.println(dpv.get(my));
+		System.out.println(Arrays.toString(dpv.getRestriction(my)));
+		System.out.println();
+		for(int i = 0; i < 10; i++) {
+			double x1 = Tests.random.nextDouble();
+			double x2 = Tests.random.nextDouble();
+			double x3 = Tests.random.nextDouble();
+			double x4 = Tests.random.nextDouble();
+			
+			double test[] = {1*x1, 1*x2, -1*x3, -1*x4};
+			System.out.println(Arrays.toString(test));
+			System.out.println(dpv.get(test));
+		}
+		
 	}
 	
 	@Override

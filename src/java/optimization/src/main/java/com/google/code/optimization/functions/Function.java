@@ -9,6 +9,8 @@ public class Function {
 			return new Bohachevsky();
 		case "designPressureVessel":
 			return new DesignPressureVessel();
+		case "designWeldedBeam":
+			return new DesignWeldedBeam();
 		default:
 			throw new RuntimeException();
 		}

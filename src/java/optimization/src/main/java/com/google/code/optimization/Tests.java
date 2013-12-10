@@ -2,7 +2,6 @@ package com.google.code.optimization;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 
@@ -12,12 +11,12 @@ import com.google.code.optimization.ga.GA;
 import com.google.code.optimization.pso.PSO;
 
 public class Tests {
-	private static final int numExec = 3;
-	public static String sFun = "rastrigin";
+	private static final int numExec = 10;
+	public static String sFun = "designWeldedBeam";
 	public static TestFunction func = Function.factoryMethod(Tests.sFun);
-	public static final int dims = 40;
-	public static final int loop = 19200;
-	public static final int dots = 12800;
+	public static final int dims = 4;
+	public static final int loop = 3*5000/2;
+	public static final int dots = 2*5000*2;
 
 	public static final Random random = new Random(System.nanoTime());
 
@@ -27,10 +26,10 @@ public class Tests {
 	public static final short bits = 40; // max 63 or 64
 
 	// PSO
-	public static final double c1 = 0.8;
-	public static final double c2 = 0.6;
-	public static final double W1 = 0.1;
-	public static final double W2 = 1.1;
+	public static final double c1 = 0.85;
+	public static final double c2 = 0.55;
+	public static final double W1 = 0.15;
+	public static final double W2 = 0.50;
 
 	public static void main(String args[]) {
 		SimpleDateFormat dt = new SimpleDateFormat("yy/MM/dd HH:mm EEE");
@@ -48,7 +47,7 @@ public class Tests {
 
 	private static double optimizationBy(String method) {
 		/* To utilize quality measure, needed only 30 tests... */
-		short numTest = 1;
+		short numTest = 3;
 
 		long initialTime = System.currentTimeMillis();
 		double mse = 0.;
@@ -63,7 +62,7 @@ public class Tests {
 			for (int i = 0; i < numTest; i++) {
 				double bestPSO[] = PSO.pso();
 				mse += resultTest(bestPSO);
-				System.out.println(Arrays.toString(bestPSO));
+//				System.out.println(Arrays.toString(bestPSO));
 			}
 			break;
 		default:
@@ -85,7 +84,7 @@ public class Tests {
 		}
 		dt = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
 		char tab = '\t';
-		String form = "%s%c%s%c%d%c%s%c%s%c%s%c%s%c%s%c%s%c%f";
+		String form = "%s%c%s%c%d%c%s%c%s%c%s%c%s%c%s%c%s%c%e";
 		String chamada = f.format(Tests.func.getCounter() / numTest);
 		Tests.func.resetCounter();
 		String d = dt.format(new Date());
