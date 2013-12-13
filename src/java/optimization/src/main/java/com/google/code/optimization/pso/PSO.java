@@ -55,6 +55,13 @@ public class PSO {
 					shifts[t][i] = shifts[t][i] + velocities[t][i];
 				}
 			}
+			
+			// mutation
+			for(int i = 0; i < Tests.nMut; i++) {
+				int s_dots = Tests.random.nextInt(Tests.dots);
+				int s_dim = Tests.random.nextInt(Tests.dims);
+				shifts[s_dots][s_dim] = shifts[s_dots][s_dim] + shifts[s_dots][s_dim]*(2*Tests.random.nextDouble()-1);
+			}
 
 			ff = PSO.ff(shifts);
 
@@ -79,7 +86,7 @@ public class PSO {
 			}
 		}
 		// end alghoritm
-		System.out.println(Arrays.toString(gBest));
+//		System.out.println(Arrays.toString(gBest));
 		System.out.println(gBest[Tests.loop]);
 		System.out.println(Arrays.toString(s_gBest[Tests.loop]));
 		return s_gBest[Tests.loop];

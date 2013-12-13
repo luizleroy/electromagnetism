@@ -8,7 +8,6 @@ import com.google.code.optimization.Tests;
  */
 public class Rastrigin implements TestFunction {
 	private static final double modInit = 5.12;
-	private static final double offSet = -3.1;
 
 	private double[] dnValue = new double[Tests.dims];
 	private double[] upValue = new double[Tests.dims];
@@ -41,7 +40,9 @@ public class Rastrigin implements TestFunction {
 	}
 
 	private void setOptimum() {
-		this.init(this.optimum, offSet);
+		this.init(this.optimum, 0.);
+//		double[] vg = {-5.,-4.,-3.,-2.,-1.,1.,2.,3.,4.,5.};
+//		optimum = vg.clone();
 	}
 
 	@Override
@@ -57,9 +58,10 @@ public class Rastrigin implements TestFunction {
 
 	@Override
 	public double get(double[] x) {
-		Double target = (double) (10 * Tests.dims);
+//		double[] vg = {-5.,-4.,-3.,-2.,-1.,1.,2.,3.,4.,5.};
+		double target = (double) (10 * Tests.dims);
 		for (int i = 0; i < Tests.dims; i++) {
-			double xi = x[i] - offSet;
+			double xi = x[i]/* - vg[i]*/;
 			double xxi = xi * xi;
 			target = target + xxi - 10 * Math.cos(2 * Math.PI * xi);
 		}

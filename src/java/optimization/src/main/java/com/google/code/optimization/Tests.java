@@ -11,25 +11,29 @@ import com.google.code.optimization.ga.GA;
 import com.google.code.optimization.pso.PSO;
 
 public class Tests {
-	private static final int numExec = 10;
-	public static String sFun = "designWeldedBeam";
+	private static final int numExec = 1;
+	private static final short numTest = 30;
+	public static String sFun = "rastrigin";
 	public static TestFunction func = Function.factoryMethod(Tests.sFun);
-	public static final int dims = 4;
-	public static final int loop = 3*5000/2;
-	public static final int dots = 2*5000*2;
+	public static final int dims = 10;
+	public static final int loop = 299;
+	public static final int dots = 300;
+	
 
 	public static final Random random = new Random(System.nanoTime());
+
+	// PSO
+	public static final double pMut = 0.01;
+	public static final long nMut = Math.round(Tests.pMut*Tests.dots*Tests.dims);
+	public static final double c1 = 0.75;
+	public static final double c2 = 0.65;
+	public static final double W1 = 0.05;
+	public static final double W2 = 1.00;
 
 	// GA
 	public static final float pc = 0.6f;
 	public static final float pm = 0.2f;
 	public static final short bits = 40; // max 63 or 64
-
-	// PSO
-	public static final double c1 = 0.85;
-	public static final double c2 = 0.55;
-	public static final double W1 = 0.15;
-	public static final double W2 = 0.50;
 
 	public static void main(String args[]) {
 		SimpleDateFormat dt = new SimpleDateFormat("yy/MM/dd HH:mm EEE");
@@ -46,9 +50,6 @@ public class Tests {
 	}
 
 	private static double optimizationBy(String method) {
-		/* To utilize quality measure, needed only 30 tests... */
-		short numTest = 3;
-
 		long initialTime = System.currentTimeMillis();
 		double mse = 0.;
 		switch (method) {

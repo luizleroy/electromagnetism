@@ -4,7 +4,6 @@ import com.google.code.optimization.Tests;
 
 public class Bohachevsky implements TestFunction {
 	private static final double modInit = 5.12;
-	private static final double offSet = -0.0;
 
 	private double[] dnValue = new double[Tests.dims];
 	private double[] upValue = new double[Tests.dims];
@@ -40,7 +39,7 @@ public class Bohachevsky implements TestFunction {
 	}
 
 	private void setOptimum() {
-		this.init(this.optimum, offSet);
+		this.init(this.optimum, 0.);
 	}
 
 	@Override
@@ -59,8 +58,8 @@ public class Bohachevsky implements TestFunction {
 		Integer n = Tests.dims;
 		double target = 0;
 		for (Integer i = 0; i < n - 1; i++) {
-			double xi = x[i] - offSet;
-			double xii = x[i + 1] - offSet;
+			double xi = x[i];
+			double xii = x[i + 1];
 			double xxi = xi * xi;
 			double xxii = xii * xii;
 			target += xxi + 2 * xxii - 0.3 * Math.cos(3 * Math.PI * xi) - 0.4
