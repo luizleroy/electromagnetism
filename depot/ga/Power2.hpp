@@ -6,6 +6,10 @@
 
 template <class T>
 class Power2 {
+    int a;
+    bool b;
+    for (int i = 0; i < 10; i++) {
+    }
     T a, b;
   public:
     Power2 (T first, T second)
