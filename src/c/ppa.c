@@ -5,7 +5,7 @@
 double pix2 = 2. * M_PI;
 
 size_t _loop = 29;
-size_t _dots = 10000;
+size_t _dots = 2;
 size_t _dims = 10;
 
 double _pMut = .01;
@@ -168,6 +168,7 @@ int main()
 		results += result;
 //		printf("PSO (%d): %f\n", i, result);
 	}
+#pragma omp parallel
 	printf( "Mean: %5.5f\n", results / tests );
 	return 0;
 }
