@@ -12,3 +12,5 @@ http://xcodelovers.wordpress.com/2011/02/01/tutorial-installing-tdm-gcc-windows/
 Configurar o eclipse foi difícil
 Primeiro instalei o mingw via mingw-installer. Inclusive ele está no path do windows, digamos em segundo plano, e existe a possibilidade de fazer alguma diferença.
 Mas, o gcc em execução, com certeza, é do TDM. Que não possui configuração padrão para o make, que gera um erro em projetos default do eclipse. É necessário configurar o build corrente conforme imagem neste diretório.
+
+Lembre-se: É IMPORTANTE adicionar, em plataformas 64 bits a flag -m32. Tando na compilação quanto na linkedição.
