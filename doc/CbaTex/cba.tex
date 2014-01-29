@@ -53,9 +53,13 @@
 O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia em sistemas de grande porte.
 Através de uma técnica de otimização robusta, mono-objetivo, denominada PSO (Particle Swarm Optimization) apresenta-se 
 um método para alocar bancos de capacitores (cargas altamente capacitivas) onde o foco é a minimização de uma
-função objetivo propsta para tal fim. Durante este trabalho leva-se em consideração a minimização das perdas ao longo da linha
+função objetivo propsta para tal fim. 
+
+Durante este trabalho leva-se em consideração a minimização das perdas ao longo da linha
 dos alimentadores de energia após a inserção, nos devidos pontos, dos
-equipamentos capacitivos. Na literatura este tipo de problema é conhecido como
+equipamentos capacitivos. 
+
+Na literatura este tipo de problema é conhecido como
 \emph{Optimal Capacitor Placement} - OCP.
 \end{abstract}
 
@@ -82,10 +86,11 @@ Dentre os dispositivos, destaca-se a alocação de bancos de capacitores, que inst
 compensação de reativos, regulando as magnitudes das tensões ao longo da rede bem como o fator de potencia da subestação 
 e fornecendo como beneficio principal a redução de perdas ativas no sistema.
 
-Durante este trabalho foi utilizado apenas informações de carregamento elétrico
-do circuito, impedâncias envolvidas e sua topologia. A contribuição do software desenvolvido é 
-especificar os principais parâmetros de bancos de capacitores alocados, bem com sua posição de instalação ao longo de 
-um alimentador de energia. Buscando otimizar Perdas Elétrica e Queda de Tensão ao longo da linha. 
+Durante este trabalho foi utilizado informações de carregamento elétrico
+do circuito, impedâncias envolvidas e sua topologia. A contribuição do procedimento desenvolvido é 
+especificar a posição de instalação do banco de capacitores ao longo de 
+um alimentador de energia, bem como o principal parâmentro deste dispositivo: a sua potência de instalação.
+Buscando sempre otimizar Perdas Elétrica e Queda de Tensão ao longo da linha. 
 O objetivo é melhorar a capacidade e qualidade da Distribuição de Energia.
 
  A instalação destes equipamentos de potência precisa seguir alguns preceitos fundamentais:
@@ -98,26 +103,67 @@ O objetivo é melhorar a capacidade e qualidade da Distribuição de Energia.
  Durante a construção do sistema para posicionamento dos capacitores (OCP)
  utiliza-se do cálculo do fluxo de carga da linha de distribuição e de um método
  de otimização (PSO) para a solução de um problema não linear. Para cada
- aplicação detalhes tecnicos são requeridos para utlização do PSO. Muitas formas
+ aplicação detalhes técnicos são requeridos para utlização do PSO. Muitas formas
  de aplicação e manipulações de funções objetivos típicas de desafios desta
  natureza são observadas em ~\citeasnoun{del2008particle}.
 \end{itemize}
 
 \section{Formulação do problema}
-Bla\ldots
-\subsection{Metodologia}
-Blax\ldots
+O problema foi formulado buscando encontrar pontos ótimos de alocação de capacitores em redes de grande extensão.
+ A topologia de rede (alimentadores longos com número grande de cargas distribuídas e milhares de barras) é 
+ inspirada no que ocorre na prática no sistema de distribuição de energia do estado de Minas Gerais, no Brasil. 
+ Nas próximas subseções, explica-se como é realizado na prática a solução para o OCP. Do ponto de vista cronológico
+  é necessário calcular o fluxo de potência (Load Flow /CITCITCIT) e em seguida utilizar uma técnica de otimização para
+   minimizar as perdas ao longo do circuito. É importante também, lembrar de restringir casos em que o desvio de tensão ocorre na rede.
+
+A função objetivo a ser minimizada é simples. Basta somar as perdas ao longo do circuito, que serão minimizadas ao inserir
+ bancos de capacitores na rede de alimentação. É importante lembrar que o nível de tensão, em regime permanente, deve 
+ respeitar exigências de normas do setor, conforme consta no PRODIST módulo Oito de ~\citeasnoun{de2010modulo}.
+
+ Durante este trabalho os níveis de tensão foram seguidos de acordo com a faixa indicada no anexo I de ~\citeasnoun{de2010modulo}, 
+ seguindo o critério mais próximo dos circuitos testados da seção sequente (Simulações e resultados).
+
+,,,É importante observar que, uma restrição importante do problema, está relacionada a variação da tensão ao longo do circuito durante a 
+alocação dos capacitores. Ela é analisada com auxílio da equação abaixo,
+denominada VDI (voltage deviation index) em ~\citeasnoun{abul2014optimal}.
+Ela serve para controlar o uso de capacitores no controle da tensão ao longo da linha, 
+evitando valores deteriorados de tensão conforme ~\citeasnoun{abul2014optimal}.
+
+\begin{align}
+  FF &= k*|I|_{bus=1} + VDI                              \\
+  VDI &= \sqrt{\frac{\sum^{nn}_{bus=1}{(V_{bus} - V)}}{nn}}
+\end{align}
+
+
+Abaixo explica-se a principal contribuição do procedimento contruído ao longo deste trabalho(a metodologia de otimização via PSO) e 
+em seguida uma breve introdução sobre o principal método de obtenção do fluxo de carga.
+
+\subsection{Metodologia de minimização por ,,,Particle Swarm Optimization,,, }
+O tamanho do espaço de busca para o problema dos capacitores pode atingir dimensões enormes.
+ É possível modelar o problema de forma que exista uma relação entre um valor n de barras candidatas 
+ com uma quantidade q de capacitores disponíveis. Isto leva um conjunto de testes inviáveis para cálculos forma bruta
+
+    \begin{align}
+    \sum^q_{i=0} C_{n,i}
+  \end{align}
+  \\
+
+  O procedimento usual em métodos estocásitos (e adotado neste trabalho) durante o processo de minimização
+   (ou maximização) de funções objetivos de múltiplas variáveis e iniciar com uma população de pontos de avaliação
+    (cálculo de funções) e evoluir da melhor forma possível até encontrar um valor satisfatório para servir de solução ao problema. 
+
+
 \subsection{Cálculo do fluxo de carga}
-Bla2\ldots
+,,,Cálculo de fluxo por varredura diereta / reversar sweep /CITCITCIT,,,
 
 \section{Algoritmo PSO}
 Bla3\ldots
 
 \section{Simulações e resultados}
-Bla4\ldots
+Um,, comparar PSO com outras --->otimizações<--- de mercado
 
 \section{Conclusões}
-Bla5\ldots
+BlaBlaBla\ldots
 
 \section*{Agradecimentos}
 Agradecemos a todos que contribuíram com dicas, testes e revisoes neste
