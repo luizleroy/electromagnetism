@@ -59,11 +59,11 @@ Durante este trabalho leva-se em consideração a minimização das perdas ao longo 
 dos alimentadores de energia após a inserção, nos devidos pontos, dos
 equipamentos capacitivos. 
 
-Na literatura este tipo de problema é conhecido como
-\emph{Optimal Capacitor Placement} - OCP.
+Na literatura este tipo de problema é conhecido como \emph{Optimal Capacitor
+Placement} - OCP.
 \end{abstract}
 
-\keywords{PSO, OCP, Otimização Clássica, inteligência de enxames, SEP.}
+\keywords{PSO, OCP, Computação Evolucionária, iInteligência de Enxames, SEP.}
 ]
 
 % CONTRIBUIÇÃO
@@ -96,18 +96,17 @@ O objetivo é melhorar a capacidade e qualidade da Distribuição de Energia.
  A instalação destes equipamentos de potência precisa seguir alguns preceitos fundamentais:
 \begin{itemize}
   \item Minimizar a perda de energia ao longo do circuito;
-  \item Seguir normas elétricas vigentes de nível de tensão
+  \item Seguir normas elétricas vigentes de nível de tensão do PRODIST Módulo 8
   (~\citeasnoun{Aneel2010Aneel});
   \item Trazer ganhos para as etapas de operação, construção e principalmente o
   planejamento redes de distribuição de energia.
+\end{itemize}
   
  Durante a construção do sistema para posicionamento dos capacitores (OCP)
- utiliza-se do cálculo do fluxo de carga da linha de distribuição e de um método
- de otimização (PSO) para a solução de um problema não linear. Para cada
- aplicação detalhes técnicos são requeridos para utlização do PSO. Muitas formas
+ utiliza-se do cálculo do fluxo de carga da linha de distribuição e de algum
+ método de otimização para a solução de um problema não linear. Muitas formas
  de aplicação e manipulações de funções objetivos típicas de desafios desta
  natureza são observadas em ~\citeasnoun{del2008particle}.
-\end{itemize}
 
 \section{Formulação do problema}
 O problema foi formulado buscando encontrar pontos ótimos de alocação de capacitores em redes de grande extensão.
@@ -121,24 +120,25 @@ respeitar exigências de normas do setor, conforme consta no PRODIST.
 
  Durante este trabalho os níveis de tensão foram seguidos de acordo com a faixa
  indicada no anexo I de ~\citeasnoun{Aneel2010Aneel}, seguindo o critério mais
- próximo dos circuitos testados na seção sequente (Simulações e resultados).
+ próximo dos circuitos testados na seção seguinte (Simulações e resultados).
 
 É importante observar que, uma restrição importante do problema, está relacionada a variação da tensão ao longo do circuito durante a 
 alocação dos capacitores. Ela é analisada com auxílio da equação abaixo,
 denominada VDI (voltage deviation index) em ~\citeasnoun{abul2014optimal}.
 
 \begin{equation} \label{vdi} 
-  VDI = \frac{\sqrt{\sum^{nb}_{b=ini}{(V_{b} - V)^2}}}{nb}
+  VDI = \sqrt{\sum^{nb}_{b=ini}\frac{(V_{b} - V)^2}{nb}}
 \end{equation}
 
 Na equação \ref{vdi} o somatório percorre todas as barras calculando a
-o erro quadrádico médio entre o valor estimado $V_{barra}$ e a tensão nominal.
+o erro quadrádico médio entre o valor estimado $V_{barra}$ e a tensão nominal,
+similar ao cáluco de ~\citeasnoun{abul2014optimal}.
 
 ,,,Abaixo explica-se a principal contribuição do procedimento construído ao
 longo deste trabalho (a metodologia de otimização via PSO) e em seguida uma
 breve introdução sobre o principal método de obtenção do fluxo de carga.,,,
 
-\subsection{Metodologia de minimização por via PSO (Particle Swarm
+\subsection{Metodologia de minimização via PSO (Particle Swarm
 Optimization) } 
 O tamanho do espaço de busca para o problema dos capacitores
 pode atingir dimensões enormes.
@@ -160,9 +160,6 @@ combinações abaixo. ,,,Onde,,,
 \subsection{Cálculo do fluxo de carga}
 ,,,Cálculo de fluxo por varredura diereta or reversar sweep CITCITCIT,,,
 ,,,detalhar sobre o paralelismo,,,
-
-\section{Algoritmo PSO}
-BlaPSO\ldots
 
 \section{Simulações e resultados}
 ,,,comparar pso com outras simulações de mercado,,,
