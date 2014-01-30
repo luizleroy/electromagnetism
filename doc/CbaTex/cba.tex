@@ -43,7 +43,7 @@
 
 \selectlanguage{english}
 \begin{abstract}
-  O processo de revisaooo do CBA 2014 sera DOUBLE BLIND, portanto NAO inclua
+  O processo de revisaooo do CBA 2014 sera DOUBLE BLIND, portanto NÃO inclua
   autores na versão que será submetida para revisão. Leve isso em consideração ao citar seus próprios trabalhos.  \end{abstract}
 
 \keywords{Template, Example.}
@@ -92,16 +92,7 @@ especificar a posição de instalação do banco de capacitores ao longo de
 um alimentador de energia, bem como o principal parâmentro deste dispositivo: a sua potência de instalação.
 Buscando sempre otimizar Perdas Elétrica e queda de tensão ao longo da linha. 
 O objetivo é melhorar a capacidade e qualidade da Distribuição de Energia.
-
- A instalação destes equipamentos de potência precisa seguir alguns preceitos fundamentais:
-\begin{itemize}
-  \item Minimizar a perda de energia ao longo do circuito;
-  \item Seguir normas elétricas vigentes de nível de tensão do PRODIST Módulo 8
-  (~\citeasnoun{Aneel2010Aneel});
-  \item Trazer ganhos para as etapas de operação, construção e principalmente o
-  planejamento redes de distribuição de energia.
-\end{itemize}
-  
+ 
  Durante a construção do sistema para posicionamento dos capacitores (OCP)
  utiliza-se do cálculo do fluxo de carga da linha de distribuição e de algum
  método de otimização para a solução de um problema não linear. Muitas formas
@@ -111,12 +102,37 @@ O objetivo é melhorar a capacidade e qualidade da Distribuição de Energia.
 \section{Formulação do problema}
 O problema foi formulado buscando encontrar pontos ótimos de alocação de capacitores em redes de grande extensão.
  A topologia de rede (alimentadores longos com número grande de cargas distribuídas e milhares de barras) é 
- inspirada no que ocorre na prática no sistema de distribuição de energia do estado de Minas Gerais, no Brasil. 
- Nas próximas subseções, explica-se como é realizado na prática a solução para o OCP.
+ muito similar ao que ocorre na prática no sistema de distribuição de energia
+ do nordeste do estado de Minas Gerais. 
+ 
+ A alocação destes equipamentos de potência seguirá as seguintes diretivas:
+ fundamentais:
+\begin{itemize}
+  \item Minimizar a perda de energia ao longo do circuito.
+  \item Garantir normas elétricas vigentes de nível de tensão do PRODIST Módulo
+  8 (~\citeasnoun{Aneel2010Aneel}).
+  \item Trazer ganhos para as etapas de construção e principalmente o
+  planejamento redes de distribuição de energia.
+\end{itemize}
+ 
+ Nas duas próximas subseções, que descrevem o método de cálculo para o fluxo
+ elétrico e o processo de otimização, explica-se como é realizado na prática a solução para o OCP.
 
-A função objetivo a ser minimizada é simples. Basta somar as perdas ao longo do circuito, que serão minimizadas ao inserir
-bancos de capacitores na rede de alimentação. É importante lembrar que o nível de tensão, em regime permanente, deve 
-respeitar exigências de normas do setor, conforme consta no PRODIST.
+\subsection{Cálculo do fluxo de carga}
+Fluxo de potência ou fluxo de carga (load flow) é o estudo de sistemas de
+potência em uma condição em regime permanente. É um estudo que demanda uma
+análise numérica extensa, que para grandes sistemas são necessárias técnicas simplificadas, como notação por unidade (pu) e componentes simétricas. 
+Trata-se de um problema matemático, formado por um conjunto de equações diferenciais parciais, cuja solução permite determinar os valores de tensão, 
+potência e corrente em cada um dos pontos do sistema em estudo.
+
+Cálculo de fluxo por varredura diereta or reversar sweep CITCITCIT
+Detalhar sobre o paralelismo.
+
+\subsection{Metodologia de minimização via PSO (Particle Swarm
+Optimization) } 
+A função objetivo a ser minimizada é simples. Partindo de uma topologia com
+todos os cálculos de fluxo de carga realizados, basta somar as perdas ao longo
+do circuito, que serão minimizadas ao inserir bancos de capacitores na rede de alimentação.
 
  Durante este trabalho os níveis de tensão foram seguidos de acordo com a faixa
  indicada no anexo I de ~\citeasnoun{Aneel2010Aneel}, seguindo o critério mais
@@ -134,35 +150,33 @@ Na equação \ref{vdi} o somatório percorre todas as barras calculando a
 o erro quadrádico médio entre o valor estimado $V_{barra}$ e a tensão nominal,
 similar ao cáluco de ~\citeasnoun{abul2014optimal}.
 
-,,,Abaixo explica-se a principal contribuição do procedimento construído ao
-longo deste trabalho (a metodologia de otimização via PSO) e em seguida uma
-breve introdução sobre o principal método de obtenção do fluxo de carga.,,,
-
-\subsection{Metodologia de minimização via PSO (Particle Swarm
-Optimization) } 
 O tamanho do espaço de busca para o problema dos capacitores
 pode atingir dimensões enormes.
 É possível modelar o problema de forma que exista uma relação entre um valor n de barras candidatas 
-com uma quantidade q de capacitores disponíveis. Isto leva um conjunto de testes
-inviáveis para cálculos de força bruta, conforme consta no somatorio de
-combinações abaixo. ,,,Onde,,,
+com uma quantidade $b$ de capacitores disponíveis. Isto leva um conjunto de
+testes inviáveis para cálculos de força bruta, conforme consta no somatorio de
+combinações da equação \ref{comb}.
 
 \begin{equation} \label{comb} 
-  \sum^q_{i=0} C_{n,i} =\sum^q_{i=0} \frac{n!}{(n-i)!i!}
+  \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
 \end{equation}
-    
 
+No contexto deste trabalho a tendência é que o usuário conheça as especificações
+do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito.
+Portanto, ao trabalhar com bancos com tap fixo, é usual
+em circuitos de 2500 barras trabalhar com até 5 cargas capacitivas. O número
+total de possibilidades é da ordem de $10^14$.
+  
   O procedimento usual em métodos estocásitos (e adotado neste trabalho) durante o processo de minimização
    (ou maximização) de funções objetivos de múltiplas variáveis e iniciar com uma população de pontos de avaliação
     (cálculo de funções) e evoluir da melhor forma possível até encontrar um valor satisfatório para servir de solução ao problema. 
 
-
-\subsection{Cálculo do fluxo de carga}
-,,,Cálculo de fluxo por varredura diereta or reversar sweep CITCITCIT,,,
-,,,detalhar sobre o paralelismo,,,
-
 \section{Simulações e resultados}
-,,,comparar pso com outras simulações de mercado,,,
+Rede de 2498 barras.
+Radial.
+13.8kV.
+1319 cargas.
+2497 linhas.
 
 \section{Conclusões}
 BlaConclusoes\ldots
@@ -174,3 +188,45 @@ trabalho.
 % BIBLIOGRAFIA
 \bibliography{exemplo}
 \end{document}
+
+%AMN07 (NORDESTE DE MINAS GERAIS)
+%
+%barra original (já existe capacitor na rede): 98460735
+%
+%Resultados originais SEM CAPACITOR NENHUM:
+%
+%Sem violação de tensão (1.05pu)
+%
+%MSE (Tensão): 1.230767e-003
+%Perda (Potência): 8.422321e+001KW + 4.798688e+001KVAr
+%
+%//-----
+%
+%Simulações iniciais encontraram as seguintes barras em comum:
+%
+%29 => 98441940
+%83 => 98442066
+%137=> 98447400
+%
+%Com apenas estes três capacitores:
+%
+%Sem violação de tensão (1.05pu) !!!
+%
+%MSE (Tensão): 1.150681e-003
+%Perda (Potência): 7.688910e+001KW + 4.309183e+001KVAr
+%
+%//---------
+%
+%As barras abaixo não apareceram em todas as simulções. Colocá-las, ambas, degrada a perda. Abaixo a barra com um pouco melhor de performance é a 140. Todos Sem violação de tensão (1.05pu) !!!
+%140=> 131153297
+%
+%136=> 134909434
+%
+%Perda (Potência): 7.611608e+001KW + 4.248463e+001KVAr => 98441940 & 98442066 & 98447400
+%
+%Todos são melhores que utilizar a barra original do circuito (98460735): 
+%
+%Perda (Potência): 8.052202e+001KW + 4.552701e+001KVAr => 98460735
+%
+%
+%PARA COMPARAÇÃO DE RESULTADOS DE FORMA VISUAL. CONCLUSÃO: A ALOCAÇÃO OCORRE NO INÍCIO DO CIRCUITO (TRECHOS MAIS A ESQUERDA NO DO) E RELATIVAMENTE PRÓXIMO À BARRA DE ALOCAÇÃO ORIGINAL (MAS NÃO EXATAMENTE EM CIMA!)
