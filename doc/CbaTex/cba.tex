@@ -3,11 +3,11 @@
 \usepackage[latin1]{inputenc}
 \usepackage{ae}
 
-
 \makeatletter
 \def\verbatim@font{\normalfont\ttfamily\footnotesize}
 \makeatother
 \usepackage{amsmath}
+\usepackage{graphicx}
 % --------------------------------------------------
 
 
@@ -24,18 +24,21 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\author{Luiz Le Roy Hipólito de Jesus}{luiz.hipolito@axxiom.com.br}
-\address{Endereço do Luiz Le Roy e do Lucas Barros\\ Rua dos Inconfidentes, 1051\\ Belo Horizonte, MG, Brasil}
+\author{Luiz Le Roy Hipólito de Jesus}{luizleroy@gmail.com}
 
-\author[1]{Lucas Barros Honório Silva}{lucas.silva@axxiom.com.br}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%{luiz.hipolito@axxiom.com.br}
 
-\author{Pedro Manoel}{pedro@pedro.com}
-\address{Endereço do Pedro e do Rafael\\ Em algum lugar\\ Cidade, Estado, País}
+%\address{Endereço do Luiz Le Roy e do Lucas Barros\\ Rua dos Inconfidentes, 1051\\ Belo Horizonte, MG, Brasil}
 
-\author{José Rodrigues}{jose@rodrigues}
-\address{Endereço do José\\ Em algum lugar\\ Cidade, Estado, País}
+%\author[1]{Lucas Barros Honório Silva}{lucas.silva@axxiom.com.br}
 
-\author[3]{Rafael Pires}{rafael@pires}
+%\author{Pedro Manoel}{pedro@pedro.com}
+%\address{Endereço do Pedro e do Rafael\\ Em algum lugar\\ Cidade, Estado, País}
+
+%\author{José Rodrigues}{jose@rodrigues}
+%\address{Endereço do José\\ Em algum lugar\\ Cidade, Estado, País}
+
+%\author[3]{Rafael Pires}{rafael@pires}
 
 \twocolumn[
 
@@ -53,17 +56,15 @@
 O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia em sistemas de grande porte.
 Através de uma técnica de otimização robusta, mono-objetivo, denominada PSO (Particle Swarm Optimization) apresenta-se 
 um método para alocar bancos de capacitores (cargas altamente capacitivas) onde o foco é a minimização de uma
-função objetivo propsta para tal fim. 
-
-Durante este trabalho leva-se em consideração a minimização das perdas ao longo da linha
-dos alimentadores de energia após a inserção, nos devidos pontos, dos
+função objetivo proposta para tal fim. 
+Durante este trabalho é possível obter a minimização das perdas ao longo da linha
+dos alimentadores de energia após a inserção, nos devidos pontos, de
 equipamentos capacitivos. 
-
 Na literatura este tipo de problema é conhecido como \emph{Optimal Capacitor
 Placement} - OCP.
 \end{abstract}
 
-\keywords{PSO, OCP, Computação Evolucionária, iInteligência de Enxames, SEP.}
+\keywords{PSO, OCP, Computação Evolucionaria, Inteligência de Enxames.}
 ]
 
 % CONTRIBUIÇÃO
@@ -75,7 +76,7 @@ Manter o perfil operacional da rede de distribuição dentro dos limites adequados
 obedecendo a restrições de natureza técnica e, sempre que possível, considerar
 detalhes econômicos que envolvem a implantação e manutenção.
 O problema abordado durante este trabalho é minimizar o fluxo de carga e
-reduziar as perdas ao longo da rede de distribuição (o circuito alimentador) com a inserção de banco de capacitores nos pontos adequados
+reduzir as perdas ao longo da rede de distribuição (o circuito alimentador) com a inserção de banco de capacitores nos pontos adequados
 do sistema.
 
 Apos o período de construção da rede de distribuição ocorre degradação da qualidade do perfil de tensão como 
@@ -83,14 +84,14 @@ consequência das dificuldades de prever condições precisas de carga durante a fa
 Desta maneira torna-se necessário o planejamento de curto prazo da rede de distribuição, com a instalação de
 dispositivos que assegurem que o sistema opere dentro dos limites de magnitude de tensão estabelecidos pelas agencias reguladoras. 
 Dentre os dispositivos, destaca-se a alocação de bancos de capacitores, que instalados de forma adequada proporcionam a 
-compensação de reativos, regulando as magnitudes das tensões ao longo da rede bem como o fator de potencia da subestação 
-e fornecendo como beneficio principal a redução de perdas ativas no sistema.
+compensação de reativos, regulando as magnitudes das tensões ao longo da rede, bem como o fator de potencia da subestação. 
+Fornecendo como beneficio principal a redução de perdas ativas no sistema.
 
 Durante este trabalho foi utilizado informações de carregamento elétrico
 do circuito, impedâncias envolvidas e sua topologia. A contribuição do procedimento desenvolvido é 
 especificar a posição de instalação do banco de capacitores ao longo de 
-um alimentador de energia, bem como o principal parâmentro deste dispositivo: a sua potência de instalação.
-Buscando sempre otimizar Perdas Elétrica e queda de tensão ao longo da linha. 
+um alimentador de energia, bem como o principal parâmetro deste dispositivo: a sua potência de instalação.
+Buscando sempre otimizar perdas elétricas e queda de tensão ao longo da linha. 
 O objetivo é melhorar a capacidade e qualidade da Distribuição de Energia.
  
  Durante a construção do sistema para posicionamento dos capacitores (OCP)
@@ -110,9 +111,9 @@ O problema foi formulado buscando encontrar pontos ótimos de alocação de capacit
 \begin{itemize}
   \item Minimizar a perda de energia ao longo do circuito.
   \item Garantir normas elétricas vigentes de nível de tensão do PRODIST Módulo
-  8 (~\citeasnoun{Aneel2010Aneel}).
+  8 (~\citeasnoun{aneel2012procedimentos}).
   \item Trazer ganhos para as etapas de construção e principalmente o
-  planejamento redes de distribuição de energia.
+  planejamento de redes de distribuição de energia.
 \end{itemize}
  
  Nas duas próximas subseções, que descrevem o método de cálculo para o fluxo
@@ -125,8 +126,18 @@ análise numérica extensa, que para grandes sistemas são necessárias técnicas sim
 Trata-se de um problema matemático, formado por um conjunto de equações diferenciais parciais, cuja solução permite determinar os valores de tensão, 
 potência e corrente em cada um dos pontos do sistema em estudo.
 
-Cálculo de fluxo por varredura diereta or reversar sweep CITCITCIT
-Detalhar sobre o paralelismo.
+O método de varredura, ou Backward-Forward, foi utilizado para o cálculo de perdas, necessários para determinar o valor da função objetivo. 
+Nos sistemas radiais de distribuição com apenas uma fonte de tensão, localizada na barra de referência, o cálculo é realizado de
+forma unidirecional, isto é, da barra de referência para as barras terminais. 
+O método Backward-Forward calcula o fluxo em dois passos. 
+No primeiro (backward), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência, 
+assim como a injeção de corrente. No segundo passo (forward) calculam-se as magnitudes e os
+ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1 p.u. e o ângulo em zero. 
+Subtrai-se a queda de tensão em cada barra até chegar às extremidades. 
+O cálculo é algébrico é feito com as variáveis na forma complexa, 
+iterativamente até que a convergência seja atingida. ~\citeasnoun{hamouda2006efficient}.
+
+%Durante a otimização, um número grande de cálculo de fluxo de carga é realizado. Para agilidade dos resultados utilizou-se OPENMP
 
 \subsection{Metodologia de minimização via PSO (Particle Swarm
 Optimization) } 
@@ -134,13 +145,9 @@ A função objetivo a ser minimizada é simples. Partindo de uma topologia com
 todos os cálculos de fluxo de carga realizados, basta somar as perdas ao longo
 do circuito, que serão minimizadas ao inserir bancos de capacitores na rede de alimentação.
 
- Durante este trabalho os níveis de tensão foram seguidos de acordo com a faixa
- indicada no anexo I de ~\citeasnoun{Aneel2010Aneel}, seguindo o critério mais
- próximo dos circuitos testados na seção seguinte (Simulações e resultados).
-
-É importante observar que, uma restrição importante do problema, está relacionada a variação da tensão ao longo do circuito durante a 
-alocação dos capacitores. Ela é analisada com auxílio da equação abaixo,
-denominada VDI (voltage deviation index) em ~\citeasnoun{abul2014optimal}.
+É importante observar que, uma restrição importante do problema, está relacionada a variação da tensão ao longo do 
+circuito durante a alocação dos capacitores. Ela é analisada com auxílio da equação abaixo,
+denominada VDI (voltage deviation index) em ~\citeasnoun{abul2013optimal}.
 
 \begin{equation} \label{vdi} 
   VDI = \sqrt{\sum^{nb}_{b=ini}\frac{(V_{b} - V)^2}{nb}}
@@ -148,13 +155,16 @@ denominada VDI (voltage deviation index) em ~\citeasnoun{abul2014optimal}.
 
 Na equação \ref{vdi} o somatório percorre todas as barras calculando a
 o erro quadrádico médio entre o valor estimado $V_{barra}$ e a tensão nominal,
-similar ao cáluco de ~\citeasnoun{abul2014optimal}.
+similar ao cáluco de ~\citeasnoun{abul2013optimal}.
+Durante este trabalho os níveis de tensão máximo foram seguidos de acordo com a faixa
+indicada no anexo I de ~\citeasnoun{aneel2012procedimentos}. Utilizando o critério dos circuito
+testado conforme consta na seção dos resultados.
 
 O tamanho do espaço de busca para o problema dos capacitores
 pode atingir dimensões enormes.
-É possível modelar o problema de forma que exista uma relação entre um valor n de barras candidatas 
+É possível modelar o problema de forma que exista uma relação entre um valor $i$ de barras candidatas 
 com uma quantidade $b$ de capacitores disponíveis. Isto leva um conjunto de
-testes inviáveis para cálculos de força bruta, conforme consta no somatorio de
+testes inviáveis para cálculos de força bruta, conforme consta no somatório de
 combinações da equação \ref{comb}.
 
 \begin{equation} \label{comb} 
@@ -164,69 +174,58 @@ combinações da equação \ref{comb}.
 No contexto deste trabalho a tendência é que o usuário conheça as especificações
 do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito.
 Portanto, ao trabalhar com bancos com tap fixo, é usual
-em circuitos de 2500 barras trabalhar com até 5 cargas capacitivas. O número
-total de possibilidades é da ordem de $10^14$.
+em circuitos de 2500 barras inserir cerca de 5 cargas capacitivas. Neste caso, como podemos obter o ótimo de todas as combinações
+de $b$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações. O número total de possibilidades, neste caso, é da ordem de $10^{14}$.
   
-  O procedimento usual em métodos estocásitos (e adotado neste trabalho) durante o processo de minimização
-   (ou maximização) de funções objetivos de múltiplas variáveis e iniciar com uma população de pontos de avaliação
-    (cálculo de funções) e evoluir da melhor forma possível até encontrar um valor satisfatório para servir de solução ao problema. 
+O procedimento usual em métodos estocásticos (e adotado neste trabalho) durante o processo de minimização
+(ou maximização) de funções objetivos de múltiplas variáveis e iniciar com uma população de pontos de avaliação
+(cálculo de funções) e evoluir até encontrar um valor satisfatório para servir de solução ao problema. Neste caso,
+obtém-se a avaliação da função através do método de cálculo de fluxo de carga por varredura e
+utiliza-se a técnica de otimização inteira descrita em ~\citeasnoun{del2008particle}.
+ 
+ %'DEIXA' PARA INSERIR MÉTODO PSO COM O ALGORITMO DESENVOLVIDO PARA OCP
 
-\section{Simulações e resultados}
-Rede de 2498 barras.
-Radial.
-13.8kV.
-1319 cargas.
-2497 linhas.
+\section{Resultados}
+A rede de distribuição de energia extensa utilizada neste trabalho foi construída com 2500 barras, 2500 linhas (radial) e 1500 cargas distribuídas.
+Após a análise observa-se a necessidade de inserção de quatro bancos de capacitores próximos ao início do circuito (na barra de alimentação) conforme
+ilustrado na figura abaixo. A região onde os capacitores foram instalados está mais a esquerda no diagrama, 
+onde encontra-se o início do alimentador (marcado de vermelho).
+
+%PNG
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=70mm]{amn07-firstResultRepresentation.png}
+\caption{Localização topológica dos capacitores alocados}
+\label{graph}
+\end{figure}
+
+Com esta alocação é possível obter uma redução nas perdas elétricas. A potência dissipada passa de $84,2KW + 48,0KVA_r$
+quando o circuito não possui cargas capacitivas, para $76,1KW + 42,5KVA_r$ após a correta distribuição de quatro 
+bancos de capacitores com $100KVA_r$. 
+E o perfil de tensão melhorou, pois o valor de VDI (equação \ref{vdi}) passou de $0,0351$ para $0,0338$.
+É importante observar que, tanto para o circuito original quanto para o circuito otimizado, o nível de tensão foi verificado
+e mantido dentro da norma (menor que 1.05pu para esta rede de 13.8kV).
+
+%Original (3dis)
+%2498 barras.
+%2497 linhas.
+%1319 cargas.
+%13.8kV.
+%Radial.
+
+%No GDIS-DO:
+%2851 barras
+%2852 linhas
+
+%SERÁ QUE A DIFERENÇA É DEVIDO AS CHAVES?
 
 \section{Conclusões}
-BlaConclusoes\ldots
+Observa-se que, ao inserir grupos de capacitores em pontos específicos da rede, é possível melhorar a quantidade de perdas elétricas
+do sistema e trazer estabilidade no perfil de tensão. 
 
 \section*{Agradecimentos}
-Agradecemos a todos que contribuíram com dicas, testes e revisoes neste
-trabalho.
+Agradecemos a todos que contribuíram com dicas, testes e revisões durante este trabalho.
 
 % BIBLIOGRAFIA
 \bibliography{exemplo}
 \end{document}
-
-%AMN07 (NORDESTE DE MINAS GERAIS)
-%
-%barra original (já existe capacitor na rede): 98460735
-%
-%Resultados originais SEM CAPACITOR NENHUM:
-%
-%Sem violação de tensão (1.05pu)
-%
-%MSE (Tensão): 1.230767e-003
-%Perda (Potência): 8.422321e+001KW + 4.798688e+001KVAr
-%
-%//-----
-%
-%Simulações iniciais encontraram as seguintes barras em comum:
-%
-%29 => 98441940
-%83 => 98442066
-%137=> 98447400
-%
-%Com apenas estes três capacitores:
-%
-%Sem violação de tensão (1.05pu) !!!
-%
-%MSE (Tensão): 1.150681e-003
-%Perda (Potência): 7.688910e+001KW + 4.309183e+001KVAr
-%
-%//---------
-%
-%As barras abaixo não apareceram em todas as simulções. Colocá-las, ambas, degrada a perda. Abaixo a barra com um pouco melhor de performance é a 140. Todos Sem violação de tensão (1.05pu) !!!
-%140=> 131153297
-%
-%136=> 134909434
-%
-%Perda (Potência): 7.611608e+001KW + 4.248463e+001KVAr => 98441940 & 98442066 & 98447400
-%
-%Todos são melhores que utilizar a barra original do circuito (98460735): 
-%
-%Perda (Potência): 8.052202e+001KW + 4.552701e+001KVAr => 98460735
-%
-%
-%PARA COMPARAÇÃO DE RESULTADOS DE FORMA VISUAL. CONCLUSÃO: A ALOCAÇÃO OCORRE NO INÍCIO DO CIRCUITO (TRECHOS MAIS A ESQUERDA NO DO) E RELATIVAMENTE PRÓXIMO À BARRA DE ALOCAÇÃO ORIGINAL (MAS NÃO EXATAMENTE EM CIMA!)
