@@ -1,3 +1,5 @@
+LEMBRAR QUE, NA ÚTLIMA ANÁLISE, O INSTALADOR DO MINGW NO DIRETÓRIO CORRENTE FOI CAPAZ DE COMPILAR O SISTEMA COM OPENMP.
+
 #ubuntu initial 12.4 / wubi.exe
 #native c++, but I need use boost. Only.
 sudo apt-get install boost*
