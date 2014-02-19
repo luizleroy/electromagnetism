@@ -98,7 +98,7 @@ O objetivo é melhorar a capacidade e qualidade da distribuição de energia.
  de aplicação e manipulações de funções objetivos típicas de desafios desta
  natureza são observadas em ~\citeasnoun{del2008particle}.
 
-\section{Formulação do problema}
+\section{Revisão bibliográfica}
 O problema foi formulado buscando encontrar pontos ótimos de alocação de capacitores em redes de grande extensão.
  A topologia de rede (alimentadores longos com número grande de cargas distribuídas e milhares de barras) é
  muito similar ao que ocorre na prática no sistema de distribuição de energia
@@ -128,7 +128,7 @@ forma unidirecional, isto é, da barra de referência para as barras terminais.
 O método Backward-Forward calcula o fluxo em dois passos.
 No primeiro (backward), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência,
 assim como a injeção de corrente. No segundo passo (forward) calculam-se as magnitudes e os
-ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulo em zero.
+ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos de -120º, 0º e 120º para cada fase (A, B e C).
 Subtrai-se a queda de tensão em cada barra até chegar às extremidades.
 O cálculo algébrico é feito com as variáveis na forma complexa,
 iterativamente até que a convergência seja atingida. Vide ~\citeasnoun{hamouda2006efficient}.
@@ -338,7 +338,14 @@ ao longo das barras fica mais estabilizada, trazendo os valores para a proximida
 tensão nominal (1pu).
 
 \section*{Agradecimentos}
-Agradecemos a todos que contribuíram com dicas, testes e revisões durante este trabalho.
+À equipe do Projeto de Pesquisa e Desenvolvimento Tecnológico P\&D ANEEL D435 -``Desenvolvimento de Metodologia para Definir Valores de Fator de Carga e Fator de Demanda em Unidade Consumidora´´ pelo apoio técnico e financeiro que viabilizaram o desenvolvimento desta pesquisa. As entidades participantes são (em ordem alfabética):
+\begin{itemize}
+	\item Axxiom Soluções Tecnológicas SA, 
+	\item Cemig Distribuição SA,
+	\item Pontifícia Universidade Católica de Minas Gerais e
+	\item VS2 Consultoria, Treinamento e Engenharia LTDA.
+\end{itemize}
+
 
 % BIBLIOGRAFIA
 \bibliography{bib}
