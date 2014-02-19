@@ -1,4 +1,6 @@
-LEMBRAR QUE, NA ÚTLIMA ANÁLISE, O INSTALADOR DO MINGW NO DIRETÓRIO CORRENTE FOI CAPAZ DE COMPILAR O SISTEMA COM OPENMP.
+Apenas para o linker, inserir: gcc -Wl,--large-address-aware para utilizar mais de 2gB de memória.
+
+LEMBRAR QUE, NA ÚTLIMA ANÁLISE, O INSTALADOR DO MINGW (NO DIRETÓRIO CORRENTE, DESTE ARQUIVO README.TXT) FOI CAPAZ DE COMPILAR O SISTEMA COM OPENMP.
 
 #ubuntu initial 12.4 / wubi.exe
 #native c++, but I need use boost. Only.
