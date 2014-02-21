@@ -1,0 +1,1 @@
+Este trabalho foi um rascunho do artigo sobre OCP, compilado via latexlab.org.
