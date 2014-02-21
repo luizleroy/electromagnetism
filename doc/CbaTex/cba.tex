@@ -45,24 +45,24 @@
 
 \maketitle
 
-%\selectlanguage{english}
-%\begin{abstract}
-%The objective\ldots
-%\end{abstract}
+\selectlanguage{english}
+\begin{abstract}
+O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia elétrica em sistemas de grande porte, visando a estabilização dos níveis de tensão ao longo dos circuitos e a diminuição das perdas elétricas.
+Através de uma técnica de otimização robusta, monoobjetivo, denominada PSO (Particle Swarm Optimization) apresenta-se um método para alocação bancos de capacitores.
+Assim, é possível obter a melhoria no perfil de tensão e a minimização das perdas ao longo da linha
+dos alimentadores de energia após a inserção, nos devidos pontos, de equipamentos capacitivos.
+Este tipo de problema é conhecido como \emph{Optimal Capacitor Placement} - OCP.
+\end{abstract}
 
-%\keywords{Distribution System\ldots}
+\keywords{\textcolor[rgb]{1.00,0.00,0.00}{Sistema de Distribuição}, OCP, Redução de Perdas, Perfil de tensão, PSO, Inteligência de Enxames, Computação Evolucionaria.}
 
 \selectlanguage{brazil}
 \begin{abstract}
-O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia em sistemas de grande porte.
-Através de uma técnica de otimização robusta, monoobjetivo, denominada PSO (Particle Swarm Optimization) apresenta-se
-um método para alocar bancos de capacitores (cargas altamente capacitivas) onde o foco é a minimização de uma
-função objetivo proposta para tal fim.
-Durante este trabalho é possível obter a minimização das perdas e melhoria no perfil de tensão ao longo da linha
-dos alimentadores de energia após a inserção, nos devidos pontos, de
-equipamentos capacitivos.
-Na literatura este tipo de problema é conhecido como \emph{Optimal Capacitor
-Placement} - OCP.
+O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia elétrica em sistemas de grande porte, visando a estabilização dos níveis de tensão ao longo dos circuitos e a diminuição das perdas elétricas.
+Através de uma técnica de otimização robusta, monoobjetivo, denominada PSO (Particle Swarm Optimization) apresenta-se um método para alocação bancos de capacitores.
+Assim, é possível obter a melhoria no perfil de tensão e a minimização das perdas ao longo da linha
+dos alimentadores de energia após a inserção, nos devidos pontos, de equipamentos capacitivos.
+Este tipo de problema é conhecido como \emph{Optimal Capacitor Placement} - OCP.
 \end{abstract}
 
 \keywords{\textcolor[rgb]{1.00,0.00,0.00}{Sistema de Distribuição}, OCP, Redução de Perdas, Perfil de tensão, PSO, Inteligência de Enxames, Computação Evolucionaria.}
@@ -107,9 +107,9 @@ O problema foi formulado buscando encontrar pontos ótimos de alocação de capacit
  A alocação destes equipamentos de potência seguirá as seguintes diretivas:
 
 \begin{itemize}
-  \item Minimizar a perda de energia ao longo do circuito.
   \item Elevar níveis de tensão abaixo do valor nominal,
   \item garantindo normas elétricas vigentes do PRODIST Módulo 8 (~\citeasnoun{aneel2012procedimentos}).
+	\item Minimizar a perda de energia ao longo do circuito.
 \end{itemize}
 
  Nas duas próximas subseções, que descrevem o método de cálculo para o fluxo
@@ -338,7 +338,7 @@ ao longo das barras fica mais estabilizada, trazendo os valores para a proximida
 tensão nominal (1pu).
 
 \section*{Agradecimentos}
-À equipe do Projeto de Pesquisa e Desenvolvimento Tecnológico P\&D ANEEL D435 -``Desenvolvimento de Metodologia para Definir Valores de Fator de Carga e Fator de Demanda em Unidade Consumidora´´ pelo apoio técnico e financeiro que viabilizaram o desenvolvimento desta pesquisa. As entidades participantes são (em ordem alfabética):
+À equipe do Projeto de Pesquisa e Desenvolvimento Tecnológico P\&D ANEEL D435 -``Desenvolvimento de Metodologia para Definir Valores de Fator de Carga e Fator de Demanda em Unidade Consumidora'' pelo apoio técnico e financeiro que viabilizaram o desenvolvimento desta pesquisa. As entidades participantes são (em ordem alfabética):
 \begin{itemize}
 	\item Axxiom Soluções Tecnológicas SA, 
 	\item Cemig Distribuição SA,
