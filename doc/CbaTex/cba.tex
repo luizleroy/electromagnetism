@@ -1,5 +1,4 @@
 \documentclass[conference,harvard,brazil,english]{sbatex}
-%\documentclass[submission,journal, harvard,brazil,english]{sbatex}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{ae}
@@ -8,12 +7,22 @@
 \def\verbatim@font{\normalfont\ttfamily\footnotesize}
 \makeatother
 \usepackage{amsmath}
+
 \usepackage{graphicx} % for image
 \usepackage{color} % for image (?)
-\usepackage{textcomp} % for copyright / registered symbols
 \DeclareGraphicsExtensions{.png}
-% --------------------------------------------------
 
+\usepackage{textcomp} % for copyright / registered symbols
+
+\usepackage{caption}
+\captionsetup{tablename=Tabela}
+\captionsetup{figurename=Figura}
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+\usepackage{float}	% para posicionar elementos em um lugar fixo (opção [H])
+% --------------------------------------------------
 
 \begin{document}
 
@@ -84,42 +93,33 @@ Desta maneira torna-se necessário o planejamento de curto prazo da rede de distr
 dispositivos que assegurem que o sistema opere dentro dos limites de magnitude de tensão estabelecidos pelas agencias reguladoras.
 Dentre os dispositivos, destaca-se a alocação de bancos de capacitores, que instalados de forma adequada proporcionam a
 compensação de reativos, regulando as magnitudes das tensões ao longo da rede, bem como o fator de potencia da subestação.
-Fornecendo como beneficio principal a redução de perdas ativas no sistema.
+Fornecendo como benefício a redução de perdas ativas no sistema.
 
 Durante este trabalho foi utilizado informações de carregamento elétrico
 do circuito, impedâncias envolvidas e sua topologia. A contribuição do procedimento desenvolvido é
 especificar a posição de instalação de bancos de capacitores ao longo de
-um alimentador de energia.
-Buscando sempre otimizar perdas elétricas e queda de tensão ao longo da linha.
-O objetivo é melhorar a capacidade e qualidade da distribuição de energia.
+um alimentador de energia, onde a rede de distribuição contenha um número de barras, linhas e cargas da ordem de milhares de unidades.
 
- Durante a construção do sistema para posicionamento dos capacitores (OCP)
- utiliza-se do cálculo do fluxo de carga da linha de distribuição e de algum
- método de otimização para a solução de um problema não linear. Muitas formas
- de aplicação e manipulações de funções objetivos típicas de desafios desta
- natureza são observadas em ~\citeasnoun{del2008particle}.
+Para a construção do sistema de alocação dos capacitores (Optimal Capacitor Placement - OCP) utiliza-se do cálculo do fluxo de carga da linha de distribuição e de algum método de otimização para a solução de um problema não linear.
 
-\section{Revisão bibliográfica}
-O problema foi formulado buscando encontrar pontos ótimos de alocação de capacitores em redes de grande extensão.
- A topologia de rede (alimentadores longos com número grande de cargas distribuídas e milhares de barras) é
- muito similar ao que ocorre na prática no sistema de distribuição de energia
- do nordeste do estado de Minas Gerais.
+O trabalho foi formulado buscando encontrar pontos ótimos de alocação de capacitores em redes de grande extensão.
+A topologia de rede (alimentadores longos com número grande de cargas distribuídas e milhares de barras) é muito similar ao que ocorre na prática no sistema de distribuição de energia do nordeste do estado de Minas Gerais.
 
- A alocação destes equipamentos de potência seguirá as seguintes diretivas:
+A alocação destes equipamentos de potência seguirá as seguintes diretivas:
 
 \begin{itemize}
-  \item Elevar níveis de tensão abaixo do valor nominal,
+  \item Elevar níveis de tensão que encontram-se abaixo do valor nominal,
   \item garantindo normas elétricas vigentes do PRODIST Módulo 8 (~\citeasnoun{aneel2012procedimentos}).
 	\item Minimizar a perda de energia ao longo do circuito.
 \end{itemize}
 
- Nas duas próximas subseções, que descrevem o método de cálculo para o fluxo
- elétrico e o processo de otimização, explica-se como é realizado na prática a solução para o OCP.
+Na próxima seção, que descreve o método de cálculo para o fluxo elétrico de potência e o processo de otimização, explica-se como é realizado na prática a solução para o OCP. Em seguida, temos os resultados deste trabalho, bem como os requisitos computacionais. No final do artigo existe uma seção para as conclusões e outra para os agradecimentos às entidades que fomentaram a pesquisa.
 
+\section{Revisão bibliográfica}
 \subsection{Cálculo do fluxo de carga}
 Fluxo de potência ou fluxo de carga (load flow) é o estudo de sistemas de
 potência em condição de regime permanente. É um estudo que demanda uma
-análise numérica extensa, que para grandes sistemas são necessárias técnicas simplificadas, como notação por unidade (pu) e componentes simétricas.
+análise numérica extensa, que para grandes sistemas são necessárias técnicas específicas, como notação por unidade (pu) e componentes simétricas.
 Trata-se de um problema matemático, formado por um conjunto de equações diferenciais parciais, cuja solução permite determinar os valores de tensão,
 potência e corrente em cada um dos pontos do sistema em estudo.
 
@@ -127,10 +127,10 @@ O método de varredura, ou Backward-Forward, foi utilizado para o cálculo de perd
 Nos sistemas radiais de distribuição com apenas uma fonte de tensão, localizada na barra de referência, o cálculo é realizado de
 forma unidirecional, isto é, da barra de referência para as barras terminais.
 O método Backward-Forward calcula o fluxo em dois passos.
-No primeiro (backward), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência,
-assim como a injeção de corrente. No segundo passo (forward) calculam-se as magnitudes e os
-ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos de -120º, 0º e 120º para cada fase (A, B e C).
-Subtrai-se a queda de tensão em cada barra até chegar às extremidades.
+No primeiro (backward), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência, assim como a injeção de corrente. No segundo passo (forward) calculam-se as magnitudes e os
+ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos em -120º, 0º e 120º para cada fase (A, B e C).
+
+Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades.
 O cálculo algébrico é feito com as variáveis na forma complexa,
 iterativamente até que a convergência seja atingida. Vide ~\citeasnoun{hamouda2006efficient}.
 
@@ -139,41 +139,7 @@ Optimization) }
 A função objetivo a ser minimizada é simples. Partindo de uma topologia com
 todos os cálculos de fluxo de carga realizados (a potência ativa e reativa, bem como o módulo e ângulo de tensão
 e corrente por fase ABC, em todas as barras e linhas respectivamente), é possível somar as perdas ao longo
-do circuito, que serão minimizadas ao inserir bancos de capacitores na rede de alimentação.
-
-É importante observar que, uma restrição importante do problema, está relacionada a variação da tensão ao longo do
-circuito durante a alocação dos capacitores. Ela é analisada com auxílio da equação abaixo,
-denominada VDI (voltage deviation index) em ~\citeasnoun{abul2013optimal}.
-
-\begin{equation} \label{vdi}
-  VDI = \sqrt{\sum^{nb}_{b=ini}\frac{(V_{b} - V)^2}{nb}}
-\end{equation}
-
-Na equação \ref{vdi} o somatório percorre todas as barras calculando a
-o erro quadrático médio entre o valor estimado $V_{barra}$ e a tensão nominal,
-similar ao cálculo de ~\citeasnoun{abul2013optimal}.
-Durante este trabalho o nível de tensão máxima foi seguido de acordo com a faixa
-indicada no anexo I de ~\citeasnoun{aneel2012procedimentos}. Utilizando o devido critério para
-o circuito de teste, conforme consta na seção dos resultados.
-
-O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir dimensões enormes.
-É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas
-a receber um equipamento com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de
-testes inviáveis para cálculos de força bruta, conforme ilustrado no somatório de
-combinações da equação \ref{comb}.
-
-\begin{equation} \label{comb}
-  \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
-\end{equation}
-
-No contexto deste trabalho a tendência é que o usuário conheça as especificações
-do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito.
-Portanto, ao trabalhar com bancos com tap fixo, é usual
-em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões)
-inserir até 5 cargas capacitivas.
-Neste caso, podemos obter o ótimo em todas as combinações
-de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
-O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
+do circuito, que serão minimizadas ao inserir bancos de capacitores na rede de distribuição.
 
 O procedimento usual em métodos estocásticos (e adotado neste trabalho) durante o processo de minimização
 (ou maximização) de funções objetivos de múltiplas variáveis e iniciar com uma população de pontos de avaliação
@@ -213,57 +179,73 @@ A equação ~\ref{vel} é usada para calcular o nova velocidade de acordo com a vel
 anterior e a distância entre a posição corrente e a melhor posição anterior da partícula (pbest). Também é
 contabilizado a inteligência do grupo, através da posição anterior e o valor gbest.
 O processo é repetido até um número máximo de iterações ($imax$).
-O peso inercial, durante este trabalho, recebeu um decaimento exponencial, a cada iteração $i$,
-de acordo com a equação ~\ref{inert}, controlado pelas constantes $w_1$ e $w_2$:
+O peso inercial, durante este trabalho, recebeu um decaimento exponencial. A cada iteração $i$,
+conforme a equação ~\ref{inert}, ele diminui, controlado pelas constantes $w_1$ e $w_2$:
 
 \begin{equation} \label{inert}
  w = w_1 \cdot e^{\frac{-w_{2}\cdot i}{imax}}
 \end{equation}
 
 Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas.
-A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração em seus valores para evitar
-que a resposta leve à um ótimo local.
+A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local.
 
-\section{Requisitos computacionais}
-Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO) foram codificados em C ANSI.
-um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
-Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores
-ótimos conhecidos, como a função de De Jong, o vale de Rosenbrock, função de Rastrigin, função de Schwefel entre outras foram
-utilizadas para calibrar os algoritmos desenvolvidos durante este trabalho. Utilizou-se ~\citeasnoun{molga2005test} para esta análise.
+\subsection{Solução para alocação dos dispositivos}
+Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas (PSO), é possível contruir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP) conforme consta no algoritmo abaixo:
 
-Em um teste de desempenho foi necessário um tempo de processamento considerado alto, de aproximadamente 3 horas, para o pior caso modelado.
-Somando isto ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída.
-Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API
-OpenMP\textregistered. Descrita em ~\citeasnoun{chapman2008using}. É importante
-lembrar que, para esta melhoria no desempenho computacional através de paralelismo de núcleos, um maior uso de memória é necessário para processar todos os cálculos
-de fluxo de carga de uma única vez. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na tabela \ref{tab}.
+\begin{algorithm}[H]
+	\begin{algorithmic}	
+			\State Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
+			\State Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
+			\State Realizar o cálculo do fluxo de potência de todos as soluções candidatas iniciais (as partículas), para obtenção da perda elétrica total no circuito, que corresponde ao resultado da função objetivo;
+			\State Atualizar o valor inicial de pbest das partícuals com o valor calculado no passo imediatamente anterior;
+			\State Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
+	\While{(não atingir critério de parada)}
+			\State Calcular o valor da constante de inércia definida em \ref{inert};
+			\State Calcular os valores de velocidade para todas as soluções candidatas conforme \ref{vel};
+			\State Calcular a nova posição da partícula para todas as novas soluções candidatas conforme \ref{pos};
+			\State Realizar mutações, aleatórias, conforme um percentual pré-definido;
+			\State Realizar o cálculo do fluxo de potência de todos as soluções candidatas para obter a perda elétrica;
+		\For{(todas as partículas)}
+			\If{(novo valor de perda for menor que o valor da iteração anterior)}
+				\State Atualizar o valor de pbest;
+			\EndIf
+		\EndFor
+		\State Encontrar o menor valor de pbest;
+		\If{(menor pbest for menor que o valor da iteração anterior de gbest)}
+			\State Atualizar o valor corrente de gbest com o menor valor de pbest;
+		\Else
+			\State Atualizar o valor corrente de gbest com o valor da iteração anterior;
+		\EndIf
+	\EndWhile
+		\State \textbf{Resultado: o último valor de gbest};
+	\end{algorithmic}
+\end{algorithm}
 
-\begin{table}[position specifier]
-  \centering
-  \begin{tabular}{| l | l | l |}
-  \hline
-  Duração do processo & Núcleos & $\frac{serial}{paralelo}$\\
-  \hline
-  10.885,378s $\approx$ 3h & serial & - \\
-  02.613,357s $\approx$ 43min & 8 & 4,165 \\
-  01.105,509s $\approx$ 18min & 24 & 9,846 \\
-  \hline
-\end{tabular}
-  \caption{Teste de desempenho}
-  \label{tab}
-\end{table}
+O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir dimensões enormes.
+É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas
+a receber um equipamento com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de
+testes inviáveis para cálculos de força bruta, conforme ilustrado no somatório de
+combinações da equação \ref{comb}.
 
-% & Intel Core i5 3.10GHz
-% & Intel Core i7 2 GHz
-% & Intel Xeon e5 2.30GHz
+\begin{equation} \label{comb}
+  \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
+\end{equation}
 
-%ADEPT: pode ilustrar bem os resultados, ao se comparar...
+No contexto deste trabalho a tendência é que o usuário conheça as especificações
+do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito.
+Portanto, ao trabalhar com bancos com tap fixo, é usual
+em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões)
+inserir até 5 cargas capacitivas.
+Neste caso, podemos obter o ótimo em todas as combinações
+de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
+O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
+
 \section{Resultados}
 A rede de distribuição de energia extensa utilizada neste trabalho foi construída com 2500 barras, 2500 linhas (radial) e 1500 cargas distribuídas.
 Após a análise observa-se a necessidade de inserção de quatro bancos de capacitores próximos ao início do
 circuito (na barra de alimentação) conforme
-ilustrado na figura \ref{top}. A região onde os capacitores foram instalados está mais a esquerda no diagrama,
-onde encontra-se o início do alimentador (a topologia de desenho é left-right). O retângulo na figura destaca a
+ilustrado na Figura \ref{top}. A região onde os capacitores foram instalados está mais a esquerda no diagrama,
+onde encontra-se o início do alimentador (a topologia de desenho é left-right). O retângulo vermelho na figura destaca a
 região de alocação.
 
 %PDF
@@ -274,14 +256,11 @@ região de alocação.
 \label{top}
 \end{figure}
 
-Com esta alocação é possível obter uma redução nas perdas elétricas. A potência dissipada passa de $84,2KW + 48,0KVA_r$
-quando o circuito não possui cargas capacitivas, para $76,1KW + 42,5KVA_r$ após a correta distribuição de quatro
-bancos de capacitores com $100KVA_r$.
+Com esta alocação é possível obter uma redução significativa nas perdas elétricas. A potência dissipada passa de $84,2kW + 48,0kVA_r$ quando o circuito não possui cargas capacitivas, para $76,1kW + 42,5kVA_r$ após a correta distribuição de quatro bancos de capacitores com $100KVA_r$. Ou seja, valor final das perdas foi de $96,9kVA$ para $87,2kVA$. Uma redução de $9,8kVA$, que corresponde a 10,0\% do valor inicial.
 
-A análise deste caso atingiu o melhor valor encontrado com 20 gerações, através do método por enxame de partículas.
-Para cada geração foi necessário calcular 50 fluxos de carga, para obtenção do módulo de perdas do circuito elétrico (ou seja, 50
-pontos no PSO). A evolução do valor de gbest, em comparação com a média aritmética de pbest, pode ser visualizada na
-figura \ref{evol}, que contém também os valores da geração inicial, totalizando 21 iterações.
+Para comparação, a mesma rede foi analisada através de um sistema completo de mercado denominado ``Power System Simulator / Advanced Distribution Engineering Productivity Tool'' ou simplesmente PSS/ADEPT, através do módulo de ``Colocação Ideal de Capacitores - CAPO''. Os resultados encontrados através do PSS/ADEPT módulo CAPO foram diferentes dos obtidos neste trabalho. A redução no valor das perdas foi de 1,3\%.
+
+A análise do trabalho deste artigo atingiu a convergência com 20 gerações, através do método por enxame de partículas. Para cada geração foi necessário calcular 50 vezes o fluxos de carga (ou seja, 50 partículas no PSO). A evolução do valor de gbest, em comparação com a média aritmética de pbest, pode ser visualizada na Figura \ref{evol}, que contém também os valores da geração inicial, totalizando 21 iterações.
 
 %PNG
 \begin{figure}[ht!]
@@ -291,17 +270,21 @@ figura \ref{evol}, que contém também os valores da geração inicial, totalizando 
 \label{evol}
 \end{figure}
 
-A taxa de mutação, durante este experimento, foi mantida relativamente alta, devido à grande extensão da rede.
-Seu valor, para a maioria das simulações, foi de 10\% dos indivíduos.  Assim, foi possível obter um valor final de perdas
-$9,7KVA$ menor, quando comparado com um circuito sem compensação capacitiva, com uma quantidade baixa de iterações.
+Observa-se que, uma condição importante do problema, está relacionada a variação da tensão ao longo do
+circuito durante a alocação dos capacitores. Ela é analisada com auxílio da Equação \ref{vdi},
+denominada VDI (voltage deviation index).
+
+\begin{equation} \label{vdi}
+  VDI = \sqrt{\sum^{nb}_{b=ini}\frac{(V_{b} - V)^2}{nb}}
+\end{equation}
+
+Na equação \ref{vdi} o somatório percorre todas as barras calculando a o erro quadrático médio entre o valor estimado $V_{barra}$ e a tensão nominal, similar ao cálculo de ~\citeasnoun{abul2013optimal}.
 
 O perfil de tensão melhorou, pois o valor de VDI (equação \ref{vdi}) passou de $0,0351$ para $0,0337$.
-É importante observar que, tanto para o circuito original quanto para o circuito otimizado, o nível de tensão foi verificado
-e mantido dentro da norma (menor que 1,05pu para esta rede de 13,8kV). Apesar da melhoria no nível de tensão inferior,
-esta continua abaixo de 0,95pu.
-As figuras \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia após a inserção dos bancos de capacitores. Os círculos em vermelho
-indicam o nível de tensão em todas as 2500 barras sem alocação de capacitores. As marcas em azul indicam o aumento
-desejado no nível de tensão (após inserir os equipamentos).
+É importante observar que, tanto para o circuito original quanto para o circuito otimizado, o nível de tensão foi verificado e mantido dentro da norma (menor que 1,05pu para esta rede de 13,8kV) de acordo com a valor
+indicado no anexo I de ~\citeasnoun{aneel2012procedimentos}. Apesar da grande melhoria no nível de tensão inferior, este continua abaixo de 0,95pu em alguns pontos (antes e depois de inserir os bancos de capacitores). 
+
+As Figuras \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia após a inserção dos bancos de capacitores. Os círculos em vermelho indicam o nível de tensão em todas as 2500 barras sem alocação de capacitores. As marcas em azul indicam o aumento desejado no nível de tensão (após inserir os equipamentos).
 
 %PNG
 \begin{figure}[ht!]
@@ -331,12 +314,39 @@ desejado no nível de tensão (após inserir os equipamentos).
 %2851 barras
 %2852 linhas
 
+\subsection{Requisitos computacionais}
+Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO) foram codificados em C ANSI pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
+Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores ótimos conhecidos, como a função de De Jong, o vale de Rosenbrock, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Utilizou-se ~\citeasnoun{molga2005test} para esta análise.
+
+Em um teste de desempenho foi necessário um tempo de processamento considerado alto, de aproximadamente 3 horas, para o pior caso modelado.
+Somando isto ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API OpenMP\textregistered. Descrita em ~\citeasnoun{chapman2008using}. É importante
+lembrar que, para esta melhoria no desempenho computacional através de paralelismo de núcleos, um maior uso de memória é necessário para processar todos os cálculos de fluxo de carga de uma única vez. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na Tabela \ref{tab}.
+
+\begin{table}[position specifier]
+  \centering
+  \begin{tabular}{| l | l | l |}
+  \hline
+  Duração do processo & Núcleos & $\frac{serial}{paralelo}$\\
+  \hline
+  10.885,378s $\approx$ 3h & serial & - \\
+  02.613,357s $\approx$ 43min & 8 & 4,165 \\
+  01.105,509s $\approx$ 18min & 24 & 9,846 \\
+  \hline
+\end{tabular}
+  \caption{Teste de desempenho}
+  \label{tab}
+\end{table}
+
+% & Intel Core i5 3.10GHz
+% & Intel Core i7 2 GHz
+% & Intel Xeon e5 2.30GHz
+
 \section{Conclusões}
 Observa-se que, ao inserir grupos de capacitores em pontos específicos da rede,
 é possível reduzir perdas ativas e reativas no sistema diminuindo a corrente no tronco
 principal do alimentador (início de circuito). Em paralelo, a variação no nível de tensão
-ao longo das barras fica mais estabilizada, trazendo os valores para a proximidade da
-tensão nominal (1pu).
+ao longo das barras fica estável, trazendo os valores para a proximidade da
+tensão nominal (1,0pu).
 
 \section*{Agradecimentos}
 À equipe do Projeto de Pesquisa e Desenvolvimento Tecnológico P\&D ANEEL D435 -``Desenvolvimento de Metodologia para Definir Valores de Fator de Carga e Fator de Demanda em Unidade Consumidora'' pelo apoio técnico e financeiro que viabilizaram o desenvolvimento desta pesquisa. As entidades participantes são (em ordem alfabética):
