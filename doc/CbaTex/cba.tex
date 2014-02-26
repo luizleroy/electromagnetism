@@ -116,7 +116,7 @@ A alocação destes equipamentos de potência seguirá as seguintes diretivas:
 	\item Minimizar a perda de energia ao longo do circuito.
 \end{itemize}
 
-Na próxima seção, descreve-se o método utilizado para o cálculo de fluxo elétrico de potência, denominado Backward-Forward ou método por varredura, descrito em ~\citeasnoun{hamouda2006efficient}. E também o processo de otimização, conhecido como Particle Swarm Optimization (PSO) ou método de otimização por enxame de partículas. Este é uma moderna heurística desenvolvida inicialmente por Kennedy and Eberhart em ~\citeasnoun{eberhart2001particle} e ~\citeasnoun{clerc2002particle}. O objetivo é mostrar como é realizado, na prática, a solução para o problema de alocação dos capacitores. Em seguida, temos os resultados deste trabalho, bem como os requisitos computacionais. No final do artigo existe uma seção para as conclusões e outra para os agradecimentos às entidades que fomentaram a pesquisa.
+Na próxima seção, descreve-se o método utilizado para o cálculo de fluxo elétrico de potência, denominado backward-forward ou método por varredura, descrito em ~\citeasnoun{hamouda2006efficient}. E também o processo de otimização, conhecido como Particle Swarm Optimization (PSO) ou método de otimização por enxame de partículas. Este é uma moderna heurística desenvolvida inicialmente por Kennedy and Eberhart em ~\citeasnoun{eberhart2001particle} e ~\citeasnoun{clerc2002particle}. O objetivo é mostrar como é realizado, na prática, a solução para o problema de alocação dos capacitores. Em seguida, temos os resultados deste trabalho, bem como os requisitos computacionais. No final do artigo existe uma seção para as conclusões e outra para os agradecimentos às entidades que fomentaram a pesquisa.
 
 \section{Revisão bibliográfica}
 \subsection{Cálculo do fluxo de carga}
@@ -129,11 +129,11 @@ potência e corrente em cada um dos pontos do sistema em estudo.
 O método de varredura foi utilizado para o cálculo de perdas, necessários para determinar o valor da função objetivo.
 Nos sistemas radiais de distribuição com apenas uma fonte de tensão, localizada na barra de referência, o cálculo é realizado de
 forma unidirecional, isto é, da barra de referência para as barras terminais.
-O método Backward-Forward calcula o fluxo em dois passos.
+O método backward-forward calcula o fluxo em dois passos.
 No primeiro (backward), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência, assim como a injeção de corrente. No segundo passo (forward) calculam-se as magnitudes e os
 ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos em -120º, 0º e 120º para cada fase (A, B e C).
 
-Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente até que a convergência seja atingida.
+Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida.
 
 \subsection{Metodologia de minimização via PSO (Particle Swarm
 Optimization) }
@@ -143,7 +143,7 @@ e corrente por fase ABC, em todas as barras e linhas respectivamente), é possíve
 do circuito, que serão minimizadas ao inserir bancos de capacitores na rede de distribuição.
 
 O procedimento usual em métodos estocásticos (e adotado neste trabalho) durante o processo de minimização
-(ou maximização) de funções objetivos de múltiplas variáveis e iniciar com uma população de pontos de avaliação
+(ou maximização) de funções objetivos de múltiplas variáveis é iniciar com uma população de pontos de avaliação
 (cálculo de funções) e evoluir até encontrar um valor satisfatório para servir de solução ao problema. Neste caso,
 obtém-se a avaliação da função através do método de cálculo de fluxo de carga por varredura e
 utiliza-se a técnica de otimização inteira descrita em ~\citeasnoun{del2008particle}.
@@ -197,15 +197,17 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 	\begin{algorithmic}	
 			\State Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
 			\State Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
-			\State Realizar o cálculo do fluxo de potência de todos as soluções candidatas iniciais (as partículas), para obtenção da perda elétrica total no circuito, que corresponde ao resultado da função objetivo;
+			\State Realizar o cálculo do fluxo de potência e da função objetivo para todas as partículas;
 			\State Atualizar o valor inicial de pbest das partículas com o valor calculado no passo imediatamente anterior;
 			\State Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
 	\While{(não atingir critério de parada)}
-			\State Calcular o valor da constante de inércia definida em \ref{inert};
-			\State Calcular os valores de velocidade para todas as soluções candidatas conforme \ref{vel};
-			\State Calcular a nova posição da partícula para todas as novas soluções candidatas conforme \ref{pos};
+			\State Calcular constante de inércia ( eq. \ref{inert});
+			\For{(todas as partículas)}
+				\State Calcular velocidade (eq. \ref{vel});
+				\State Calcular posição da partícula (eq. \ref{pos});
+			\EndFor
 			\State Realizar mutações, aleatórias, conforme um percentual pré-definido;
-			\State Realizar o cálculo do fluxo de potência de todos as soluções candidatas para obter a perda elétrica;
+			\State Realizar o cálculo do fluxo de potência e da função objetivo para todas as partículas;
 		\For{(todas as partículas)}
 			\If{(novo valor de perda for menor que o valor da iteração anterior)}
 				\State Atualizar o valor de pbest;
@@ -215,7 +217,7 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 		\If{(menor pbest for menor que o valor da iteração anterior de gbest)}
 			\State Atualizar o valor corrente de gbest com o menor valor de pbest;
 		\Else
-			\State Atualizar o valor corrente de gbest com o valor da iteração anterior;
+			\State Atualizar o valor corrente de gbest com o valor de gbest da iteração anterior;
 		\EndIf
 	\EndWhile
 		\State \textbf{Resultado: o último valor de gbest.}
@@ -225,8 +227,7 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir dimensões enormes.
 É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas
 a receber um equipamento com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de
-testes inviáveis para cálculos de força bruta, conforme ilustrado no somatório de
-combinações da equação \ref{comb}.
+testes inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da equação \ref{comb}.
 
 \begin{equation} \label{comb}
   \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
@@ -263,10 +264,10 @@ Para comparação, a mesma rede foi analisada através de um sistema completo de me
 
 A análise do trabalho deste artigo atingiu a convergência com 20 gerações, através do método por enxame de partículas. Para cada geração foi necessário calcular 50 vezes o fluxos de carga (ou seja, 50 partículas no PSO). A evolução do valor de gbest, em comparação com a média aritmética de pbest, pode ser visualizada na Figura \ref{evol}, que contém também os valores da geração inicial, totalizando 21 iterações.
 
-%PNG
+%PDF
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=75mm]{evolucao-P-G-Best.png}
+\includegraphics[width=75mm]{evolucao-P-G-Best.pdf}
 \caption{Evolução do PSO ao longo de 20/21 gerações}
 \label{evol}
 \end{figure}
@@ -288,18 +289,18 @@ indicado no anexo I de ~\citeasnoun{aneel2012procedimentos}. Apesar da grande me
 
 As Figuras \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia após a inserção dos bancos de capacitores. Os círculos em vermelho indicam o nível de tensão em todas as 2500 barras sem alocação de capacitores. As marcas em azul indicam o aumento desejado no nível de tensão (após inserir os equipamentos).
 
-%PNG
+%PDF
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=75mm]{tensao-barras.png}
+\includegraphics[width=75mm]{tensao-barras.pdf}
 \caption{Perfil de tensão com e sem alocação de capacitores}
 \label{perfil}
 \end{figure}
 
-%PNG
+%PDF
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=75mm]{tensao-barras-ZOOM.png}
+\includegraphics[width=75mm]{tensao-barras-ZOOM.pdf}
 \caption{Perfil de tensão com e sem alocação de capacitores (fim de circuito)}
 \label{perfilz}
 \end{figure}
@@ -317,7 +318,7 @@ As Figuras \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia a
 %2852 linhas
 
 \subsection{Requisitos computacionais}
-Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO) foram codificados em C ANSI pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
+Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO) foram codificados em C ANSI, pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
 Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores ótimos conhecidos, como a função de De Jong, o vale de Rosenbrock, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Utilizou-se ~\citeasnoun{molga2005test} para esta análise.
 
 Em um teste de desempenho foi necessário um tempo de processamento considerado alto, de aproximadamente 3 horas, para o pior caso modelado.
