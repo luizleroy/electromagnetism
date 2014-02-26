@@ -59,16 +59,16 @@
 
 \maketitle
 
-\selectlanguage{english}
-\begin{abstract}
-O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia elétrica em sistemas de grande porte, visando a estabilização dos níveis de tensão ao longo dos circuitos e a diminuição das perdas elétricas.
-Através de uma técnica de otimização robusta, mono objetivo, denominada PSO (Particle Swarm Optimization) apresenta-se um método para alocação de bancos de capacitores.
-Assim, é possível obter a melhoria no perfil de tensão e a minimização das perdas ao longo da linha
-dos alimentadores de energia após a inserção, nos devidos pontos, de equipamentos capacitivos.
-Este tipo de problema é conhecido como \emph{Optimal Capacitor Placement} - OCP.
-\end{abstract}
-
-\keywords{Sistemas de Distribuição, OCP, Redução de Perdas, Perfil de tensão, PSO, Inteligência de Enxames, Computação Evolucionaria.}
+%\selectlanguage{english}
+%\begin{abstract}
+%O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia elétrica em sistemas de grande porte, visando a estabilização dos níveis de tensão ao longo dos circuitos e a diminuição das perdas elétricas.
+%Através de uma técnica de otimização robusta, mono objetivo, denominada PSO (Particle Swarm Optimization) apresenta-se um método para alocação de bancos de capacitores.
+%Assim, é possível obter a melhoria no perfil de tensão e a minimização das perdas ao longo da linha
+%dos alimentadores de energia após a inserção, nos devidos pontos, de equipamentos capacitivos.
+%Este tipo de problema é conhecido como \emph{Optimal Capacitor Placement} - OCP.
+%\end{abstract}
+%
+%\keywords{Sistemas de Distribuição, OCP, Redução de Perdas, Perfil de tensão, PSO, Inteligência de Enxames, Computação Evolucionaria.}
 
 \selectlanguage{brazil}
 \begin{abstract}
@@ -197,7 +197,7 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 	\begin{algorithmic}	
 			\State Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
 			\State Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
-			\State Realizar o cálculo do fluxo de potência e da função objetivo para todas as partículas;
+			\State Calcular fluxo (de potência) e as perda elétricas para todas as partículas \textbf{(função objetivo)};
 			\State Atualizar o valor inicial de pbest das partículas com o valor calculado no passo imediatamente anterior;
 			\State Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
 	\While{(não atingir critério de parada)}
@@ -206,18 +206,18 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 				\State Calcular velocidade (eq. \ref{vel});
 				\State Calcular posição da partícula (eq. \ref{pos});
 			\EndFor
-			\State Realizar mutações, aleatórias, conforme um percentual pré-definido;
-			\State Realizar o cálculo do fluxo de potência e da função objetivo para todas as partículas;
+			\State Realizar mutações aleatórias;
 		\For{(todas as partículas)}
-			\If{(novo valor de perda for menor que o valor da iteração anterior)}
-				\State Atualizar o valor de pbest;
+			\State Calcular fluxo (pot.) e perda elétrica;
+			\If{(pbest for maior que a perda)}
+				\State Atualizar o valor de pbest com perda;
 			\EndIf
 		\EndFor
 		\State Encontrar o menor valor de pbest;
-		\If{(menor pbest for menor que o valor da iteração anterior de gbest)}
-			\State Atualizar o valor corrente de gbest com o menor valor de pbest;
+		\If{(menor pbest < gbest anterior)}
+			\State Atualizar gbest com menor pbest;
 		\Else
-			\State Atualizar o valor corrente de gbest com o valor de gbest da iteração anterior;
+			\State Atualizar gbest com gbest anterior;
 		\EndIf
 	\EndWhile
 		\State \textbf{Resultado: o último valor de gbest.}
