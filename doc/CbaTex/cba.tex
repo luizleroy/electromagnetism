@@ -20,6 +20,10 @@
 
 \usepackage{algpseudocode}
 \usepackage{algorithm}
+%\newenvironment{myalgorithm}[1][htb]
+  %{\renewcommand{\algorithmcfname}{Algoritmo}%
+   %\begin{algorithm}[#1]%
+  %}{\end{algorithm}}
 
 \usepackage{float}	% para posicionar elementos em um lugar fixo (opção [H])
 % --------------------------------------------------
@@ -58,24 +62,24 @@
 \selectlanguage{english}
 \begin{abstract}
 O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia elétrica em sistemas de grande porte, visando a estabilização dos níveis de tensão ao longo dos circuitos e a diminuição das perdas elétricas.
-Através de uma técnica de otimização robusta, monoobjetivo, denominada PSO (Particle Swarm Optimization) apresenta-se um método para alocação bancos de capacitores.
+Através de uma técnica de otimização robusta, mono objetivo, denominada PSO (Particle Swarm Optimization) apresenta-se um método para alocação de bancos de capacitores.
 Assim, é possível obter a melhoria no perfil de tensão e a minimização das perdas ao longo da linha
 dos alimentadores de energia após a inserção, nos devidos pontos, de equipamentos capacitivos.
 Este tipo de problema é conhecido como \emph{Optimal Capacitor Placement} - OCP.
 \end{abstract}
 
-\keywords{\textcolor[rgb]{1.00,0.00,0.00}{Sistema de Distribuição}, OCP, Redução de Perdas, Perfil de tensão, PSO, Inteligência de Enxames, Computação Evolucionaria.}
+\keywords{Sistemas de Distribuição, OCP, Redução de Perdas, Perfil de tensão, PSO, Inteligência de Enxames, Computação Evolucionaria.}
 
 \selectlanguage{brazil}
 \begin{abstract}
 O objetivo deste trabalho é  buscar por melhorias na qualidade de distribuição de energia elétrica em sistemas de grande porte, visando a estabilização dos níveis de tensão ao longo dos circuitos e a diminuição das perdas elétricas.
-Através de uma técnica de otimização robusta, monoobjetivo, denominada PSO (Particle Swarm Optimization) apresenta-se um método para alocação bancos de capacitores.
+Através de uma técnica de otimização robusta, mono objetivo, denominada PSO (Particle Swarm Optimization) apresenta-se um método para alocação de bancos de capacitores.
 Assim, é possível obter a melhoria no perfil de tensão e a minimização das perdas ao longo da linha
 dos alimentadores de energia após a inserção, nos devidos pontos, de equipamentos capacitivos.
 Este tipo de problema é conhecido como \emph{Optimal Capacitor Placement} - OCP.
 \end{abstract}
 
-\keywords{\textcolor[rgb]{1.00,0.00,0.00}{Sistema de Distribuição}, OCP, Redução de Perdas, Perfil de tensão, PSO, Inteligência de Enxames, Computação Evolucionaria.}
+\keywords{Sistemas de Distribuição, OCP, Redução de Perdas, Perfil de tensão, PSO, Inteligência de Enxames, Computação Evolucionaria.}
 
 ]
 
@@ -91,9 +95,8 @@ Apos o período de construção da rede de distribuição ocorre degradação da qualid
 consequência das dificuldades de prever condições precisas de carga durante a fase de planejamento do sistema.
 Desta maneira torna-se necessário o planejamento de curto prazo da rede de distribuição, com a instalação de
 dispositivos que assegurem que o sistema opere dentro dos limites de magnitude de tensão estabelecidos pelas agencias reguladoras.
-Dentre os dispositivos, destaca-se a alocação de bancos de capacitores, que instalados de forma adequada proporcionam a
-compensação de reativos, regulando as magnitudes das tensões ao longo da rede, bem como o fator de potencia da subestação.
-Fornecendo como benefício a redução de perdas ativas no sistema.
+
+Dentre os dispositivos, destaca-se a alocação de bancos de capacitores, que instalados de forma adequada proporcionam a compensação de reativos, regulando as magnitudes das tensões ao longo da rede, fornecendo como benefício a redução de perdas ativas e reativas no sistema.
 
 Durante este trabalho foi utilizado informações de carregamento elétrico
 do circuito, impedâncias envolvidas e sua topologia. A contribuição do procedimento desenvolvido é
@@ -113,7 +116,7 @@ A alocação destes equipamentos de potência seguirá as seguintes diretivas:
 	\item Minimizar a perda de energia ao longo do circuito.
 \end{itemize}
 
-Na próxima seção, que descreve o método de cálculo para o fluxo elétrico de potência e o processo de otimização, explica-se como é realizado na prática a solução para o OCP. Em seguida, temos os resultados deste trabalho, bem como os requisitos computacionais. No final do artigo existe uma seção para as conclusões e outra para os agradecimentos às entidades que fomentaram a pesquisa.
+Na próxima seção, descreve-se o método utilizado para o cálculo de fluxo elétrico de potência, denominado Backward-Forward ou método por varredura, descrito em ~\citeasnoun{hamouda2006efficient}. E também o processo de otimização, conhecido como Particle Swarm Optimization (PSO) ou método de otimização por enxame de partículas. Este é uma moderna heurística desenvolvida inicialmente por Kennedy and Eberhart em ~\citeasnoun{eberhart2001particle} e ~\citeasnoun{clerc2002particle}. O objetivo é mostrar como é realizado, na prática, a solução para o problema de alocação dos capacitores. Em seguida, temos os resultados deste trabalho, bem como os requisitos computacionais. No final do artigo existe uma seção para as conclusões e outra para os agradecimentos às entidades que fomentaram a pesquisa.
 
 \section{Revisão bibliográfica}
 \subsection{Cálculo do fluxo de carga}
@@ -123,16 +126,14 @@ análise numérica extensa, que para grandes sistemas são necessárias técnicas esp
 Trata-se de um problema matemático, formado por um conjunto de equações diferenciais parciais, cuja solução permite determinar os valores de tensão,
 potência e corrente em cada um dos pontos do sistema em estudo.
 
-O método de varredura, ou Backward-Forward, foi utilizado para o cálculo de perdas, necessários para determinar o valor da função objetivo.
+O método de varredura foi utilizado para o cálculo de perdas, necessários para determinar o valor da função objetivo.
 Nos sistemas radiais de distribuição com apenas uma fonte de tensão, localizada na barra de referência, o cálculo é realizado de
 forma unidirecional, isto é, da barra de referência para as barras terminais.
 O método Backward-Forward calcula o fluxo em dois passos.
 No primeiro (backward), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência, assim como a injeção de corrente. No segundo passo (forward) calculam-se as magnitudes e os
 ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos em -120º, 0º e 120º para cada fase (A, B e C).
 
-Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades.
-O cálculo algébrico é feito com as variáveis na forma complexa,
-iterativamente até que a convergência seja atingida. Vide ~\citeasnoun{hamouda2006efficient}.
+Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente até que a convergência seja atingida.
 
 \subsection{Metodologia de minimização via PSO (Particle Swarm
 Optimization) }
@@ -190,14 +191,14 @@ Durante o processo evolutivo da otimização, para um ganho de diversidade, foi el
 A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local.
 
 \subsection{Solução para alocação dos dispositivos}
-Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas (PSO), é possível contruir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP) conforme consta no algoritmo abaixo:
+Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas (PSO), é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP) conforme consta no algoritmo abaixo:
 
 \begin{algorithm}[H]
 	\begin{algorithmic}	
 			\State Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
 			\State Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
 			\State Realizar o cálculo do fluxo de potência de todos as soluções candidatas iniciais (as partículas), para obtenção da perda elétrica total no circuito, que corresponde ao resultado da função objetivo;
-			\State Atualizar o valor inicial de pbest das partícuals com o valor calculado no passo imediatamente anterior;
+			\State Atualizar o valor inicial de pbest das partículas com o valor calculado no passo imediatamente anterior;
 			\State Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
 	\While{(não atingir critério de parada)}
 			\State Calcular o valor da constante de inércia definida em \ref{inert};
@@ -217,7 +218,7 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 			\State Atualizar o valor corrente de gbest com o valor da iteração anterior;
 		\EndIf
 	\EndWhile
-		\State \textbf{Resultado: o último valor de gbest};
+		\State \textbf{Resultado: o último valor de gbest.}
 	\end{algorithmic}
 \end{algorithm}
 
@@ -271,8 +272,9 @@ A análise do trabalho deste artigo atingiu a convergência com 20 gerações, atrav
 \end{figure}
 
 Observa-se que, uma condição importante do problema, está relacionada a variação da tensão ao longo do
-circuito durante a alocação dos capacitores. Ela é analisada com auxílio da Equação \ref{vdi},
-denominada VDI (voltage deviation index).
+circuito durante a alocação dos capacitores. Estabilidade no nível de tensão, via otimização por PSO foi bastante explorada em ~\citeasnoun{kim2011optimal} e ~\citeasnoun{hernandez2006optimal}.
+
+Ela é analisada com auxílio da Equação \ref{vdi}, denominada VDI (voltage deviation index).
 
 \begin{equation} \label{vdi}
   VDI = \sqrt{\sum^{nb}_{b=ini}\frac{(V_{b} - V)^2}{nb}}
