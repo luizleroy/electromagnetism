@@ -1,24 +1,14 @@
 \section{Introdução}
-Manter o perfil operacional da rede de distribuição de energia dentro dos limites adequados é um problema que deve ser modelado e resolvido
-obedecendo a restrições de natureza técnica e, sempre que possível, considerar
-detalhes econômicos que envolvem a implantação e manutenção.
-O problema abordado durante este trabalho é minimizar o fluxo de carga e
-reduzir as perdas ao longo da rede de distribuição (o circuito alimentador) com a inserção de banco de capacitores nos pontos adequados
-do sistema.
+\textcolor[rgb]{0.00,0.00,1.00}{O problema abordado durante este trabalho é minimizar o fluxo de carga e reduzir as perdas ao longo da rede de distribuição (o circuito alimentador) com a inserção de banco de capacitores nos pontos adequados do sistema.}
+\textcolor[rgb]{1.00,0.00,0.00}{(está repetindo o abstract, talvez colocar adiante no texto)}
 
-Apos o período de construção da rede de distribuição ocorre degradação da qualidade do perfil de tensão como
-consequência das dificuldades de prever condições precisas de carga durante a fase de planejamento do sistema.
-Desta maneira torna-se necessário o planejamento de curto prazo da rede de distribuição, com a instalação de
-dispositivos que assegurem que o sistema opere dentro dos limites de magnitude de tensão estabelecidos pelas agencias reguladoras.
+De maneira geral em países em desenvolvimento, poucos anos após o período de construção de uma rede de distribuição, nota-se a degradação da qualidade do perfil de tensão como consequência das dificuldades de prever condições precisas de carga durante a fase de planejamento do sistema. Existem diferentes formas de tratar o problema de qualidade de energia em redes de distribuição.\textcolor[rgb]{1.00,0.00,0.00}{(inserir referências para valorizar o assunto e citar o que poderia ser feito)} com a instalação de dispositivos que assegurem que o sistema opere dentro dos limites de magnitude de tensão estabelecidos pelas agências reguladoras. Dentre os dispositivos, destaca-se a alocação de bancos de capacitores \textcolor[rgb]{1.00,0.00,0.00}{(referências)}, que instalados de forma adequada proporcionam a compensação de reativos, regulando as magnitudes das tensões ao longo da rede, fornecendo como benefício a redução de perdas ativas e reativas no sistema.
+%
+%Independente do método empregado, há necessidade de se considerar  para manter o perfil operacional da rede de distribuição de energia dentro dos limites adequados por normas é um problema que deve ser modelado e resolvido obedecendo a restrições de natureza técnica e, sempre que possível, considerar detalhes econômicos que envolvem a implantação e manutenção.
 
-Dentre os dispositivos, destaca-se a alocação de bancos de capacitores, que instalados de forma adequada proporcionam a compensação de reativos, regulando as magnitudes das tensões ao longo da rede, fornecendo como benefício a redução de perdas ativas e reativas no sistema.
+Considerando que o método para melhoria da rede seja por OCP (\emph{Optimal Capacitor Placement}), busca-se por uma configuração ótima destes componentes elétricos segundo critérios econômicos e de qualidade de energia. A formulação do problema não linear OCP tem como entrada informações do cálculo do fluxo de carga da linha de distribuição e necessita de algum método de otimização para encontrar a solução. Diversos métodos de otimização podem ser empregados tais como métodoA, MétodoB e métodoC \textcolor[rgb]{1.00,0.00,0.00}{(referências)}. Dentre eles destacam-se as técnicas estocásticas como o Algoritmo Genético e o PSO \textcolor[rgb]{1.00,0.00,0.00}{(referências)}
 
-Durante este trabalho foi utilizado informações de carregamento elétrico
-do circuito, impedâncias envolvidas e sua topologia. A contribuição do procedimento desenvolvido é
-especificar a posição de instalação de bancos de capacitores ao longo de
-um alimentador de energia, onde a rede de distribuição contenha um número de barras, linhas e cargas da ordem de milhares de unidades.
-
-Para a construção do sistema de alocação dos capacitores (Optimal Capacitor Placement - OCP) utiliza-se do cálculo do fluxo de carga da linha de distribuição e de algum método de otimização para a solução de um problema não linear.
+Durante este trabalho foi utilizado informações de carregamento elétrico do circuito, impedâncias envolvidas e sua topologia. A contribuição do procedimento desenvolvido é especificar a posição de instalação de bancos de capacitores ao longo de um alimentador de energia, onde a rede de distribuição contenha um número de barras, linhas e cargas da ordem de milhares de unidades.
 
 O trabalho foi formulado buscando encontrar pontos ótimos de alocação de capacitores em redes de grande extensão.
 A topologia de rede (alimentadores longos com número grande de cargas distribuídas e milhares de barras) é muito similar ao que ocorre na prática no sistema de distribuição de energia do nordeste do estado de Minas Gerais.
