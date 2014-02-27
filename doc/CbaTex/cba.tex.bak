@@ -251,9 +251,9 @@ onde encontra-se o início do alimentador (a topologia de desenho é left-right). 
 região de alocação.
 
 %PDF
-\begin{figure}[!htbp]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=1\linewidth]{axxxx-05.pdf}
+\includegraphics[width=75mm]{axxxx-05.pdf}
 \caption{Localização topológica dos capacitores alocados}
 \label{top}
 \end{figure}
@@ -285,18 +285,14 @@ Na equação \ref{vdi} o somatório percorre todas as barras calculando a o erro qu
 
 O perfil de tensão melhorou, pois o valor de VDI (equação \ref{vdi}) passou de $0,0351$ para $0,0337$.
 É importante observar que, tanto para o circuito original quanto para o circuito otimizado, o nível de tensão foi verificado e mantido dentro da norma (menor que 1,05pu para esta rede de 13,8kV) de acordo com a valor
-indicado no anexo I de ~\citeasnoun{aneel2012procedimentos}. Apesar da grande melhoria no nível de tensão inferior, este continua abaixo de 0,95pu em alguns pontos (antes e depois de inserir os bancos de capacitores).
+indicado no anexo I de ~\citeasnoun{aneel2012procedimentos}. Apesar da grande melhoria no nível de tensão inferior, este continua abaixo de 0,95pu em alguns pontos (antes e depois de inserir os bancos de capacitores). 
 
 As Figuras \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia após a inserção dos bancos de capacitores. Os círculos em vermelho indicam o nível de tensão em todas as 2500 barras sem alocação de capacitores. As marcas em azul indicam o aumento desejado no nível de tensão (após inserir os equipamentos).
 
 %PDF
 \begin{figure}[ht!]
 \centering
-<<<<<<< .mine
-\includegraphics[width=75mm]{teste.pdf} %tensao-barras.png}
-=======
 \includegraphics[width=75mm]{tensao-barras.pdf}
->>>>>>> .r69
 \caption{Perfil de tensão com e sem alocação de capacitores}
 \label{perfil}
 \end{figure}
@@ -358,7 +354,7 @@ tensão nominal (1,0pu).
 \section*{Agradecimentos}
 À equipe do Projeto de Pesquisa e Desenvolvimento Tecnológico P\&D ANEEL D435 -``Desenvolvimento de Metodologia para Definir Valores de Fator de Carga e Fator de Demanda em Unidade Consumidora'' pelo apoio técnico e financeiro que viabilizaram o desenvolvimento desta pesquisa. As entidades participantes são (em ordem alfabética):
 \begin{itemize}
-	\item Axxiom Soluções Tecnológicas SA,
+	\item Axxiom Soluções Tecnológicas SA, 
 	\item Cemig Distribuição SA,
 	\item Pontifícia Universidade Católica de Minas Gerais e
 	\item VS2 Consultoria, Treinamento e Engenharia LTDA.
