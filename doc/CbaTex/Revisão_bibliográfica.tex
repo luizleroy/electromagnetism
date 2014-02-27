@@ -1,0 +1,123 @@
+\section{Revisão bibliográfica}
+\subsection{Cálculo do fluxo de carga}
+Fluxo de potência ou fluxo de carga (load flow) é o estudo de sistemas de
+potência em condição de regime permanente. É um estudo que demanda uma
+análise numérica extensa, que para grandes sistemas são necessárias técnicas específicas, como notação por unidade (pu) e componentes simétricas.
+Trata-se de um problema matemático, formado por um conjunto de equações diferenciais parciais, cuja solução permite determinar os valores de tensão,
+potência e corrente em cada um dos pontos do sistema em estudo.
+
+O método de varredura foi utilizado para o cálculo de perdas, necessários para determinar o valor da função objetivo.
+Nos sistemas radiais de distribuição com apenas uma fonte de tensão, localizada na barra de referência, o cálculo é realizado de
+forma unidirecional, isto é, da barra de referência para as barras terminais.
+O método backward-forward calcula o fluxo em dois passos.
+No primeiro (backward), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência, assim como a injeção de corrente. No segundo passo (forward) calculam-se as magnitudes e os
+ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos em -120º, 0º e 120º para cada fase (A, B e C).
+
+Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida.
+
+\subsection{Metodologia de minimização via PSO (Particle Swarm
+Optimization) }
+A função objetivo a ser minimizada é simples. Partindo de uma topologia com
+todos os cálculos de fluxo de carga realizados (a potência ativa e reativa, bem como o módulo e ângulo de tensão
+e corrente por fase ABC, em todas as barras e linhas respectivamente), é possível somar as perdas ao longo
+do circuito, que serão minimizadas ao inserir bancos de capacitores na rede de distribuição.
+
+O procedimento usual em métodos estocásticos (e adotado neste trabalho) durante o processo de minimização
+(ou maximização) de funções objetivos de múltiplas variáveis é iniciar com uma população de pontos de avaliação
+(cálculo de funções) e evoluir até encontrar um valor satisfatório para servir de solução ao problema. Neste caso,
+obtém-se a avaliação da função através do método de cálculo de fluxo de carga por varredura e
+utiliza-se a técnica de otimização inteira descrita em ~\citeasnoun{del2008particle}.
+
+O algoritmo se adapta atualizando um parâmetro denominado velocidade, com auxílio de boas experiências de
+iterações anteriores. Conforme ~\citeasnoun{zhang2008active}, ~\citeasnoun{sedlaczek2006using} e ~\citeasnoun{yarmohamadi2012capaictor}).
+No PSO, a velocidade $v_i^d$ e a posição $x_i^d$ da d-ésima dimensão da i-ésima partícula é atualizada
+conforme ~\ref{vel} e ~\ref{pos}:
+
+\begin{equation} \label{vel}
+\begin{split}
+  v_i^d = w \cdot v_i^d +c_1 \cdot r_1 \cdot (pbest_i^d-x_i^d)
+  \\
+  + c_2 \cdot r_2 \cdot (gbest^d-x_i^d)
+\end{split}
+\end{equation}
+
+\begin{equation} \label{pos}
+ x_i^d = x_i^d + v_i^d
+\end{equation}
+
+Onde:
+\begin{itemize}
+  \item $x_i$ é a posição de uma partícula na iteração $i$ (ponto de avaliação da função objetivo);
+  \item $v_i$ é definido como a velocidade de uma partícula na iteração $i$;
+  \item $pbest_i$ é a melhor localização no espaço de busca para a partícula $i$;
+  \item $gbest$ é a melhor localização encontrada a cada iteração;
+  \item $w$ é o peso inercial que controla o impacto da velocidade anterior no momento atual;
+  \item $r_1$ e $r_2$ são dois valores independentes uniformemente distribuídos entre $[0,1)$ e
+  \item $c_1$,$c_2$ são dois coeficientes positivos que controlam a contribuição de pbest e gbest.
+\end{itemize}
+
+A equação ~\ref{vel} é usada para calcular o nova velocidade de acordo com a velocidade
+anterior e a distância entre a posição corrente e a melhor posição anterior da partícula (pbest). Também é
+contabilizado a inteligência do grupo, através da posição anterior e o valor gbest.
+O processo é repetido até um número máximo de iterações ($imax$).
+O peso inercial, durante este trabalho, recebeu um decaimento exponencial. A cada iteração $i$,
+conforme a equação ~\ref{inert}, ele diminui, controlado pelas constantes $w_1$ e $w_2$:
+
+\begin{equation} \label{inert}
+ w = w_1 \cdot e^{\frac{-w_{2}\cdot i}{imax}}
+\end{equation}
+
+Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas.
+A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local.
+
+\subsection{Solução para alocação dos dispositivos}
+Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas (PSO), é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP) conforme consta no algoritmo abaixo:
+
+\begin{algorithm}[H]
+	\begin{algorithmic}	
+			\State Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
+			\State Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
+			\State Calcular fluxo (de potência) e as perda elétricas para todas as partículas \textbf{(função objetivo)};
+			\State Atualizar o valor inicial de pbest das partículas com o valor calculado no passo imediatamente anterior;
+			\State Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
+	\While{(não atingir critério de parada)}
+			\State Calcular constante de inércia ( eq. \ref{inert});
+			\For{(todas as partículas)}
+				\State Calcular velocidade (eq. \ref{vel});
+				\State Calcular posição da partícula (eq. \ref{pos});
+			\EndFor
+			\State Realizar mutações aleatórias;
+		\For{(todas as partículas)}
+			\State Calcular fluxo (pot.) e perda elétrica;
+			\If{(pbest for maior que a perda)}
+				\State Atualizar o valor de pbest com perda;
+			\EndIf
+		\EndFor
+		\State Encontrar o menor valor de pbest;
+		\If{(menor pbest < gbest anterior)}
+			\State Atualizar gbest com menor pbest;
+		\Else
+			\State Atualizar gbest com gbest anterior;
+		\EndIf
+	\EndWhile
+		\State \textbf{Resultado: o último valor de gbest.}
+	\end{algorithmic}
+\end{algorithm}
+
+O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir dimensões enormes.
+É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas
+a receber um equipamento com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de
+testes inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da equação \ref{comb}.
+
+\begin{equation} \label{comb}
+  \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
+\end{equation}
+
+No contexto deste trabalho a tendência é que o usuário conheça as especificações
+do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito.
+Portanto, ao trabalhar com bancos com tap fixo, é usual
+em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões)
+inserir até 5 cargas capacitivas.
+Neste caso, podemos obter o ótimo em todas as combinações
+de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
+O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.

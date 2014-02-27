@@ -1,0 +1,105 @@
+\section{Experimento e Resultados}
+A rede de distribuição de energia extensa utilizada neste trabalho foi construída com 2500 barras, 2500 linhas (radial) e 1500 cargas distribuídas.
+Após a análise observa-se a necessidade de inserção de quatro bancos de capacitores próximos ao início do
+circuito (na barra de alimentação) conforme
+ilustrado na Figura \ref{top}. A região onde os capacitores foram instalados está mais a esquerda no diagrama,
+onde encontra-se o início do alimentador (a topologia de desenho é left-right). O retângulo vermelho na figura destaca a
+região de alocação.
+
+%PDF
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=1\linewidth]{axxxx-05.pdf}
+\caption{Localização topológica dos capacitores alocados}
+\label{top}
+\end{figure}
+
+Com esta alocação é possível obter uma redução significativa nas perdas elétricas. A potência dissipada passa de $84,2kW + 48,0kVA_r$ quando o circuito não possui cargas capacitivas, para $76,1kW + 42,5kVA_r$ após a correta distribuição de quatro bancos de capacitores com $100KVA_r$. Ou seja, valor final das perdas foi de $96,9kVA$ para $87,2kVA$. Uma redução de $9,8kVA$, que corresponde a 10,0\% do valor inicial.
+
+Para comparação, a mesma rede foi analisada através de um sistema completo de mercado denominado ``Power System Simulator / Advanced Distribution Engineering Productivity Tool'' ou simplesmente PSS/ADEPT, através do módulo de ``Colocação Ideal de Capacitores - CAPO''. Os resultados encontrados através do PSS/ADEPT módulo CAPO foram diferentes dos obtidos neste trabalho. A redução no valor das perdas foi de 1,3\%.
+
+A análise do trabalho deste artigo atingiu a convergência com 20 gerações, através do método por enxame de partículas. Para cada geração foi necessário calcular 50 vezes o fluxos de carga (ou seja, 50 partículas no PSO). A evolução do valor de gbest, em comparação com a média aritmética de pbest, pode ser visualizada na Figura \ref{evol}, que contém também os valores da geração inicial, totalizando 21 iterações.
+
+%PDF
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=75mm]{evolucao-P-G-Best.pdf}
+\caption{Evolução do PSO ao longo de 20/21 gerações}
+\label{evol}
+\end{figure}
+
+Observa-se que, uma condição importante do problema, está relacionada a variação da tensão ao longo do
+circuito durante a alocação dos capacitores. Estabilidade no nível de tensão, via otimização por PSO foi bastante explorada em ~\citeasnoun{kim2011optimal} e ~\citeasnoun{hernandez2006optimal}.
+
+Ela é analisada com auxílio da Equação \ref{vdi}, denominada VDI (voltage deviation index).
+
+\begin{equation} \label{vdi}
+  VDI = \sqrt{\sum^{nb}_{b=ini}\frac{(V_{b} - V)^2}{nb}}
+\end{equation}
+
+Na equação \ref{vdi} o somatório percorre todas as barras calculando a o erro quadrático médio entre o valor estimado $V_{barra}$ e a tensão nominal, similar ao cálculo de ~\citeasnoun{abul2013optimal}.
+
+O perfil de tensão melhorou, pois o valor de VDI (equação \ref{vdi}) passou de $0,0351$ para $0,0337$.
+É importante observar que, tanto para o circuito original quanto para o circuito otimizado, o nível de tensão foi verificado e mantido dentro da norma (menor que 1,05pu para esta rede de 13,8kV) de acordo com a valor
+indicado no anexo I de ~\citeasnoun{aneel2012procedimentos}. Apesar da grande melhoria no nível de tensão inferior, este continua abaixo de 0,95pu em alguns pontos (antes e depois de inserir os bancos de capacitores).
+
+As Figuras \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia após a inserção dos bancos de capacitores. Os círculos em vermelho indicam o nível de tensão em todas as 2500 barras sem alocação de capacitores. As marcas em azul indicam o aumento desejado no nível de tensão (após inserir os equipamentos).
+
+%PDF
+\begin{figure}[ht!]
+\centering
+<<<<<<< .mine
+\includegraphics[width=75mm]{tensao-barras.pdf}
+=======
+\includegraphics[width=75mm]{tensao-barras.pdf}
+>>>>>>> .r69
+\caption{Perfil de tensão com e sem alocação de capacitores}
+\label{perfil}
+\end{figure}
+
+%PDF
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=75mm]{tensao-barras-ZOOM.pdf}
+\caption{Perfil de tensão com e sem alocação de capacitores (fim de circuito)}
+\label{perfilz}
+\end{figure}
+
+%2498 barras.
+%2497 linhas.
+%1319 cargas.
+%13.8kV.
+%Radial.
+
+%SERÁ QUE A DIFERENÇA É DEVIDO AS CHAVES?
+
+%No Diagrama Ortogonal Hierárquico:
+%2851 barras
+%2852 linhas
+
+\subsection{Requisitos computacionais}
+Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO) foram codificados em C ANSI, pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
+Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores ótimos conhecidos, como a função de De Jong, o vale de Rosenbrock, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Utilizou-se ~\citeasnoun{molga2005test} para esta análise.
+
+Em um teste de desempenho foi necessário um tempo de processamento considerado alto, de aproximadamente 3 horas, para o pior caso modelado.
+Somando isto ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API OpenMP\textregistered. Descrita em ~\citeasnoun{chapman2008using}. É importante
+lembrar que, para esta melhoria no desempenho computacional através de paralelismo de núcleos, um maior uso de memória é necessário para processar todos os cálculos de fluxo de carga de uma única vez. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na Tabela \ref{tab}.
+
+\begin{table}[position specifier]
+  \centering
+  \begin{tabular}{| l | l | l |}
+  \hline
+  Duração do processo & Núcleos & $\frac{serial}{paralelo}$\\
+  \hline
+  10.885,378s $\approx$ 3h & serial & - \\
+  02.613,357s $\approx$ 43min & 8 & 4,165 \\
+  01.105,509s $\approx$ 18min & 24 & 9,846 \\
+  \hline
+\end{tabular}
+  \caption{Teste de desempenho}
+  \label{tab}
+\end{table}
+
+% & Intel Core i5 3.10GHz
+% & Intel Core i7 2 GHz
+% & Intel Xeon e5 2.30GHz
