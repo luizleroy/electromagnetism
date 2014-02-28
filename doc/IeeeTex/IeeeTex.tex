@@ -62,8 +62,9 @@
 % should be used if it is desired that the figures are to be displayed in
 % draft mode.
 %
-\documentclass[journal]{IEEEtran}
-
+\documentclass{IEEEtran}
+\usepackage{filecontents}
+\usepackage{lipsum}
 \usepackage[utf8]{inputenc}
 
 % correct bad hyphenation here
@@ -74,7 +75,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Estimador de Estado de Sistemas de Distribuição de Energia Elétrica Utilizando Abordagem por Redes Neurais Artificiais com Modelo Reduzido}
+\title{Estimador de Estado de Sistemas de Distribuição de Energia Utilizando Abordagem por Redes Neurais Artificiais com Número de Medições Reduzido}
 %
 %
 % author names and IEEE memberships
@@ -99,44 +100,30 @@
 
 \begin{abstract}
 %\boldmath
-O artigo apresenta uma forma alternativa de modelagem para um estimador de estado de sistemas de distribuição (DSSE - Distribution System State Estimation). A partir de um determinado perfil de carga o estado real do sistema é gerado com auxílio de uma rede neural artificial (ANNs - Artificial Neuaral Networks).
-O erro associado é utilizado para treinamento da rede através de minimização por mínimos quadrados ponderados (WLS - Weighted Least Squares). Utiliza-se a decomposição em diversos componentes através do ``modelo de mistura Gaussiano'' (GMM - Gaussian Mixture Model). No artigo do trabalho original, ``Distribution System State Estimation Using an Artificial Neural Network Approach for Pseudo Measurement Modeling'' de Manitsas et all (2012), o resultado do trabalho é demonstrado em um sistema de 95 barras do Reino Unido (U.K Generic Distribution System - UKGDS).
+O artigo apresenta uma forma alternativa de modelagem para um estimador de estado de sistemas de distribuição (DSSE - Distribution System State Estimation). A partir de um determinado perfil de carga e medições reais o estado do sistema é gerado com auxílio de uma rede neural artificial (ANNs - Artificial Neuaral Networks).
+O erro associado é utilizado para treinamento da rede através de minimização por mínimos quadrados ponderados (WLS - Weighted Least Squares). Utiliza-se a decomposição em diversos componentes através do ``modelo de mistura gaussiano'' (GMM - Gaussian Mixture Model). No artigo do trabalho original, ``Distribution System State Estimation Using an Artificial Neural Network Approach for Pseudo Measurement Modeling'' de Manitsas et all (2012), o resultado do trabalho é demonstrado em um sistema de 95 barras do Reino Unido (U.K Generic Distribution System - UKGDS). Neste trabalho utiliza-se uma rede da Compania Energética de Minas Gerais - Cemig, fornecida por sua subsidiária Cemig Distribuição S.A.
 \end{abstract}
 
 \begin{IEEEkeywords}
 Sistemas de Distribuição de Energia Elétrica, DSSE, ANNs, WLS, GMM.
 \end{IEEEkeywords}
 
-
-
-
-
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
+\section{Introdução}
+\IEEEPARstart{P}{ara} este trabalho, a principal referência foi o artigo \cite{manitsas2012distribution}. É possível constatar que o estimador de estado de Sistemas de distribuição (Distribution System State Estimation - DSEE), eventualmente, não é uma ferramenta que providencia um resultado satisfatório a partir de um número limitado de medições. 
 
+Quando o objetivo é tratar redes de distribuição de energia, diferentemente de redes de transmissão, os requisitos mínimos de redundância de informação podem não ser atingidos com um estimador de estados tradicional. Vários algoritmos têm sido sugeridos para estimar estado em \cite{schweppe1970powerI}, \cite{schweppe1970powerII}, \cite{schweppe1970powerIII}, \cite{abur2004power} e \cite{monticelli2000electric}. Todos estes algoritmos trabalham bem porque existe alta redundância nas medições. No entanto, em sistemas de distribuição, devido à alta dispersão das medições, existe menos ou nenhuma redundância. Por isso, quando estes algoritmos são expostos a sistemas de distribuição eles começam a mostrar suas limitações. Por exemplo, em sistemas de transmissão, estimador por mínimo valor absoluto ponderado (Weighted Least Absolute Value - WLAV) elimina dados ruins por medições redundantes, mas em sistemas de distribuição não. 
 
-\section{Introduction}
-\IEEEPARstart{N}{este} texto, temos a principal referência o artigo ~\cite{IEEE-ann:principal}. É possível observar que o Estimador de Estado de Sistemas de Distribuição é uma ferramenta que providencia um satisfatório resultado a partir de um número limitado de medições.
+\section{Estimador de Estados}
 
-\section{Conclusion}
-The conclusion goes here.
+\section{Redes Neurais Artificiais}
 
-%\appendices
-%\section{Proof of the First Zonklar Equation}
-%Appendix one text goes here.
+\section{Metodologia Proposta}
 
-% use section* for acknowledgement
-\section*{Acknowledgment}
-The authors would like to thank...
+\section{Resultados}
+
+\section{Conclusão}
 
 
 % Can use something like this to put references on a page
@@ -145,13 +132,8 @@ The authors would like to thank...
   \newpage
 \fi
 
-\begin{thebibliography}{1}
-
-\bibitem{IEEE-ann:principal}
-E.~Manitsas, R. Singh, B. C. Pal, and G.~Strbac, \emph{``Distribution System State Estimation Using an Artificial Neural Network Approach for Pseudo Measurement Modeling,''},\hskip 1em plus
-  0.5em minus 0.4em\relax IEEE Transaction on Power Systems, vol. 27, no. 4, pp. 1888-1896, Nov. 2012.
-
-\end{thebibliography}
+\bibliographystyle{ieeetran}
+\bibliography{bib}
 
 \begin{IEEEbiographynophoto}{Luiz Le Roy}
 \'E um estudante do curso de mestrado da Pontif\'icia Universidade Cat\'olica de Minas Gerais.
