@@ -7,12 +7,12 @@ onde encontra-se o início do alimentador (a topologia de desenho é left-right). 
 região de alocação.
 
 %PDF
-\begin{figure}[ht!]
+\begin{figure*}[ht!]
 \centering
-\includegraphics[width=75mm]{axxxx-05.pdf}
+\includegraphics[width=155mm]{axxxx-05.pdf}
 \caption{Localização topológica dos capacitores alocados}
 \label{top}
-\end{figure}
+\end{figure*}
 
 Com esta alocação é possível obter uma redução significativa nas perdas elétricas. A potência dissipada passa de $84,2kW + 48,0kVA_r$ quando o circuito não possui cargas capacitivas, para $76,1kW + 42,5kVA_r$ após a correta distribuição de quatro bancos de capacitores com $100KVA_r$. Ou seja, valor final das perdas foi de $96,9kVA$ para $87,2kVA$. Uma redução de $9,8kVA$, que corresponde a 10,0\% do valor inicial.
 
@@ -28,7 +28,24 @@ A análise do trabalho deste artigo atingiu a convergência com 20 gerações, atrav
 \label{evol}
 \end{figure}
 
-Observa-se que, uma condição importante do problema, está relacionada a variação da tensão ao longo do
+Uma importante análise foi realizada através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único capacitor de $100kVA_r$. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número baixo de cálculos de fluxo de carga. E também com um percentual elevado de acertos, conforme consta na Tabela \ref{forca}. A metodologia, em cada teste da tabela, foi executada 100 vezes para definição do percentual de acerto. No primeiro teste (PSO 1), o algoritmo foi calibrado para realizar o cálculo da função objetivo (e consequentemetne o cálculo do fluxo de carga) apenas 100 vezes. O que não trouxe um resultado satisfatório. Em seguida, após executar o cálculo da função objetivo 225 vezes (PSO 2), um número bem menor que o tamanho do espaço de busca (2500 barras candidatas), o nível de precisão foi bastante elevado (94\%, conforme consta na Tabela \ref{forca}). E mesmo nas simulações em que não foi encontrada exatamente a mesma barra obtida pelo método por força bruta, é possível encontrar uma barra cuja perda elétrica ao longo da linha está baixa, e próxima ao mínimo global.
+
+\begin{table}[position specifier]
+  \centering
+  \begin{tabular}{| l | l | l |}
+  \hline
+  Método & Qtd. de Cálculos & Percentual\\
+  \hline
+  Força Bruta & 2500 & 100\% \\
+	PSO 1 & 100 & 45\% \\
+	PSO 2 & 225 & 94\% \\
+  \hline
+\end{tabular}
+  \caption{Comparação: PSO x Força Bruta }
+  \label{forca}
+\end{table}
+
+Observa-se que uma condição importante do problema está relacionada a variação da tensão ao longo do
 circuito durante a alocação dos capacitores. Estabilidade no nível de tensão, via otimização por PSO foi bastante explorada em ~\citeasnoun{kim2011optimal} e ~\citeasnoun{hernandez2006optimal}.
 
 Ela é analisada com auxílio da Equação \ref{vdi}, denominada VDI (voltage deviation index).
