@@ -52,7 +52,7 @@ Onde:
   \item $pbest_i$ é a melhor localização no espaço de busca para a partícula $i$;
   \item $gbest$ é a melhor localização encontrada a cada iteração;
   \item $w$ é o peso inercial que controla o impacto da velocidade anterior no momento atual;
-  \item $r_1$ e $r_2$ são dois valores independentes uniformemente distribuídos entre $[0,1)$ e
+  \item $r_1$ e $r_2$ são dois valores aleatórios e independentes uniformemente distribuídos entre $[0,1)$ e
   \item $c_1$,$c_2$ são dois coeficientes positivos que controlam a contribuição de pbest e gbest.
 \end{itemize}
 
@@ -67,19 +67,18 @@ conforme a equação ~\ref{inert}, ele diminui, controlado pelas constantes $w_1$ 
  w = w_1 \cdot e^{\frac{-w_{2}\cdot i}{imax}}
 \end{equation}
 
-Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas.
-A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local.
-
 \subsection{Solução para alocação dos dispositivos}
 Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas (PSO), é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP) conforme consta no algoritmo abaixo:
+\begin{itemize}
+			\item Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
+			\item Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
+			\item Calcular fluxo (de potência) e as perda elétricas para todas as partículas \textbf{(função objetivo)};
+			\item Atualizar o valor inicial de pbest das partículas com o valor calculado no passo imediatamente anterior;
+			\item Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
+\end{itemize}
 
 \begin{algorithm}[H]
 	\begin{algorithmic}	
-			\State Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
-			\State Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
-			\State Calcular fluxo (de potência) e as perda elétricas para todas as partículas \textbf{(função objetivo)};
-			\State Atualizar o valor inicial de pbest das partículas com o valor calculado no passo imediatamente anterior;
-			\State Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
 	\While{(não atingir critério de parada)}
 			\State Calcular constante de inércia ( eq. \ref{inert});
 			\For{(todas as partículas)}
@@ -103,6 +102,9 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 		\State \textbf{Resultado: o último valor de gbest.}
 	\end{algorithmic}
 \end{algorithm}
+
+Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas.
+A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local.
 
 O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir dimensões enormes.
 É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas
