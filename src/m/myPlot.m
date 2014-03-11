@@ -1,3 +1,5 @@
+%GPL v3
+
 function [ output_args ] = myPlot( x1,y1,x2,y2 )
 %UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
