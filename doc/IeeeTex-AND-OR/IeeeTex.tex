@@ -54,7 +54,7 @@ Sistemas ...
 Para a construção tomamos como base uma  tabela de valores com quatro valores para as entradas e uma saída para cada combinação destes valores. Utilizamos um algoritmo PSO – Particle Swarm Optmization para treinamento da rede.  A escolha do algoritmo de treinamento mostrou resultados satisfatórios quanto a performance computacional  e convergência em até 150 iterações.
 
 \section{Neurônios Lógicos}
-Utilizamos uma topologia composta por blocos de neurônios formados por três neurônios (figura \ref{neur}) , sendo dois neurônios na entrada associados a um neurônio de saída. Os neurônios de entrada satisfazem a funções lógicas AND e OR e o neurônio de saída satisfaz a função lógica OR. A função AND é modelada  através do uso dos conceitos de funções de agregação disjuntiva (t-norma) e a função OR  a partir dos conceitos de funções de agregação conjuntiva (s-norma).
+Utilizamos uma topologia composta por blocos de neurônios formados por três neurônios (como na figura \ref{neur}, que os mostra combinados) , sendo dois neurônios na entrada associados a um neurônio de saída. Os neurônios de entrada satisfazem a funções lógicas AND e OR e o neurônio de saída satisfaz a função lógica OR. A função AND é modelada  através do uso dos conceitos de funções de agregação disjuntiva (t-norma) e a função OR  a partir dos conceitos de funções de agregação conjuntiva (s-norma).
 
 Para obter as funções conjuntivas utilizamos a equação \ref{conj}.
 \begin{equation} \label{conj}
@@ -66,10 +66,10 @@ Para obter as funções disjuntivas utilizamos a equação \ref{disj}.
   f(x) \geq max(x) = max(x_1,x_2, ..., x_n)
 \end{equation}
 
-\begin{figure}[ht!]
+\begin{figure}
 	\centering
-	\includegraphics{or-and.png}
-	\caption{Neurônios OR / AND}
+	\includegraphics{AandBorZ.pdf}
+	\caption{Representação de neurônios OR / AND formando a estrutura (A and B) or (C or D)}
 	\label{neur}
 \end{figure}
 
@@ -79,17 +79,17 @@ A escolha da arquitetura considerou como requisito a capacidade da rede comporta
 Analisamos duas arquiteturas propostas:
 
 Arquitetura 1: com convergência,  mas com erros em um grande número de testes (figura \ref{arq1}).
-\begin{figure}[ht!]
+\begin{figure}
 	\centering
-	\includegraphics[width=75mm]{arq1.png}
+	\includegraphics[width=95mm]{arq1.pdf}
 	\caption{Primeira arquitetura proposta}
 	\label{arq1}
 \end{figure}
 
 Arquitetura 2  - com convergência, e erro próximo a zero em 100\% dos casos (figura \ref{arq2}). 
-\begin{figure}[ht!]
+\begin{figure}
 	\centering
-	\includegraphics[width=75mm]{arq2.png}
+	\includegraphics[width=95mm]{arq2.pdf}
 	\caption{Segunda arquitetura proposta}
 	\label{arq2}
 \end{figure}
