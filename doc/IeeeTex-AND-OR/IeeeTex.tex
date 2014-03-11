@@ -15,7 +15,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{RNA (Título Provisório)}
+\title{RNA Lógica com Otimização Evolucionária}
 %
 %
 % author names and IEEE memberships
@@ -39,22 +39,21 @@
 \maketitle
 
 \begin{abstract}
-%\boldmath
-O artigo ...
+O objetivo deste trabalho é construir uma rede neural baseada nos conceitos de conjuntos nebulosos ou Fuzzy,  utilizando neurônios lógicos AND e OR, propostos por Pedricz e Hirota.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Sistemas ...
+RNA, PSO \textit{(Particle Swarm Optimization)}.
 \end{IEEEkeywords}
 
 \IEEEpeerreviewmaketitle
 
 \section{Introdução}
-\IEEEPARstart{O} objetivo deste trabalho é construir uma rede neural baseada nos conceitos de conjuntos nebulosos ou Fuzzy,  utilizando neurônios lógicos AND e OR, propostos por Pedricz e Hirota.
-Para a construção tomamos como base uma  tabela de valores com quatro valores para as entradas e uma saída para cada combinação destes valores. Utilizamos um algoritmo PSO – Particle Swarm Optmization para treinamento da rede.  A escolha do algoritmo de treinamento mostrou resultados satisfatórios quanto a performance computacional  e convergência em até 150 iterações.
+\IEEEPARstart{O} objetivo deste trabalho é construir uma rede neural.
+Para a construção tomamos como base uma  tabela de valores com quatro entradas e uma saída para cada combinação destes valores. Utilizamos um algoritmo PSO – Particle Swarm Optimization para treinamento da rede.  A escolha do algoritmo de treinamento mostrou resultados satisfatórios quanto a performance computacional  e convergência em até 150 iterações.
 
 \section{Neurônios Lógicos}
-Utilizamos uma topologia composta por blocos de neurônios formados por três neurônios (como na figura \ref{neur}, que os mostra combinados) , sendo dois neurônios na entrada associados a um neurônio de saída. Os neurônios de entrada satisfazem a funções lógicas AND e OR e o neurônio de saída satisfaz a função lógica OR. A função AND é modelada  através do uso dos conceitos de funções de agregação disjuntiva (t-norma) e a função OR  a partir dos conceitos de funções de agregação conjuntiva (s-norma).
+É usual utilizar topologias compostas por blocos de neurônios formados por composições lógicas (como na figura \ref{neur}, que os mostra combinados) Sendo dois neurônios na entrada associados a um neurônio de saída. Os neurônios de entrada satisfazem a funções lógicas AND e OR e o neurônio de saída satisfaz a função lógica OR, neste caso. Existem outros casos conforme ilustra a figura \ref{andOrOutras}. A função AND é modelada  através do uso dos conceitos de funções de agregação disjuntiva (t-norma) e a função OR  a partir dos conceitos de funções de agregação conjuntiva (s-norma).
 
 Para obter as funções conjuntivas utilizamos a equação \ref{conj}.
 \begin{equation} \label{conj}
@@ -68,9 +67,16 @@ Para obter as funções disjuntivas utilizamos a equação \ref{disj}.
 
 \begin{figure}
 	\centering
-	\includegraphics{AandBorZ.pdf}
-	\caption{Representação de neurônios OR / AND formando a estrutura (A and B) or (C or D)}
+	\includegraphics[width=95mm]{AandBorZ.pdf}
+	\caption{Entradas tipo A: Representação de neurônios OR / AND formando a estrutura (A and B) or (C or D)}
 	\label{neur}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=95mm]{andOrOutras.pdf}
+	\caption{Entradas tipo B e C: Representação de neurônios OR / AND formando a estrutura (A and B) or (C or D)}
+	\label{andOrOutras}
 \end{figure}
 
 \section{Arquitetura da rede}
@@ -97,7 +103,7 @@ Arquitetura 2  - com convergência, e erro próximo a zero em 100\% dos casos (f
 
 Os dados de entrada (x)  e saída (y) forma utilizados conforme o principal arquivo de referência em \cite{pedrycz2006or} e estão organizados na tabela \ref{tab}.
 
-\begin{table}
+\begin{table*}
   \centering
   \begin{tabular}{| l | l | l | l | l | l | l | l | l | l | l | l | l | l | l | l | l |}
   \hline
@@ -114,7 +120,7 @@ Os dados de entrada (x)  e saída (y) forma utilizados conforme o principal arqu
 \end{tabular}
   \caption{Dados de entrada}
   \label{tab}
-\end{table}
+\end{table*}
 
 \section{Implementação das funções em MatLab}
 Na figura \ref{dig} encontra-se o diagrama de blocos que representa as rotinas construídas para os testes deste trabalho.
@@ -135,11 +141,11 @@ Função de otimização  responsável por gerar a base de dados aleatória e ef
 \subsection{PSO\_parametros}
 Parâmetros para execução da função de otimização:
 \begin{itemize}
-	\item $C = (1,0;0,6)$ - Constantes para pbest e gbest, respecitivamente;
-	\item $W = (0,1;0.9]$ - Peso minimo e maximo para as iteracoes;
-	\item $n_part = 200$ - Número de particulas;
-	\item $iter_max = 500$ - Número maximo de iterações;
-	\item $n_var =  9$ - Número de variaveis;
+	\item $C = (1,0;0,6)$ - Constantes para pbest e gbest, respectivamente;
+	\item $W = (0,1;0.9]$ - Peso minimo e máximo para as iterações;
+	\item $n_part = 200$ - Número de partículas;
+	\item $iter_max = 500$ - Número máximo de iterações;
+	\item $n_var =  9$ - Número de variáveis;
 	\item $p_mut = 0.08$ - percentual de operador de diversidade
 \end{itemize}
 \subsection{Funcao\_Objetivo}
@@ -177,12 +183,20 @@ Função que implementa o neurônio ``AND'' considerando três entradas ``a,b,c'
 
 \section{Conclusão}
 Os testes da versão final  da implementação mostraram resultados satisfatórios a partir da iteração de número 60, conforme consta na figura \ref{res}.
+Todo este trabalho foi fortemente influenciado pela construção do algoritmo de otimização. Importante observar que, a saída no Matlab, com grau de precisão até a quarta casa decimal, corresponde exatamente ao resultado esperado (Fig. \ref{resultMat}). Inspirado, principalmente, em: \cite{del2008particle}, \cite{zhang2008active}, \cite{sedlaczek2006using}, \cite{molga2005test}, \cite{chapman2008using}, \cite{clerc2002particle} e \cite{eberhart2001particle}. 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=75mm]{res.png}
+	\includegraphics[width=75mm]{res.pdf}
 	\caption{Convergência da rede}
 	\label{res}
 \end{figure}
+
+\begin{figure*}[ht!]
+	\centering
+	\includegraphics{resultMat.pdf}
+	\caption{Resultado com dados de treinamento igual aos dados de teste!}
+	\label{resultMat}
+\end{figure*}
 
 
 % Can use something like this to put references on a page
