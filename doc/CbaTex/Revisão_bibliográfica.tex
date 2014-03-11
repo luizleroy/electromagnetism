@@ -1,4 +1,5 @@
 \section{Revisão bibliográfica}
+
 \subsection{Cálculo do fluxo de carga}
 Fluxo de potência ou fluxo de carga (load flow) é o estudo de sistemas de
 potência em condição de regime permanente. É um estudo que demanda uma
@@ -15,8 +16,7 @@ No primeiro (backward), obtém-se a potência ativa e a potência reativa das extre
 
 Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida.
 
-\subsection{Metodologia de minimização via PSO (Particle Swarm
-Optimization) }
+\subsection{Metodologia de minimização via PSO}
 A função objetivo a ser minimizada é simples. Partindo de uma topologia com
 todos os cálculos de fluxo de carga realizados (a potência ativa e reativa, bem como o módulo e ângulo de tensão
 e corrente por fase ABC, em todas as barras e linhas respectivamente), é possível somar as perdas ao longo
@@ -66,60 +66,3 @@ conforme a equação ~\ref{inert}, ele diminui, controlado pelas constantes $w_1$ 
 \begin{equation} \label{inert}
  w = w_1 \cdot e^{\frac{-w_{2}\cdot i}{imax}}
 \end{equation}
-
-\subsection{Solução para alocação dos dispositivos}
-Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas (PSO), é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP) conforme consta no algoritmo abaixo:
-\begin{itemize}
-			\item Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
-			\item Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
-			\item Calcular fluxo (de potência) e as perda elétricas para todas as partículas \textbf{(função objetivo)};
-			\item Atualizar o valor inicial de pbest das partículas com o valor calculado no passo imediatamente anterior;
-			\item Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
-\end{itemize}
-
-\begin{algorithm}[H]
-	\begin{algorithmic}	
-	\While{(não atingir critério de parada)}
-			\State Calcular constante de inércia ( eq. \ref{inert});
-			\For{(todas as partículas)}
-				\State Calcular velocidade (eq. \ref{vel});
-				\State Calcular posição da partícula (eq. \ref{pos});
-			\EndFor
-			\State Realizar mutações aleatórias;
-		\For{(todas as partículas)}
-			\State Calcular fluxo (pot.) e perda elétrica;
-			\If{(pbest for maior que a perda)}
-				\State Atualizar o valor de pbest com perda;
-			\EndIf
-		\EndFor
-		\State Encontrar o menor valor de pbest;
-		\If{(menor pbest < gbest anterior)}
-			\State Atualizar gbest com menor pbest;
-		\Else
-			\State Atualizar gbest com gbest anterior;
-		\EndIf
-	\EndWhile
-		\State \textbf{Resultado: o último valor de gbest.}
-	\end{algorithmic}
-\end{algorithm}
-
-Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas.
-A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local.
-
-O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir dimensões enormes.
-É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas
-a receber um equipamento com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de
-testes inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da equação \ref{comb}.
-
-\begin{equation} \label{comb}
-  \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
-\end{equation}
-
-No contexto deste trabalho a tendência é que o usuário conheça as especificações
-do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito.
-Portanto, ao trabalhar com bancos com tap fixo, é usual
-em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões)
-inserir até 5 cargas capacitivas.
-Neste caso, podemos obter o ótimo em todas as combinações
-de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
-O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
