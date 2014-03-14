@@ -1,4 +1,4 @@
-\section{Experimento e Resultados} \label{exp}
+\section{Experimento e resultados} \label{exp}
 A rede de distribuição de energia extensa utilizada neste trabalho foi construída com 2500 barras, 2500 linhas (radial) e 1500 cargas distribuídas.
 Após a análise observa-se a necessidade de inserção de quatro bancos de capacitores próximos ao início do
 circuito (na barra de alimentação) conforme
@@ -57,7 +57,7 @@ Na Eq. \ref{vdi}, o somatório percorre todas as barras calculando o erro quadrát
 
 O perfil de tensão melhorou, pois o valor de VDI (Eq. \ref{vdi}) passou de $0,0351$ para $0,0338$.
 É importante observar que, tanto para o circuito original quanto para o circuito otimizado, o nível de tensão foi verificado e mantido dentro da norma (menor que 1,05pu para esta rede de 13,8kV) de acordo com a valor
-indicado no anexo I de ~\citeasnoun{aneel2012procedimentos}. Apesar da grande melhoria no nível de tensão inferior, este continua abaixo de 0,95pu em alguns pontos (antes e depois de inserir os bancos de capacitores).
+indicado no anexo I de \citeasnoun{aneel2012procedimentos}. Apesar da grande melhoria no nível de tensão inferior, este continua abaixo de 0,95pu em alguns pontos (antes e depois de inserir os bancos de capacitores).
 
 As Figs. \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia após a inserção dos bancos de capacitores. O nível de tensão em todas as 2500 barras sem alocação de capacitores é representado com a curva inferior, com os menores valores de tensão em pu. A curva superior exibe o aumento desejado no nível de tensão (após inserir os capacitores).
 
@@ -89,13 +89,15 @@ As Figs. \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia apó
 %2851 barras
 %2852 linhas
 
-\subsection{Requisitos computacionais}
-Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO) foram codificados em C ANSI, pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
+\subsection{Análise de desempenho computacional}
+Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO), foram codificados em C ANSI, pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
 Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores ótimos conhecidos, como a função de De Jong, o vale de Rosenbrock, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Utilizou-se ~\citeasnoun{molga2005test} para esta análise.
 
-Em um teste de desempenho foi necessário um tempo de processamento considerado alto, de aproximadamente 3 horas, para o pior caso modelado.
-Somando isto ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API OpenMP\textregistered, descrita em ~\citeasnoun{chapman2008using}. É importante
-lembrar que, para esta melhoria no desempenho computacional através de paralelismo de núcleos, um maior uso de memória é necessário para processar todos os cálculos de fluxo de carga de uma única vez. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na Tab. \ref{tab}.
+Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um teste de desempenho é necessário. O hardware disponível para as simulações deste trabalho, foi XXX. Que favorece o paralelismo de núcleo.
+Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um teste de desempenho é necessário. O hardware disponível para as simulações deste trabalho, foi XXX. Que favorece o paralelismo de núcleo.
+Somando isto ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. 
+
+Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API OpenMP\textregistered, descrita em \citeasnoun{chapman2008using}. É importante
 lembrar que, para esta melhoria no desempenho computacional através de paralelismo de núcleos, um maior uso de memória é necessário para processar todos os cálculos de fluxo de carga de uma única vez. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na Tab. \ref{tab}.
 
 \begin{table}[position specifier]
