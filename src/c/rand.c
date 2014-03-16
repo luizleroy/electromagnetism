@@ -1,3 +1,5 @@
+/*http://www.codeproject.com/Articles/25172/Simple-Random-Number-Generation*/
+
 /*c*/
 #include<stdio.h>
 
