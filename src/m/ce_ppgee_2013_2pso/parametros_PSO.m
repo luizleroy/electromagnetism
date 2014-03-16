@@ -21,7 +21,7 @@ W=[0.1 1.1];
 
 n_part=500;
 
-iter_max=400;
+iter_max=40;
 
 
 
