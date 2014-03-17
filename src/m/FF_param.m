@@ -13,5 +13,5 @@ V_lim(:,2)=( 1 + 1i)*ones(1,nVar);
 C=[1.0 0.6];
 W=[0.1 1.1];
 
-n_part=5;
-iter_max=4;
+n_part=100;
+iter_max=80;

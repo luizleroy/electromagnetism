@@ -114,9 +114,9 @@ Sistemas de Distribuição de Energia Elétrica, DSSE, ANNs, PSO, WLS, GMM.
 \section{Introdução}
 \IEEEPARstart{P}{ara} este trabalho, a principal referência foi o artigo \cite{manitsas2012distribution}. É possível constatar que o Estimador de Estado de Sistemas de Distribuição (Distribution System State Estimation - DSEE), eventualmente, não é uma ferramenta que providencia um resultado satisfatório a partir de um número limitado de medições. 
 
-Quando o objetivo é tratar redes de distribuição de energia, diferentemente de redes de transmissão, os requisitos mínimos de redundância de informação podem não ser atingidos com um estimador de estados tradicional. Vários algoritmos têm sido sugeridos para estimar estado em \cite{schweppe1970powerI}, \cite{schweppe1970powerII}, \cite{schweppe1970powerIII}, \cite{abur2004power} e \cite{monticelli2000electric}. Todos estes algoritmos trabalham bem porque existe alta redundância nas medições. No entanto, em sistemas de distribuição, devido à alta dispersão das medições, existe menos ou nenhuma redundância. Por isso, quando estes algoritmos são expostos a sistemas de distribuição eles começam a mostrar suas limitações. Por exemplo, em sistemas de transmissão, estimador por mínimo valor absoluto ponderado (Weighted Least Absolute Value - WLAV) elimina dados ruins por medições redundantes, mas em sistemas de distribuição não. No trabalho original apresenta-se uma forma de providenciar uma estimativa rasoável do estado do sistema utilizando um número muito limitado de medidas.
+Quando o objetivo é tratar redes de \textit{Distribuição de Energia}, diferentemente de \textit{Redes de Transmissão}, os requisitos mínimos de redundância de informação podem não ser atingidos com um estimador de estados tradicional. Vários algoritmos têm sido sugeridos para estimar estado em \cite{schweppe1970powerI}, \cite{schweppe1970powerII}, \cite{schweppe1970powerIII}, \cite{abur2004power} e \cite{monticelli2000electric}. Todos estes algoritmos trabalham bem porque existe alta redundância nas medições. No entanto, em sistemas de distribuição, devido à alta dispersão das medições, existe menos ou nenhuma redundância. Por isso, quando estes algoritmos são expostos a sistemas de distribuição eles começam a mostrar suas limitações. Por exemplo, em sistemas de transmissão, estimador por mínimo valor absoluto ponderado (Weighted Least Absolute Value - WLAV) elimina dados ruins por medições redundantes, mas em sistemas de distribuição não. No trabalho original apresenta-se uma forma de providenciar uma estimativa razoável do estado do sistema utilizando um número muito limitado de medidas.
 
-Primeiramente, uma eficiente forma de modelar pseudo-medidas é expressá-las como uma função não linear. Partindo de medidas avaliadas nos principais pontos, e também localizadas nos locais de geração distribuída. Em sistemas pequenos, esta função pode  ser facilmente obtida pela curva típica do problema. Em grandes sistemas, o usual é utilizar uma abordagem através de redes neurais artificiais.
+Primeiramente, uma eficiente forma de modelar pseudo-medidas é expressá-las como uma função não linear, partindo de medidas avaliadas nos principais pontos. Em sistemas pequenos, esta função pode  ser facilmente obtida pela curva típica do problema. Em grandes sistemas, o usual é utilizar uma abordagem através de redes neurais artificiais.
 
 No artigo, uma rede neural artificial apropriada para modelar a potência ativa e reativa em um estimador de estados de sistemas de distribuição é apresentada. O perfil de carga e um reduzido número de de medições no fluxo de potência derivados de simulações é utilizado para treinar a rede. O erro entre a potência de entrada e o valor de saída da rede é modelado via GMM (Gaussian Mixture Model).
 
@@ -131,13 +131,13 @@ Para este trabalho uma nova metodologia é proposta. A ideia é utilizar a capac
 
 
 \section{Redes Neurais Artificiais} \label{rna}
-Uma ANN (\textit{Artificial Neural Network}) é um modelo que se baseia na arquitetura e funcionalidades das redes neurais \emph{\textbf{\textit{\textsl{\texttt{\textsc{biológica (\cite{manitsas2012distribution})}}}}}}. Elas são comumente utilizadas para análise de regressão e classificação. Bem como vários outros modelos de processamento de dados. Sua unidade de construção elementar é o neurônio. Recebe um número de entradas, processa, e gera uma outra quantidade de saídas. As entradas são combinadas linearmente através de pesos pré-calculados e utiliza-se uma função de transferência (conforme \cite{hippert2001neural}) para obter a saída da rede.
+Uma ANN (\textit{Artificial Neural Network}) é um modelo que se baseia na arquitetura e funcionalidades das redes neurais biológica (\cite{manitsas2012distribution}). Elas são comumente utilizadas para análise de regressão e classificação. Bem como vários outros modelos de processamento de dados. Sua unidade de construção elementar é o neurônio. Recebe um número de entradas, processa, e gera uma outra quantidade de saídas. As entradas são combinadas linearmente através de pesos pré-calculados e utiliza-se uma função de transferência (conforme \cite{hippert2001neural}) para obter a saída da rede.
 
 Nas ANNs do artigo original utiliza-se a técnica \textit{feed-forward} de duas camadas. 
 %como mostrado na fig . 2 , 
-Os neurônios são organizados em duas camadas, uma escondida , isto é, exite algo entre os nós de entrada e a camada de saída. A ANN é designada como \textit{feed-forward} quando as saídas de uma camada são as entradas para a próxima camada oculta. Utiliza-se funções de transferência sigmoide. As camada coincidem com o número de entradas necessárias para estimar o estado.
+Os neurônios são organizados em duas camadas, uma escondida , isto é, existe algo entre os nós de entrada e a camada de saída. A ANN é designada como \textit{feed-forward} quando as saídas de uma camada são as entradas para a próxima camada oculta. Utiliza-se funções de transferência sigmoide. As camada coincidem com o número de entradas necessárias para estimar o estado.
 
-\section{Resultados}
+\section{Resultados Originais}
 Para fins didáticos, e de comparação, os principais resultados do artigo original são resumidos nas figuras e comentários abaixo.
 
 A estrutura original é composta por uma rede de distribuição de energia elétrica do Reino Unido, onde não foi possível obter a data original de configuração. Mas a topologia é representada pela Fig. \ref{top_uk}.
@@ -168,7 +168,6 @@ A rede para a primeira versão da rotina de cálculo é representada em \ref{top
 \end{figure}
 
 Para esta estrutura o algoritmo original foi capaz de obter bons resultados no que tange o valor absoluto da tensão de saída.
-\emph{\textbf{\textit{\textsl{\texttt{\textsc{Considerar falar sobre os resultados ruins em relação ao ângulo.}}}}}}
 
 Pode-se observar a variação nos resultados do algoritmo através dos gráficos abaixo (Figs. 8-12 de Fig. \ref{topologia_full}).
 \begin{figure*}
@@ -178,7 +177,38 @@ Pode-se observar a variação nos resultados do algoritmo através dos gráficos
 	\label{topologia_full}
 \end{figure*}
 
-\section{Conclusão}
+\section{Resultados Preliminares e Conclusões}
+Os primeiros resultados não foram satisfatórios. Ainda é necessário obter valores reais de medição para a validação. Quando comparamos os resultados com uma rede onde os cálculos elétricos foram realizados através do algoritmo de varredura ou \textit{backward-forward}. O método \textit{backward-forward} calcula o fluxo em dois passos. No primeiro (\textit{backward}), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência, assim como a injeção de corrente. No segundo passo (\textit{forward}) calculam-se as magnitudes e os ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos em 0º, -120º e 120º para cada fase respectivamente (A, B e C). 
+Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida, conforme \cite{zimmerman1995comprehensive}.
+
+Os resultados preliminares encontram-se na Tab. \ref{tab_result}. É a comparação direta entre um método tradicional (varredura) e a implementação de estimador de estado (DSSE).
+\begin{table}[position specifier]
+  \centering
+  \begin{tabular}{| l | l | l |}
+  \hline
+  Barra por Varredura & kVAr & kW\\
+  \hline
+  b\_1 & 13,80 & 0,0 \\
+	b\_2 &  13,78 & 0,62 \\
+	b\_3 & 13,7 & 0,75 \\
+	b\_4 & 13,7 & 0,75 \\
+	b\_5 & 13,76 & 0,76 \\
+	b\_6 & 13,76 & 0,77 \\
+	\hline
+  Barra por DSSE & kVAr & kW\\
+  \hline
+  b\_1 & 13,52 & 0,51 \\
+	b\_2 &  7,55 & 1,16 \\
+	b\_3 & 11,71 & 5,85 \\
+	b\_4 & 9,76 & 2,91 \\
+	b\_5 & 6,69 & 1,18 \\
+	b\_6 & 5,76 & 3,43 \\
+  \hline
+\end{tabular}
+  \caption{Varredura x DSSE}
+  \label{tab_result}
+\end{table}
+
 \textit{No fim deste trabalho segue a implementação, para discussão em sala.}
 \begin{figure*}
 	\centering
