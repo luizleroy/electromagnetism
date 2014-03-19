@@ -36,16 +36,3 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 
 Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas.
 A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local.
-
-\textbf{\textcolor[rgb]{1,0,0}{O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir é um conjunto muito grande, devido a natureza combinatória do problema.
-É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas
-a receber um determinado equipamento, com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de testes praticamente inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da equação \ref{comb}.}}
-
-\begin{equation} \label{comb}
-  \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
-\end{equation}
-
-\textbf{\textcolor[rgb]{1,0,0}{No contexto deste trabalho assume-se que o usuário conheça as especificações do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito. Portanto, ao trabalhar com bancos com tap fixo, é usual em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões) inserir até 5 cargas capacitivas.
-Neste caso, podemos obter o ótimo em todas as combinações
-de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
-O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.}}

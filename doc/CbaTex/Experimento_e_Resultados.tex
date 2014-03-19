@@ -1,21 +1,7 @@
 \section{Experimento e resultados} \label{exp}
-A rede de distribuição de energia extensa utilizada neste trabalho foi construída com 2500 barras, 2500 linhas (radial) e 1500 cargas distribuídas.
-Após a análise observa-se a necessidade de inserção de quatro bancos de capacitores próximos ao início do
-circuito (na barra de alimentação) conforme
-ilustrado na Fig. \ref{top}. A região onde os capacitores foram instalados está mais a esquerda no diagrama,
-onde encontra-se o início do alimentador (a topologia de desenho é left-right). O retângulo vermelho na figura destaca a região de alocação.
+A rede de distribuição de energia extensa utilizada neste trabalho foi construída com 2500 barras, 2500 linhas (radial) e 1500 cargas distribuídas. Todos os cálculos foram realizados para um sistema elétrico real, trifásico, com cargas elétricas desbalanceadas.
 
-%PDF
-\begin{figure*}[ht!]
-\centering
-\includegraphics[width=155mm]{axxxx-05.pdf}
-\caption{Perfil topológico do alimentador com a ligação entre as barras e a localização de todos os capacitores alocados destacada no retângulo.}
-\label{top}
-\end{figure*}
-
-Com esta alocação é possível obter uma redução significativa nas perdas elétricas. A potência dissipada passa de $84,2kW + 48,0kVA_r$ quando o circuito não possui cargas capacitivas, para $76,1kW + 42,5kVA_r$ após a correta distribuição de quatro bancos de capacitores com $100kVA_r$. Ou seja, valor final das perdas foi de $96,9kVA$ para $87,2kVA$. Uma redução de $9,8kVA$, que corresponde a 10,0\% do valor inicial.
-
-Para comparação, a mesma rede foi analisada através de um sistema completo de mercado denominado ``Power System Simulator / Advanced Distribution Engineering Productivity Tool'' ou simplesmente PSS/ADEPT, através do módulo de ``Colocação Ideal de Capacitores - CAPO''. Os resultados encontrados através do PSS/ADEPT módulo CAPO foram diferentes dos obtidos neste trabalho. A redução no valor das perdas foi de 1,3\%.
+Com esta alocação é possível obter uma redução significativa nas perdas elétricas. Foram alocados $500kVAr$ e potência reativa, através de 5 bancos de capacitores trifásicos com uma ligação estrela aterrada. Eles são divididos em cargas de $33kVAr$ em cada fase, mas sempre alocados na mesma barra trifásica. A potência dissipada passa de $84,2kW + 48,0kVA_r$ quando o circuito não possui cargas capacitivas, para $76,1kW + 42,5kVA_r$ após a correta distribuição dos equipamentos. Ou seja, valor final das perdas foi de $96,9kVA$ para $87,2kVA$. Uma redução maior que $9,7kVA$, que corresponde a 10\% do valor inicial.
 
 A análise atingiu a convergência com 15 gerações, através do método por enxame de partículas. Para cada geração foi necessário calcular 80 vezes o fluxos de carga (ou seja, 80 partículas no PSO). A evolução do valor de \textit{gBest}, em comparação com a média aritmética de \textit{pBest}, pode ser visualizada na Fig. \ref{evol}.
 
@@ -27,13 +13,75 @@ A análise atingiu a convergência com 15 gerações, através do método por enxame d
 \label{evol}
 \end{figure}
 
-Uma importante teste foi realizado através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único capacitor de $100kVA_r$. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número baixo de cálculos de fluxo de carga. E também com um percentual elevado de acertos, conforme consta na Tab. \ref{forca}. A metodologia, em cada teste da tabela, foi executada 100 vezes para definição do percentual de acerto. No primeiro teste (PSO 1), o algoritmo foi calibrado para realizar o cálculo da função objetivo (e consequentemente o cálculo do fluxo de carga) apenas 100 vezes. O que não trouxe um resultado satisfatório. Em seguida, após executar o cálculo da função objetivo 225 vezes (PSO 2), um número bem menor que o tamanho do espaço de busca (2500 barras candidatas), o nível de precisão foi bastante elevado (94\%, conforme consta na Tab. \ref{forca}). E mesmo nas simulações em que não foi encontrada exatamente a mesma barra obtida pelo método por força bruta, é possível encontrar uma barra cuja perda elétrica ao longo da linha está baixa, e próxima ao mínimo global.
+Após a análise observa-se a necessidade de inserção bancos de capacitores próximos ao início do
+circuito (na barra de alimentação) conforme ilustrado na Fig. \ref{top}. A região onde os capacitores foram instalados está mais a esquerda no diagrama, onde encontra-se o início do alimentador (a topologia de desenho é left-right). O retângulo vermelho na figura destaca a região total de alocação.
+
+%PDF
+\begin{figure*}[ht!]
+\centering
+\includegraphics[width=155mm]{axxxx-05.pdf}
+\caption{Perfil topológico do alimentador com a ligação entre as barras e a localização de todos os capacitores destacada no retângulo.}
+\label{top}
+\end{figure*}
+
+Ao utilizar um algoritmo de otimização combinacional para encontrar pontos ótimos de alocação não é necessário nenhum tipo de análise de especialista. Quando se compara à processos sequenciais encontrados na literatura, é preciso realizar algum tipo de decisão, optando por priorizar alguma característica do sistema durante o processo de análise. Um procedimento para tratamento de perdas e desvios de tensão encontra-se descrito em \citeasnoun{alcantra}. 
+
+Após adaptações no algoritmo, para comportar redes extensas e a disponibilidade de recursos (tanto a potência quanto a granularidade dos capacitores alocados) utilizou-se o seguinte procedimento formal, aplicado à rede de teste proposta neste artigo:
+\begin{enumerate}[a)]
+\item Resolver o fluxo de carga e calcular as tensões do sistema;
+\vspace{-3mm}
+\item Identificar a barra com a menor tensão e instalar um banco de capacitores de 100kVAr (33.3 kVAr por fase);
+\vspace{-3mm}
+\item Resolver o fluxo de carga e calcular as tensões do sistema modificado;
+\vspace{-3mm}
+\item Voltar ao passo a) apenas se a menor tensão do sistema for menor que 0,95pu ou a maior tensão do sistema for maior que 1,05pu.
+\\
+A alocação de capacitores precisa ser menor que um determinado valor (no caso, 500kVAr) ou um determinado número de bancos disponíveis (5 x 100kVar). \textbf{Após esta etapa, foram alocados quatro dispositivos.}
+\vspace{-3mm}
+\item Identificar a barra que proporciona a maior redução nas perdas de potência ativa do sistema e instalar um banco de capacitores de 100kVAr nessa barra;
+\vspace{-3mm}
+\item Resolver o fluxo de carga;
+\vspace{-3mm}
+\item Calcular as perdas ativas do sistema;
+\vspace{-3mm}
+\item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 100kVAr. (O restante dos recursos disponíveis). \textbf{Nesta etapa, apenas um dispositivo foi alocado.}
+\end{enumerate}
+
+Observa-se que, no sistema trifásico em análise, considera-se a fase com menor valor de tensão. Neste caso, utilizou-se a fase A. \textit{Os resultados possuem qualidade inferior ao algoritmo proposto, conforme medidas da Tab. }.%\tab{final}.
+
+Um novo estudo foi realizado através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único banco capacitivo de $100kVA_r$. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número baixo de cálculos de fluxo de carga. E também com um percentual elevado de acertos, conforme consta na Tab. \ref{forca}. A metodologia, em cada teste da tabela, foi executada 100 vezes para definição do percentual de acerto. No primeiro teste (PSO 1), o algoritmo foi calibrado para realizar o cálculo da função objetivo (e consequentemente o cálculo do fluxo de carga) apenas 100 vezes. Em seguida, após executar o cálculo da função objetivo 225 vezes (PSO 2), um número menor que o tamanho do espaço de busca (2500 barras candidatas), o nível de precisão foi bastante elevado (94\%, conforme consta na Tab. \ref{forca}). E mesmo nas simulações em que não foi encontrada exatamente a mesma barra obtida pelo método por força bruta, é possível encontrar uma barra com valor similar de perdas. Esta característica se deve a granularidade da distribuição de cargas do sistema. Mesmo no pior caso, onde utiliza-se 100 cálculos de $f(\textbf{x})$, a perda de potência é inferior a 2,\% para todas as simulações, conforme demonstrado pela linha superior da Fig. \cite{fb}. Na simulação PSO 2 o erro é menor que a precisão do sistema para todas as simulações.
+
+%PDF
+\begin{figure}
+\centering
+\includegraphics[width=75mm]{plotForcaBrutaVersusOCP.pdf}
+\caption{Erro máximo durante 100 simulações de duas configurações do PSO}
+\label{fb}
+\end{figure}
+
+
+
+%PDF
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=75mm]{tensao-barras-ZOOM.pdf}
+\caption{Perfil de tensão com e sem alocação de capacitores (fim de circuito)}
+\label{perfilz}
+\end{figure}
+
+O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir é um conjunto muito grande, devido a natureza combinatória do problema. É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas a receber um determinado equipamento, com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de testes praticamente inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da equação \ref{comb}.
+\begin{equation} \label{comb}
+  \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
+\end{equation}
+No contexto deste trabalho assume-se que o usuário conheça as especificações do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito. Portanto, ao trabalhar com bancos com tap fixo, é usual em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões) inserir até 5 cargas capacitivas.
+Neste caso, podemos obter o ótimo em todas as combinações de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
+O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
 
 \begin{table}[position specifier]
   \centering
   \begin{tabular}{| l | l | l |}
   \hline
-  Método & Qtd. de Cálculos & Percentual\\
+  Método & Calc. $f(\textbf{x})$ & Percentual\\
   \hline
   Força Bruta & 2500 & 100\% \\
 	PSO 1 & 100 & 45\% \\
@@ -44,8 +92,7 @@ Uma importante teste foi realizado através da comparação do algoritmo de otimiza
   \label{forca}
 \end{table}
 
-Uma condição importante do problema está relacionada a variação da tensão ao longo do
-circuito durante a alocação dos capacitores. Estabilidade no nível de tensão, via otimização por PSO foi bastante explorada em ~\citeasnoun{kim2011optimal} e ~\citeasnoun{hernandez2006optimal}.
+Uma condição importante do problema está relacionada a variação da tensão ao longo do circuito durante a alocação dos capacitores. Estabilidade no nível de tensão, via otimização por PSO foi bastante explorada em ~\citeasnoun{kim2011optimal} e ~\citeasnoun{hernandez2006optimal}.
 
 Ela é analisada com auxílio da Eq. \ref{vdi}, denominada VDI (\textit{Voltage Deviation Index)}.
 
@@ -55,7 +102,7 @@ Ela é analisada com auxílio da Eq. \ref{vdi}, denominada VDI (\textit{Voltage De
 
 Na Eq. \ref{vdi}, o somatório percorre todas as barras calculando o erro quadrático médio entre o valor estimado $V_{barra}$ e a tensão nominal, similar ao cálculo de ~\citeasnoun{abul2013optimal}.
 
-O perfil de tensão melhorou, pois o valor de VDI (Eq. \ref{vdi}) passou de $0,0351$ para $0,0338$.
+O perfil de tensão melhorou, pois o valor de VDI (Eq. \ref{vdi}) passou de $0,0351$ para $0,0320$.
 É importante observar que, tanto para o circuito original quanto para o circuito otimizado, o nível de tensão foi verificado e mantido dentro da norma (menor que 1,05pu para esta rede de 13,8kV) de acordo com a valor
 indicado no anexo I de \citeasnoun{aneel2012procedimentos}. Apesar da grande melhoria no nível de tensão inferior, este continua abaixo de 0,95pu em alguns pontos (antes e depois de inserir os bancos de capacitores).
 
@@ -82,9 +129,6 @@ As Figs. \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia apó
 %1319 cargas.
 %13.8kV.
 %Radial.
-
-%SERÁ QUE A DIFERENÇA É DEVIDO AS CHAVES?
-
 %No Diagrama Ortogonal Hierárquico:
 %2851 barras
 %2852 linhas
@@ -93,13 +137,12 @@ As Figs. \ref{perfil} e \ref{perfilz} indicam ganhos na qualidade de energia apó
 Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO), foram codificados em C ANSI, pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
 Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores ótimos conhecidos, como a função de De Jong, o vale de Rosenbrock, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Utilizou-se ~\citeasnoun{molga2005test} para esta análise.
 
-Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um teste de desempenho é necessário. O hardware disponível para as simulações deste trabalho, foi XXX. Que favorece o paralelismo de núcleo.
-Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um teste de desempenho é necessário. O hardware disponível para as simulações deste trabalho, foi XXX. Que favorece o paralelismo de núcleo.
-Somando isto ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. 
+Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um teste de desempenho é necessário. O hardware disponível para as simulações deste trabalho, foi um servidor de 24 núcleos da intel(R) xeon(R) E5-2630 com 2.30GHz cada. Que favorece o paralelismo de núcleo. Somando isto ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. 
 
 Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API OpenMP\textregistered, descrita em \citeasnoun{chapman2008using}. É importante
-lembrar que, para esta melhoria no desempenho computacional através de paralelismo de núcleos, um maior uso de memória é necessário para processar todos os cálculos de fluxo de carga de uma única vez. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na Tab. \ref{tab}.
+Para melhorias no desempenho computacional através de paralelismo de núcleos, um maior uso de memória é necessário para processar todos os cálculos de fluxo de carga de uma única vez. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na Tab. \ref{tab}.
 
+%In parallel computing, speedup refers to how much a parallel algorithm is faster than a corresponding sequential algorithm. RODAPÉ?
 \begin{table}[position specifier]
   \centering
   \begin{tabular}{| l | l | l |}

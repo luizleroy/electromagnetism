@@ -8,9 +8,9 @@ potência e corrente em cada um dos pontos do sistema em estudo.
 O método de varredura foi utilizado para o cálculo de perdas, necessários para determinar o valor da função objetivo.
 Nos sistemas radiais de distribuição com apenas uma fonte de tensão, localizada na barra de referência, o cálculo é realizado de
 forma unidirecional, isto é, da barra de referência para as barras terminais.
+
 O método \textit{backward-forward} calcula o fluxo em dois passos.
 No primeiro (\textit{backward}), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência, assim como a injeção de corrente. No segundo passo (\textit{forward}) calculam-se as magnitudes e os ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos em 0º, -120º e 120º para cada fase respectivamente (A, B e C). 
-
 Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida.
 
 \subsection{Metodologia de minimização via PSO}
