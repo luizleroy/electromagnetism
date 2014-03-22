@@ -79,7 +79,7 @@ Após adaptações necessárias no algoritmo, para comportar redes extensas e a disp
 \vspace{-3mm}
 \item Voltar ao passo a) apenas se a menor tensão do sistema for menor que 0,95 pu ou a maior tensão do sistema for maior que 1,05 pu.
 \\
-A alocação de capacitores precisa ser menor que um determinado valor (no caso, 750 kVAr) ou um determinado número de bancos disponíveis (5 x 150 kVar). \textbf{Após esta etapa, apenas um banco foi alocado.}
+A alocação de capacitores precisa ser menor que um determinado valor (no caso, 750 kVAr) ou um determinado número de bancos disponíveis (5 x 150 kVar). 
 \vspace{-3mm}
 \item Identificar a barra que proporciona a maior redução nas perdas de potência ativa do sistema e instalar um banco de capacitores de 150 kVAr nessa barra;
 \vspace{-3mm}
@@ -87,27 +87,28 @@ A alocação de capacitores precisa ser menor que um determinado valor (no caso, 7
 \vspace{-3mm}
 \item Calcular as perdas ativas do sistema;
 \vspace{-3mm}
-\item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 750 kVAr. Ou seja, o restante dos recursos disponíveis. \textbf{Nesta etapa foram alocados três dispositivos, totalizando 600 kVAr na rede.}
+\item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 750 kVAr. Ou seja, o restante dos recursos disponíveis. 
 \end{enumerate}
+\textbf{Após esta etapa, apenas um banco foi alocado.} \textbf{Nesta etapa foram alocados três dispositivos, totalizando 600 kVAr na rede.} As comparações encontram-se na \Tab \ref{tab_final_comparacao}.
 
-As comparações encontram-se na \Tab \ref{tab_final_comparacao}.
-
-\begin{table}[position specifier]
+\begin{table*}[ht!]
   \centering
-  \begin{tabular}{| l | l | l |}
+  \begin{tabular}{| l | l | l | l |}
   \hline
-   & Valor & Alocações\\
+  Tipo & VDI & Perdas & Alocações\\
   \hline
-  Por VDI & x,x & Barras m, n e p \\
-	Por Perdas & x,x kVA & Barras m, n e p \\
+	PSO por Perdas: & 0,02321 & 13,4 kVA &  \\
+  PSO por VDI:& 0,01157 &  61,8 kVA &   \\
 	\hline
-	PSO final & yy & xx \\
-	Alg. guloso & xx & yy \\
-  \hline
+	PSO (VDI e Perdas): & 0,02124 & 14,0 kVA & \\
+	\hline
+	Algoritmo Greedy:  & 0,02393 & 15,1  kVA & 1; 30; 96 e 2496 \\
+	Sem alocação:  & 0,02654 & 15,3  kVA & sem alocação \\
+	\hline
 \end{tabular}
   \caption{Comparação: PSO x Algoritmo Guloso }
   \label{tab_final_comparacao}
-\end{table}
+\end{table*}
 
 O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir é um conjunto muito grande, devido a natureza combinatória do problema. É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas a receber um determinado equipamento, com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de testes praticamente inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da equação \ref{comb}.
 \begin{equation} \label{comb}
@@ -117,7 +118,7 @@ No contexto deste trabalho assume-se que o usuário conheça as especificações do(
 Neste caso, podemos obter o ótimo em todas as combinações de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
 O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
 
-\begin{table}[position specifier]
+\begin{table}[ht!]
   \centering
   \begin{tabular}{| l | l | l |}
   \hline
