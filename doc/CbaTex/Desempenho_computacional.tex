@@ -1,0 +1,28 @@
+\section{Desempenho computacional} \label{comput}
+Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO), foram codificados em C ANSI, pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
+
+Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores ótimos conhecidos, como o vale de Rosenbrock, a função de De Jong, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Nesta etapa, os parâmetros de operação do PSO, descritos na seção \ref{rev}, foram encontrados. Utilizou-se \citeasnoun{molga2005test} para esta análise.
+
+Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um teste de desempenho é necessário. O hardware disponível para as simulações deste trabalho, foi um servidor de 24 núcleos da intel(R) xeon(R) E5-2630 com 2.30GHz cada. Que favorece o paralelismo de núcleo. Somando isto ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. 
+
+Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API OpenMP\textregistered, descrita em \citeasnoun{chapman2008using}. A escolha desta biblioteca se deve ao hardware utilizado, que é de memória compartilhada. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na \Tab \ref{tab_desempenho}.
+
+%In parallel computing, speedup refers to how much a parallel algorithm is faster than a corresponding sequential algorithm. RODAPÉ?
+\begin{table}[position specifier]
+  \centering
+  \begin{tabular}{| l | l | l |}
+  \hline
+  Duração do processo & Núcleos & $\frac{serial}{paralelo}$\\
+  \hline
+  10.885,378s $\approx$ 3h & serial & - \\
+  02.613,357s $\approx$ 43min & 8 & 4,165 \\
+  01.105,509s $\approx$ 18min & 24 & 9,846 \\
+  \hline
+\end{tabular}
+  \caption{Teste de desempenho}
+  \label{tab_desempenho}
+\end{table}
+
+% & Intel Core i5 3.10GHz
+% & Intel Core i7 2 GHz
+% & Intel Xeon e5 2.30GHz

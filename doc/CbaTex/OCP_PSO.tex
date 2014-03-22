@@ -1,38 +1,66 @@
 \section{OCP via PSO} \label{ocp_pso}
-Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas (PSO), é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP) conforme consta no algoritmo abaixo:
+Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas, é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP). Os passos abaixo serão utilizados para construir a condição inicial do algoritmo.
+
 \begin{itemize}
 			\item Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
-			\item Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, candidatos a receber um valor de carga capacitiva (inserção do dispositivo);
-			\item Calcular fluxo (de potência) e as perda elétricas para todas as partículas \textbf{(função objetivo} $f(\textbf{x})$\textbf{)};
-			\item Atualizar o valor inicial de pbest das partículas com o valor calculado no passo imediatamente anterior;
-			\item Atualizar o valor inicial de gbest com o menor resultado encontrado no passo imediatamente anterior;
+			\item Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, propícios a receber um valor de carga capacitiva;
+			\item Calcular fluxo de potência, tensão nas barras e as perda elétricas para todas as partículas da geração atual, utilizadas na construção de $\textbf{f}(x)$;
+			\item Atualizar o valor inicial de pBest das partículas com o valor calculado no passo anterior;
+			\item Atualizar o valor inicial de gBest com o menor resultado encontrado no passo anterior.
 \end{itemize}
 
 \begin{algorithm}[H]
-	\begin{algorithmic}	
-	\While{(não atingir critério de parada)}
-			\State Calcular constante de inércia ( eq. \ref{inert});
-			\For{(todas as partículas)}
-				\State Calcular velocidade (eq. \ref{vel});
-				\State Calcular posição da partícula (eq. \ref{pos});
-				\State Realizar mutações aleatórias;
-			\EndFor
-		\For{(todas as partículas)}
-			\State Calcular $f(\textbf{x})$;
-			\If{(pbest $>$ $f(\textbf{x})$ )}
-				\State Atualizar o valor de pbest com $f(\textbf{x})$;
-			\EndIf
-		\EndFor
-		\State Encontrar o menor valor de pbest;
-		\If{(menor pbest < gbest anterior)}
-			\State Atualizar gbest com menor pbest;
-		\Else
-			\State Atualizar gbest com gbest anterior;
-		\EndIf
-	\EndWhile
-		\State \textbf{Resultado: o último valor de gbest.}
-	\end{algorithmic}
+\caption*{Algoritmo OCP via PSO}
+\label{algoritmo}
+\begin{algorithmic} 
+\REQUIRE Inicializar o PSO
+\ENSURE OCP é o último valor de gBest
+\STATE[1] Calcular constante de inércia com \Eq \ref{inert};
+\STATE[2] Calcular velocidades com \Eq \ref{vel};
+\STATE[3] Calcular posições  com \Eq  \ref{pos};
+\STATE[4] Aplicar metodologia de diversidade;
+\STATE[5] Calcular $f(\textbf{x})$;
+\STATE[6] Se algum pBest for maior que $f(\textbf{x})$, atualizar;
+\STATE[7] Encontrar partícula com menor pBest;
+\STATE[8] Atualizar gBest com menor valor de pBest.
+\STATE[9] Retornar em 1 até atingir um critério de parada.
+\end{algorithmic}
 \end{algorithm}
 
-Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas.
-A uma taxa baixa de probabilidade, cada partícula pode, eventualmente, sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local.
+%\begin{algorithm}[H]
+	%\begin{algorithmic}	
+	%\While{(não atingir critério de parada)}
+			%\State Calcular constante de inércia ( eq. \ref{inert});
+			%\For{(todas as partículas)}
+				%\State Calcular velocidade (eq. \ref{vel});
+				%\State Calcular posição da partícula (eq. \ref{pos});
+				%\State Realizar mutações aleatórias;
+			%\EndFor
+		%\For{(todas as partículas)}
+			%\State Calcular $f(\textbf{x})$;
+			%\If{(pbest $>$ $f(\textbf{x})$ )}
+				%\State Atualizar o valor de pbest com $f(\textbf{x})$;
+			%\EndIf
+		%\EndFor
+		%\State Encontrar o menor valor de pbest;
+		%\If{(menor pbest < gbest anterior)}
+			%\State Atualizar gbest com menor pbest;
+		%\Else
+			%\State Atualizar gbest com gbest anterior;
+		%\EndIf
+	%\EndWhile
+		%\State \textbf{Resultado: o último valor de gbest.}
+	%\end{algorithmic}
+%\end{algorithm}
+
+Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas. A uma taxa constante de probabilidade de 1\%, cada partícula pode sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local, o que prejudicaria muito o resultado final. Este resultado será composto de dois importantes critérios.
+
+O primeiro destes critérios tem como foco a minimização de perdas elétricas do circuito. Esta é obtida através da soma da potência dissipada em todas as linhas do alimentador, conforme a equação \ref{eq_obj1-perdas}.
+\begin{equation} \label{eq_obj1-perdas}
+  PerdasGlobais = \sum^{numL}_{l=linhaInicial}perda_l
+\end{equation}
+Já a variação da tensão ao longo do circuito durante a alocação dos capacitores, pode ser mensurada com auxílio da Eq. \ref{eq_vdi}, denominada VDI (\textit{Voltage Deviation Index)}. Similar ao cálculo de ~\citeasnoun{abul2013optimal}. Estabilidade no nível de tensão, via otimização por PSO foi bastante explorada em ~\citeasnoun{kim2011optimal} e ~\citeasnoun{hernandez2006optimal}.
+\begin{equation} \label{eq_vdi}
+  VDI = \sqrt{\sum^{nb}_{b=inicial}\frac{(V_{b} - V)^2}{nb}}
+\end{equation}
+Na Eq. \ref{eq_vdi}, o somatório percorre todas as barras calculando o erro quadrático médio entre o valor estimado $V_{barra}$ e a tensão nominal, trazendo a possibilidade de obter um mínimo que controle o nível de tensão.

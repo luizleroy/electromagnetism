@@ -2,6 +2,7 @@ tic;
 %fase B (com min value)
 plot(1:2499,vc,'*b',1:2499,vo,'.r');
 
+title('Análise da Fase B');
 legend('COM alocação de capacitores','SEM alocação de capacitores');
 xlabel('Barras em ordem decrescente de nível de tensão');
 ylabel('Tensão (pu)');

@@ -9,58 +9,48 @@ O método de varredura foi utilizado para o cálculo de perdas, necessários para d
 Nos sistemas radiais de distribuição com apenas uma fonte de tensão, localizada na barra de referência, o cálculo é realizado de
 forma unidirecional, isto é, da barra de referência para as barras terminais.
 
-O método \textit{backward-forward} calcula o fluxo em dois passos.
-No primeiro (\textit{backward}), obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência, assim como a injeção de corrente. No segundo passo (\textit{forward}) calculam-se as magnitudes e os ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0pu e o ângulos em 0º, -120º e 120º para cada fase respectivamente (A, B e C). 
-Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida.
+O método \textit{backward-forward} calcula o fluxo em dois passos. No primeiro, \textit{backward}, obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência. No segundo passo, \textit{forward}, calcula-se as magnitudes e os ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0 pu e os ângulos em 0º, -120º e 120º para cada fase A, B e C.  Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida, conforme descrito em \citeasnoun{zimmerman1995comprehensive}.
 
 \subsection{Metodologia de minimização via PSO}
-Partindo de uma topologia com todos os cálculos de fluxo de carga realizados, a potência ativa e reativa, bem como o módulo e ângulo de tensão e corrente por fase ABC, em todas as barras e linhas, é possível somar as perdas ao longo do circuito, que serão minimizadas ao inserir bancos de capacitores na rede de distribuição.
+Partindo de uma topologia com todos os cálculos de fluxo de carga realizados, a potência ativa e reativa, bem como o módulo e ângulo de tensão e corrente por fase ABC, em todas as barras e linhas, é possível somar as perdas ao longo do circuito e calcular o desvio de tensão em cada barra do sistema.
 
-O procedimento usual em métodos estocásticos, e adotado neste trabalho, durante o processo de minimização de uma função objetivo $f(\textbf{x})$ de múltiplas variáveis é iniciar com uma população de pontos de avaliação e evoluir até encontrar um valor satisfatório para servir de solução ao problema. Neste caso, obtém-se a avaliação de cada função $f(\textbf{x})$ através do método de cálculo de fluxo de carga por varredura e
-utiliza-se a técnica de otimização inteira para o PSO descrita em ~\citeasnoun{del2008particle}.
+O procedimento usual em métodos estocásticos, e adotado neste trabalho, durante o processo de minimização de uma determinada função objetivo $f(\textbf{x})$ de múltiplas variáveis, é iniciar com uma população de pontos de avaliação e evoluir até encontrar um valor satisfatório para servir de solução ao problema. Este tipo de análise foi realizada também em \citeasnoun{zhang2008active}, \citeasnoun{sedlaczek2006using} e \citeasnoun{yarmohamadi2012capaictor}. Obtém-se a avaliação de $f(\textbf{x})$ através do método de cálculo de fluxo de carga por varredura e utiliza-se a técnica de otimização inteira para o PSO descrita em \citeasnoun{del2008particle}.
 
-O algoritmo se adapta atualizando um parâmetro denominado velocidade, com auxílio das experiências de
-iterações anteriores. Conforme ~\citeasnoun{zhang2008active}, ~\citeasnoun{sedlaczek2006using} e ~\citeasnoun{yarmohamadi2012capaictor}).
-No PSO, a velocidade $v_i^d$ e a posição $x_i^d$ da d-ésima dimensão da i-ésima partícula é atualizada
-conforme as  Eqs. ~\ref{vel} e ~\ref{pos}:
+O algoritmo se adapta atualizando um parâmetro denominado velocidade. Este parâmetro é responsável por evoluir toda a população em direção ao valor ótimo. No PSO, a velocidade $\textbf{v}_i$ e a posição $\textbf{x}_i$ da i-ésima partícula é atualizada conforme as  Eqs. ~\ref{vel} e ~\ref{pos}:
 
 \begin{equation} \label{vel}
 \begin{split}
-  v_i^d = w \cdot v_i^d +c_1 \cdot r_1 \cdot (pbest_i^d-x_i^d)
+  \textbf{v}_i = w \cdot \textbf{v}_i +c_1 \cdot rand_1 \cdot (\textbf{pBest}_i-\textbf{x}_i)
   \\
-  + c_2 \cdot r_2 \cdot (gbest^d-x_i^d)
+  +\hspace{1 mm}c_2 \cdot rand_2 \cdot (\textbf{gBest}\hspace{1 mm}-\textbf{x}_i)
 \end{split}
 \end{equation}
 
 \begin{equation} \label{pos}
- x_i^d = x_i^d + v_i^d
+ \textbf{x}_i = \textbf{x}_i + \textbf{v}_i
 \end{equation}
 
 \noindent Sendo:
 \vspace{-3mm}
 \begin{itemize}
-  \item $x_i$ é a posição de uma partícula na iteração $i$ (ponto de avaliação da função objetivo);
+  \item $\textbf{x}_i$ é a posição de uma partícula na i-ésima iteração. O ponto de avaliação de \textbf{f};
 	\vspace{-3mm}
-  \item $v_i$ é definido como a velocidade de uma partícula na iteração $i$;
+  \item $\textbf{v}_i$ é definido como a velocidade de uma partícula na iteração $i$;
 	\vspace{-3mm}
-  \item $pbest_i$ é a melhor localização no espaço de busca para a partícula $i$;
+  \item $\textbf{pBest}_i$ é a melhor localização no espaço de busca para a partícula $i$;
 	\vspace{-3mm}
-  \item $gbest$ é a melhor localização encontrada a cada iteração;
+  \item $\textbf{gBest}$ é a melhor localização;
 	\vspace{-3mm}
   \item $w$ é o peso inercial que controla o impacto da velocidade anterior no momento atual;
 	\vspace{-3mm}
-  \item $r_1$ e $r_2$ são dois valores aleatórios e independentes uniformemente distribuídos entre $[0,1)$ e
+  \item $rand_1$ e $rand_2$ são dois valores aleatórios e independentes uniformemente distribuídos entre $[0,1)$ e
 	\vspace{-3mm}
-  \item $c_1$,$c_2$ são dois coeficientes positivos que controlam a contribuição de pbest e gbest.
+  \item $c_1$,$c_2$ são dois coeficientes positivos que controlam a contribuição de \textbf{pBest} e \textbf{gBest}.
 \end{itemize}
 
-A equação ~\ref{vel} é usada para calcular o nova velocidade de acordo com a velocidade
-anterior e a distância entre a posição corrente e a melhor posição anterior da partícula (pbest). Também é
-contabilizado a inteligência do grupo, através da posição anterior e o valor gbest.
-O processo é repetido até um número máximo de iterações ($imax$).
-O peso inercial, durante este trabalho, recebeu um decaimento exponencial. A cada iteração $i$,
+A equação ~\ref{vel} é usada para calcular o nova velocidade de acordo com a velocidade anterior e a distância entre a posição corrente e a melhor posição anterior da partícula. Ou seja, o valor de \textbf{pBest}. Também é contabilizado a inteligência do grupo, através da diferença entre a posição anterior e o valor de \textbf{gBest}. O peso inercial, durante este trabalho, recebeu um decaimento exponencial. A cada iteração $i$,
 conforme a equação ~\ref{inert}, ele diminui, controlado pelas constantes $w_1$ e $w_2$:
 
 \begin{equation} \label{inert}
- w = w_1 \cdot e^{\frac{-w_{2}\cdot i}{imax}}
+ w = w_1 \cdot e^{\frac{-w_{2}\cdot i}{i_{max}}}
 \end{equation}
