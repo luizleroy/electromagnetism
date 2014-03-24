@@ -50,7 +50,7 @@ O algoritmo se adapta atualizando um parâmetro denominado velocidade. Este parâm
   \item $c_1$,$c_2$ são dois coeficientes positivos que controlam a contribuição de \textbf{pBest} e \textbf{gBest}.
 \end{itemize}
 
-A equação ~\ref{vel} é usada para calcular o nova velocidade de acordo com a velocidade anterior e a distância entre a posição corrente e a melhor posição anterior da partícula. Ou seja, o valor de \textbf{pBest}. Também é contabilizado a inteligência do grupo, através da diferença entre a posição anterior e o valor de \textbf{gBest}. O peso inercial, durante este trabalho, recebeu um decaimento exponencial. A cada iteração $i$,
+A \Eq ~\ref{vel} é usada para calcular o nova velocidade de acordo com a velocidade anterior e a distância entre a posição corrente e a melhor posição anterior da partícula. Ou seja, o valor de \textbf{pBest}. Também é contabilizado a inteligência do grupo, através da diferença entre a posição anterior e o valor de \textbf{gBest}. O peso inercial, durante este trabalho, recebeu um decaimento exponencial. A cada iteração $i$,
 conforme a equação ~\ref{inert}, ele diminui, controlado pelas constantes $w_1$ e $w_2$:
 
 \begin{equation} \label{inert}

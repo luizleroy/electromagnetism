@@ -23,7 +23,7 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 \STATE[6] Se algum \textit{pBest} for maior que $f(\textbf{x})$, atualizar;
 \STATE[7] Encontrar partícula com menor \textit{pBest};
 \STATE[8] Atualizar \textit{gBest} com menor valor de \textit{pBest}.
-\STATE[9] Retornar em 1 até atingir um critério de parada.
+\STATE[9] Retornar em [1] até atingir um critério de parada.
 \end{algorithmic}
 \end{algorithm}
 
@@ -55,12 +55,18 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 
 Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas. A uma taxa constante de probabilidade de 1\%, cada partícula pode sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local, o que prejudicaria o resultado final. Este resultado será composto de dois importantes critérios.
 
-O primeiro destes critérios tem como foco a minimização de perdas elétricas do circuito. Esta é obtida através da soma da potência dissipada em todas as linhas do alimentador, conforme a equação \ref{eq_obj1-perdas}.
+O primeiro destes critérios tem como foco a minimização de perdas elétricas do circuito. Esta é obtida através da soma da potência dissipada em todas as linhas do alimentador, conforme a \Eq \ref{eq_obj1-perdas}.
 \begin{equation} \label{eq_obj1-perdas}
-  PerdasGlobais = \sum^{linhaFinal}_{l=linhaInicial}ZI^2_l
+  perdas = \sum^{linhaFinal}_{l=linhaInicial}ZI^2_l
 \end{equation}
-Já a variação da tensão ao longo do circuito durante a alocação dos capacitores, pode ser mensurada com auxílio da Eq. \ref{eq_vdi}, denominada VDI (\textit{Voltage Deviation Index)}. Similar ao cálculo de \citeasnoun{abul2013optimal}. Estabilidade no nível de tensão, via otimização por PSO, foi explorada em \citeasnoun{kim2011optimal} e \citeasnoun{hernandez2006optimal}.
+Já a variação da tensão ao longo do circuito durante a alocação dos capacitores, pode ser mensurada com auxílio da \Eq \ref{eq_vdi}, denominada VDI (\textit{Voltage Deviation Index)}. Similar ao cálculo de \citeasnoun{abul2013optimal}. Estabilidade no nível de tensão, via otimização por PSO, foi explorada em \citeasnoun{kim2011optimal} e \citeasnoun{hernandez2006optimal}.
 \begin{equation} \label{eq_vdi}
   VDI = \sqrt{\sum^{nb}_{b=inicial}\frac{(V_{b} - V)^2}{nb}}
 \end{equation}
 Na Eq. \ref{eq_vdi}, o somatório percorre todas as barras calculando o erro quadrático médio entre o valor estimado $V_{barra}$ e a tensão nominal, trazendo a possibilidade de obter um mínimo que controle o nível de tensão.
+
+Em situações onde ambos os requisitos de rede citados anteriormente são importantes, pode-se utilizar os dois critérios em uma única equação. Neste caso, é necessário avaliar o peso da contribuição de cada critério. Na \Eq \ref{eq_multi} utiliza-se $w_v$ para a contribuição de VDI e $w_p$ para as perdas:
+
+\begin{equation} \label{eq_multi}
+  f = w_v*\frac{VDI}{VDI_{max}} + w_p*\frac{perdas}{perdas_{max}}
+\end{equation}
