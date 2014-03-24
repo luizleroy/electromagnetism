@@ -5003,12 +5003,19 @@ vc = [
 lvector = length(vc);
 ini = 2150;
 tam = lvector - ini + 1;
-plot(ini:lvector,vc(ini:lvector),'.b',ini:lvector,vo(ini:lvector),'vr',ini:lvector,0.95*ones(tam,1),'k');%,1:tam1,1.05*ones(tam,1),'k');
+%plot(ini:lvector,vc(ini:lvector),'.b',ini:lvector,vo(ini:lvector),'vr',ini:lvector,0.95*ones(tam,1),'k');%,1:tam1,1.05*ones(tam,1),'k');
+beans = 8;
+
+hist(vo, beans);
+h = findobj(gca,'Type','patch');
+set(h,'FaceColor',[0 .5 .5],'EdgeColor','w');
+hold on;
+hist(vc, beans);
 
 title('Análise da Fase A');
-legend('COM alocação de capacitores','SEM alocação de capacitores');
-xlabel('Barras com desvio de tensão');
-ylabel('Tensão (pu)');
+legend('SEM','COM');
+xlabel('Tesão em pu');
+ylabel('Qtd. de barras');
 
 % Change default axes fonts.
 set(0,'DefaultAxesFontName', 'Times');

@@ -46,11 +46,11 @@ r = [92.43071; 92.43086; 92.43086; 92.43071; 92.43071; 92.44509; 92.43071; ...
 	 
 
 tic;
-plot(1:100,b/min(b),'-b',1:100,r/min(r),'-r');
+plot(1:100,b/min(b),'-*b',1:100,r/min(r),'-r');
 
 legend('225 cálculos','100 cálculos');
 xlabel('iD da simulação');
-ylabel('p.u. (92,4 kVAr) ');
+ylabel('1 p.u. = 92,4 kVAr');
 
 % Change default axes fonts.
 set(0,'DefaultAxesFontName', 'Times');
