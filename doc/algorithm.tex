@@ -1,70 +1,62 @@
-%\newenvironment{myalgorithm}[1][htb]
-  %{\renewcommand{\algorithmcfname}{Algoritmo}%
-   %\begin{algorithm}[#1]%
-  %}{\end{algorithm}}
+%\documentclass{article}
+%\usepackage{algorithm,algorithmic}
+%\usepackage{caption}
+%
+%\newlength\myindent
+%\setlength\myindent{2em}
+%\newcommand\bindent{%
+%  \begingroup
+%  \setlength{\itemindent}{\myindent}
+%  \addtolength{\algorithmicindent}{\myindent}
+%}
+%\newcommand\eindent{\endgroup}
+%
+%\begin{document}
+%
+%\begin{algorithm}[H]
+%\caption*{my algorithm}
+%\begin{algorithmic} 
+%\REQUIRE load flow
+%\ENSURE optimal OCP
+%\STATE[1] Calcular constante de inÃ©rcia com Eq. x
+%\STATE[2] Para todas as partÃ­culas:
+%	\STATE[3]Calcular velocidade com Eq. x
+%\end{algorithmic}
+%\end{algorithm}
+%
+%\end{document}
 
 \documentclass{article}
-\usepackage{algorithm,algorithmic}
-\usepackage{caption}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{hyperref}
 
-\newlength\myindent
-\setlength\myindent{2em}
-\newcommand\bindent{%
-  \begingroup
-  \setlength{\itemindent}{\myindent}
-  \addtolength{\algorithmicindent}{\myindent}
-}
-\newcommand\eindent{\endgroup}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\title{\LaTeX}
+\date{}
+\author{Luiz Le Roy}
+
+%descobirir como trocar o nome do ambiente...
+%\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
+%\newenvironment{myalgorithm}[1][htb]
+%  {\renewcommand{\algorithmcfname}{Algoritmo}%
+%   \begin{algorithm}[#1]
+%  }{\end{algorithm}}
 
 \begin{document}
-
-\begin{algorithm}[H]
-\caption*{my algorithm}
+  \maketitle
+  
+\begin{algorithm}
+\caption{Algoritmo OCP via PSO}
 \begin{algorithmic} 
 \REQUIRE load flow
 \ENSURE optimal OCP
-\STATE[1] Calcular constante de inércia com Eq. x
-\STATE[2] Para todas as partículas:
+\STATE[1] Calcular constante de inÃ©rcia com Eq. x
+\STATE[2] Para todas as partÃ­culas:
 	\STATE[3]Calcular velocidade com Eq. x
 \end{algorithmic}
 \end{algorithm}
-
+								
 \end{document}
-
-%\documentclass[12pt]{article}
-%\usepackage[latin1]{inputenc}
-%\usepackage{amsmath}
-%\usepackage{hyperref}
-%
-%\usepackage{algorithm}
-%\usepackage{algorithmic}
-%
-%\title{\LaTeX}
-%\date{}
-%\author{Luiz Le Roy}
-%\begin{document}
-  %\maketitle 
-%%\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
-%\begin{algorithm}
-%\caption{Algoritmo OCP via PSO}
-%\begin{algorithmic} 
-%\REQUIRE load flow
-%\ENSURE optimal OCP
-%\STATE[1] Calcular constante de inércia com Eq. x
-%\STATE[2] Para todas as partículas:
-	%\STATE[3]Calcular velocidade com Eq. x
-%\end{algorithmic}
-%\end{algorithm}
-%
-%\begin{algorithm}
-%\caption{Algoritmo OCP via PSO}
-%\begin{algorithmic} 
-%\REQUIRE load flow
-%\ENSURE optimal OCP
-%\STATE[1] Calcular constante de inércia com Eq. x
-%\STATE[2] Para todas as partículas:
-	%\STATE[3]Calcular velocidade com Eq. x
-%\end{algorithmic}
-%\end{algorithm}
-								%
-%\end{document}

@@ -1,50 +1,75 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{hyperref}
 \title{\LaTeX}
 \date{}
 \begin{document}
-  \maketitle 
-Dê um exemplo de matriz A != 0 tal que A^2=0.
+  \maketitle
 
-As matrizes quadradas de ordem n, A e B, comutam se AB!=BA. Ache as matrizes 2x2 que comutam com [1 0; 0 2]. Ache as matrizes 3x3 que comutam com [1 1 0; 0 1 1; 0 0 1].
+\begin{itemize}
+\item Um exemplo de matriz $A \neq 0$ tal que $A^2=0$:
+$$
+\left[\begin{array}{rr}
+a&b\\
+c&d
+\end{array}\right]
+\quad
+\left[\begin{array}{cc}
+a&b\\
+c&d
+\end{array}\right]
+=
+\quad
+\left[\begin{array}{cc}
+0&0\\
+0&0
+\end{array}\right]
+$$
+Onde $a=1$, $b=1$, $c=-1$ e $d=-1$.
+\item As matrizes quadradas de ordem n, A e B, comutam se $AB \neq BA$. Ache as matrizes 2x2 que comutam com [1 0; 0 2]. Ache as matrizes 3x3 que comutam com [1 1 0; 0 1 1; 0 0 1].
+\\ SerÃ¡ este mais bonito: ovo mutum amo mutum ovo?
+\end{itemize}
 
-Seja A_{nxn} tal que A^3=0. Prove que (I_n - A)^{-1}=I_n + A + A^2.
 
-Sejam A e B nxn tais que A=A^t, B=B^t, isto é, simétricas. Prove que AB é simétrica se, e s´se, A e B comutam.
 
-Uma matriz de probabilidade é uma matriz P=(p_{ij}) nxn tal que p_{ij}>=0 para todo par (i,j) e \sum{pij}=1 para todo i. Prove que se P e Q são matrizes de probabilidade nxn, então PQ também o é.
-
-Resolva os sistemas:
-2x1 - 3x2 + 7x3 = 2
-6x1 -9x2+21x3=-1
-
-6x1+9x2+14x3=0
-3x1-8x2+7x3=0
-
-x1+x2-x3=-2
-2x1+x2-x3=-7
-4x1-5x2-13x3=-35
--3x1+2x2+8x3=21
-
-2x1+x2=x3=0
-x1 - x3=0
--5x1+x2+2x3=0
-12x1-x2-x3=0
-
-Calcule a e b de modo que sejam compatíveis os equações:
-4x1+3x2=-3
-5x1+4x2=-5
-ax1+2x2=5
-3x1+bx2=-1
-
-Discuta como o posto de A varia com teR, onde A = [1 1 t; 1 t 1; t 1 1].
-
-Discuta as soluções do sistema {x + ay =1
-								ax+y=a^3} conforme os valores do parâmetro a e R.
-
-Dê o exemplo de sistema linear com 4 equações e 4 inc´gnitas cuja solução dependa de:
-a) 1 parâmetro, b) 2 c) 3 
+%
+%
+%Seja A_{nxn} tal que A^3=0. Prove que (I_n - A)^{-1}=I_n + A + A^2.
+%
+%Sejam A e B nxn tais que A=A^t, B=B^t, isto ï¿½, simï¿½tricas. Prove que AB ï¿½ simï¿½trica se, e sï¿½se, A e B comutam.
+%
+%Uma matriz de probabilidade ï¿½ uma matriz P=(p_{ij}) nxn tal que p_{ij}>=0 para todo par (i,j) e \sum{pij}=1 para todo i. Prove que se P e Q sï¿½o matrizes de probabilidade nxn, entï¿½o PQ tambï¿½m o ï¿½.
+%
+%Resolva os sistemas:
+%2x1 - 3x2 + 7x3 = 2
+%6x1 -9x2+21x3=-1
+%
+%6x1+9x2+14x3=0
+%3x1-8x2+7x3=0
+%
+%x1+x2-x3=-2
+%2x1+x2-x3=-7
+%4x1-5x2-13x3=-35
+%-3x1+2x2+8x3=21
+%
+%2x1+x2=x3=0
+%x1 - x3=0
+%-5x1+x2+2x3=0
+%12x1-x2-x3=0
+%
+%Calcule a e b de modo que sejam compatï¿½veis os equaï¿½ï¿½es:
+%4x1+3x2=-3
+%5x1+4x2=-5
+%ax1+2x2=5
+%3x1+bx2=-1
+%
+%Discuta como o posto de A varia com teR, onde A = [1 1 t; 1 t 1; t 1 1].
+%
+%Discuta as soluï¿½ï¿½es do sistema {x + ay =1
+%								ax+y=a^3} conforme os valores do parï¿½metro a e R.
+%
+%Dï¿½ o exemplo de sistema linear com 4 equaï¿½ï¿½es e 4 incï¿½gnitas cuja soluï¿½ï¿½o dependa de:
+%a) 1 parï¿½metro, b) 2 c) 3 
 								
 \end{document}
