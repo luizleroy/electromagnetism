@@ -1,14 +1,22 @@
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
+\usepackage{amsmath} %(?)
+\usepackage{amsthm}%for theorem  
 \usepackage{hyperref}
-\title{\LaTeX}
+\usepackage{amssymb} % In LaTeX, how do I represent the hollow "R" symbol that designates the real number space? -> use \mathbb from amsfonts (loaded by amssymb)
+\title{Math by \LaTeX}
 \date{}
+\author{Luiz Le Roy}
 \begin{document}
   \maketitle
+  \today
+  
+\begin{center}
+{\LARGE \textbf{  Primeiro conjunto de tarefas}}
+\end{center}
 
 \begin{itemize}
-\item Um exemplo de matriz $A \neq 0$ tal que $A^2=0$:
+\item[1] Um exemplo de matriz $A \neq 0$ tal que $A^2=0$:
 $$
 \left[\begin{array}{rr}
 a&b\\
@@ -26,12 +34,73 @@ c&d
 0&0
 \end{array}\right]
 $$
-Onde $a=1$, $b=1$, $c=-1$ e $d=-1$.
-\item As matrizes quadradas de ordem n, A e B, comutam se $AB \neq BA$. Ache as matrizes 2x2 que comutam com [1 0; 0 2]. Ache as matrizes 3x3 que comutam com [1 1 0; 0 1 1; 0 0 1].
-\\ Será este mais bonito: ovo mutum amo mutum ovo?
+\textbf{Onde a = 1, b = 1, c = -1 e d = -1.}
+\item[2] As matrizes quadradas de ordem n, A e B, comutam se $AB = BA$. 
+\\As matrizes 2x2 que comutam com $\left[\begin{array}{cc}
+1&0\\0&2
+\end{array}\right]$ são:
+$$
+\begin{bmatrix}
+1&0\\0&2
+\end{bmatrix}
+\begin{bmatrix}
+a&b\\c&d
+\end{bmatrix}
+=
+\begin{bmatrix}
+a&b\\c&d
+\end{bmatrix}
+\begin{bmatrix}
+1&0\\0&2
+\end{bmatrix}
+$$
+\textbf{Com a = 0, c = 0, b = x e d = y onde $x,y\hspace{2mm}\in\hspace{2mm}\mathbb{R}^2$.}
+\\As matrizes 3x3 que comutam com 
+$\begin{bmatrix}
+1&1&0\\1&1&1\\0&0&1
+\end{bmatrix}$ são:
+$$
+\begin{bmatrix}
+1&1&0\\1&1&1\\0&0&1
+\end{bmatrix}
+\begin{bmatrix}
+a&b&c\\d&e&f\\g&h&i
+\end{bmatrix}
+=
+\begin{bmatrix}
+a&b&c\\d&e&f\\g&h&i
+\end{bmatrix}
+\begin{bmatrix}
+1&1&0\\1&1&1\\0&0&1
+\end{bmatrix}
+$$
+\textbf{Com b = f = a, i = e, d = 0, g = 0 e h = 0 onde $a,c,e\hspace{2mm}\in\hspace{2mm}\mathbb{R}^3$.}
+
+\item[3] Com auxílio do seguinte teorema:
+\\ Se A é uma matriz quadrada
 \end{itemize}
 
+\begin{center}
+{\LARGE \textbf{Segundo conjunto de tarefas}}
+\end{center}
 
+\begin{itemize}
+\item[1] Sejam $A_{m \times n}$, $P_{m \times m}$ invertível, $\textbf{a}_1, \textbf{a}_2, ..., \textbf{a}_r$ r colunas L.I de A. Prove que $P\textbf{a}_1,P\textbf{a}_2,...,P\textbf{a}_r$ são r colunas L.I. de PA.
+\begin{proof}
+É preciso da seguinte equação:
+\[
+a^2 + b^2 = c^2
+\]
+E tenho dito! \qedhere
+\end{proof}
+
+\item[2] Discuta as soluções do sistema:
+\begin{eqnarray*} 
+ax \hspace{9mm} +bz &=&1\\
+ax+ay+4z&=&2\\
+ay+2z&=&3 
+\end{eqnarray*}
+\end{itemize}
 
 %
 %
@@ -73,3 +142,11 @@ Onde $a=1$, $b=1$, $c=-1$ e $d=-1$.
 %a) 1 par�metro, b) 2 c) 3 
 								
 \end{document}
+
+%%exemplo de sistema
+%\begin{eqnarray*} 
+%a \hspace{18mm} &=&1\\
+%\hspace{9mm}b\hspace{9mm}&=&2\\
+%c&=&3
+%\end{eqnarray*}
+
