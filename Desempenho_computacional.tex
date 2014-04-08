@@ -1,0 +1,88 @@
+\section{Desempenho computacional} \label{comput}
+Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO), foram codificados em C ANSI, pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
+
+Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores ótimos conhecidos, como o vale de Rosenbrock, a função de De Jong, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Nesta etapa, os parâmetros de operação do PSO, descritos na seção \ref{rev}, foram encontrados. Utilizou-se \citeasnoun{molga2005test} para esta análise.
+
+Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um trabalho focado em desempenho é necessário. O hardware disponível para as simulações foi um servidor de 24 núcleos da Intel\textregistered, com o E5-2630 xeon\textregistered, de 2.30GHz cada. Que favorece o paralelismo de núcleo. Somando ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. 
+
+Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API OpenMP\textregistered, descrita em \citeasnoun{chapman2008using}. A escolha desta biblioteca se deve ao hardware utilizado, que é de memória compartilhada. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na \Tab \ref{tab_desempenho}.
+
+%In parallel computing, speedup refers to how much a parallel algorithm is faster than a corresponding sequential algorithm. RODAPÉ
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{| l | l | l | l |}
+  \hline
+  Núcleos & Duração & Speedup & Eficiência\\
+  \hline
+  01 &$\approx$ 37,5 min & 01,000 & 1,000 \\
+  02 &$\approx$ 18,5 min & 02,024 & 1,012 \\
+  04 &$\approx$ 09,9 min & 03,805 & 0,951 \\
+  06 &$\approx$ 07,1 min & 05,248 & 0,875 \\
+  08 &$\approx$ 06,8 min & 05,489 & 0,686 \\
+  10 &$\approx$ 06,1 min & 06,061 & 0,606 \\
+  12 &$\approx$ 05,3 min & 07,080 & 0,590 \\
+  14 &$\approx$ 04,4 min & 08,389 & 0,599 \\
+  16 &$\approx$ 04,3 min & 08,729 & 0,546 \\
+  18 &$\approx$ 04,1 min & 09,248 & 0,514 \\
+  20 &$\approx$ 04,0 min & 09,314 & 0,466 \\
+  22 &$\approx$ 03,3 min & 11,434 & 0,520 \\
+  24 &$\approx$ 03,0 min & 12,510 & 0,521 \\
+  \hline
+\end{tabular}
+  \caption{Teste de desempenho}
+  \label{tab_desempenho}
+\end{table}
+
+O gráfico na \Fig \ref{fig_parallel_m} indica como o servidor se comporta com a aplicação desenvolvida, ao variar a quantidade de núcleos utilizados (com uma thread para cada processador).
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=75mm]{parallel_m.pdf}
+\caption{Desempenho do servidor de processamento paralelo}
+\label{fig_parallel_m}
+\end{figure}
+
+Observa-se que o \textit{speedup}\footnote{Em computação paralela, \textit{speedup} se refere ao quanto um algoritmo é mais rápido que sua versão sequencial: $S=\frac{TempoSerial}{TempoParalelo}$.} da aplicação, no melhor caso, foi de 12.51, onde foi possível diminuir a duração da simulação de 37 minutos e 32 segundos para 3 minutos. Estranhamente, a execução mais eficiente, durante este experimento, ocorreu com a alocação de 2 núcleos. A versão sequencial do experimento, não deveria ter mais que o dobro de duração que a versão com dois núcleos. Desconsiderando esta amostra, ainda podemos considerar eficiente, também  as simulações com 4 e 6 núcleos. O importante, para este tipo de trabalho que precisou de milhares de cálculos de função, foi a redução de mais de 12 vezes no tempo absoluto de execução.
+
+Abaixo segue o trecho de código paralelizado. A ideia foi trabalhar no nível mais alto, buscando realizar a tarefa mais pesada em simultâneo: a obtenção de $f(\textbf{x})$, que realiza o cálculo do fluxo de carga em toda a rede de distribuição.
+%%\onecolumn
+\begin{lstlisting}
+// retorna o vetor com "fitness function"
+complex double *
+aFF(size_t * aX, 
+	n_aX_dots, 
+	nX_dim, 
+	Rede * aRede)
+{
+	complex double * target;
+
+	//...
+
+	// Explicitly disable dynamic teams
+	omp_set_dynamic(0);
+	// n = 20 threads
+	// consecutive parallel regions:
+	omp_set_num_threads(20);
+	int d;
+#pragma omp parallel for
+	for (d = 0; d < n_aX_dots; d++) {
+		size_t x[d] = aX[d];
+		allocateCapacitors(
+		x, 
+		nX_dim, 
+		aRede);
+		target[d] = f(x,aRede);
+	}
+	return target;
+}
+\end{lstlisting}
+
+\textbf{É muito importante observar que, por uma questão de eficiência, o algoritmo proposto precisará criar cópias da rede para funcionar de forma eficiente em paralelo. Cada ponto do PSO precisa de uma rede dedicada. Esta rede só será reutilizada na próxima geração. Um gasto maior de memória foi necessário para um ganho no tempo de processamento.} 
+%%\twocolumn
+
+
+
+%Máquinas de teste:
+% & Intel Core i5 3.10GHz => 4 núcleos
+% & Intel Core i7 2 GHz => 8 núcleos
+% & Intel Xeon e5 2.30GHz => 24 núcleos
