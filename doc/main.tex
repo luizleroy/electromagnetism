@@ -1,0 +1,86 @@
+\documentclass{IEEEtran}
+\usepackage{filecontents}
+\usepackage{lipsum}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % for image
+\usepackage{color} % for image (?)
+\usepackage{amsmath}
+\DeclareGraphicsExtensions{.png}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+
+\title{SSA\\Otimizações em Linhas de Distribuição de Energia via um Algoritmo Evolucionário Denominado \textit{Particle Swarm Optimization}\\\textbf{Bibliografia Preliminar}}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Luiz~Le~Roy - ~\IEEEmembership{PUC Minas}
+        % <-this % stops a space
+\thanks{Texto iniciado em 4 de abril de 2014.}}
+
+% The paper headers
+\markboth{Journal of \LaTeX\,~Vol.~X, No.~Y, Abril~2014}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+
+% make the title area
+\maketitle
+
+\begin{abstract}
+Levantamento da bibliografia.
+\end{abstract}
+
+\begin{IEEEkeywords}
+PSO \textit{(Particle Swarm Optimization)}.
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introdução}
+\IEEEPARstart{A}{pós} conversar com o orientador fizemos o seguinte combinado:
+Devemos concentrar em duas diretivas:
+\begin{itemize}[]
+\item Buscar um problema de maior ganho para a Cemig, e
+\item encontrar algo que pode trazer ganhos para concessionárias de energia de forma geral.
+\end{itemize}
+
+No primeiro caso, podemos tentar encontrar uma contribuição dentro de uma realidade nacional, que possui diversas peculiaridades. No segundo item, podemos abordar mais as inúmeras possibilidades de contribuições científicas.
+
+\section{Referência para primeira apresentação}
+Seguindo a ordem natural, explorei \cite{del2008particle} para familiarizar com os problemas de SEP, especificamente a Distribuição de Energia, com auxílio da ferramenta de computação evolucionária PSO - \textit{Particle Swarm Optimization}.
+
+
+
+O que produzi até agora foi: \cite{arruda2005calculation}, \cite{adriano2006modelos} e \cite{adriano2006efeitos}.
+
+
+\section{Conclusão}
+Até o momento, foi possível concluir coisas interessantes sobre a alocação estática de dispositivos capacitivos em linhas de distribuição?
+
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+\bibliographystyle{ieeetran}
+\bibliography{bibliography}
+
+\begin{IEEEbiographynophoto}{Luiz~Le~Roy}
+é estudante do curso de mestrado da Pontif\'icia Universidade Cat\'olica de Minas Gerais.
+\end{IEEEbiographynophoto}
+
+% that's all folks
+\end{document}
