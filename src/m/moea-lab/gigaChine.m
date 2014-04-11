@@ -1,12 +1,10 @@
-clear; close all;
-rng('default');
+clear; close all; tic;
+%rng('default');
 
-a=-2; b=2;
-pop = 1000;
-x = a + (b-a).*rand(pop,2);
+display('População (cuidado: a análise força bruta cresce com o quadrado do valor!)')
+pop = 750
 
-f(:,1)=x(:,1).^2+x(:,2).^2;
-f(:,2)=(x(:,1)-1).^2+x(:,2).^2;
+f = functionTable(pop, 'ZDT6');
 
 subplot(2,1,1);
 %plot(x(:,1),x(:,2),'*');
@@ -29,3 +27,4 @@ end
 plot(d(:,1),d(:,2),'.r');
 hold on
 plot(maxf1,maxf2,'^r');
+toc;
