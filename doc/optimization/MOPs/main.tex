@@ -1,16 +1,17 @@
 %approaches to multi objective optimization problems (MOPs)
 %abordagens para problemas de otimização multi objetivo (MOPs)
 
-\documentclass[12pt]{article}
+\documentclass[twoside]{report}
+\usepackage[inner=1cm,outer=2cm]{geometry} %left=4cm,right=2cm would be equivalent
 \usepackage[latin1]{inputenc}
 \usepackage{graphicx} % for image
 
-\title{\LaTeX}
+\title{MOP com \LaTeX !}
 \date{}
-\author{Luiz Le Roy}
+\author{por Luiz Le Roy}
 \begin{document}
   \maketitle 
-  \textbf{Exercício} %is a document preparation system. By \textbf{ By http://latexlab.org }
+  \section{Primeira otimização} %is a document preparation system. By \textbf{ By http://latexlab.org }
 	
 	
 Estudar o problema de minimização com:
@@ -19,13 +20,88 @@ $$f_2(x_1,x_2) = (x_1-1)^2+x_2^2$$ onde
 $$x_{1,2} \in \Re | -2<x_{1,2}<2$$.
 	
 %PDF
-\begin{figure}[ht!]
+\begin{figure}[h!]
 \centering
-\includegraphics[width=100mm]{pareto_nsga.pdf}
-\caption{NSGA-2 Curva Pareto Primeira VersãO}
+\includegraphics[width=120mm]{pareto_nsga-ii.pdf}
+\caption{NSGA-2 Curva Pareto para o quadrado do raio de duas funções de círculos concêntricos: $f_1$, em torno de (0,0) e $f_2$ em torno de (1,0).}
 \label{perfil}
 \end{figure}	
- 
+
+\section{Otimizações por força bruta: gerando base de \textbf{f}(\textbf{x}) para testes}
+O principal objetivo deste trabalho, foi gerar uma base de dados com valores de domínio e imagem das funções objetivos de testes, encontradas na literatura. Foram geradas as otimizações demonstradas nas figuras abaixo sem nenhuma técnica evolucionária. Apenas uma nuvem de pontos aleatórios foram lançadas no espaço, e os valores de $f_1$ e $f_2$ foram plotados. Depois, apenas os pontos não dominados foram plotados na cor vermelha.
+A base de dados, com dez pontos de cada função teste, encontra-se no arquivo ``bd.zip''.\textbf{ Lembrem-se: as primeiras colunas dos arquivos txt  correspondem aos valores de \textbf{x} e as duas últimas colunas são os valores correspondentes de }$f_1$ e $f_2$.
+
+\subsection{SCH: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{SCH.pdf}
+\label{perfil}
+\end{figure}
+
+\newpage
+\subsection{FON: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{FON.pdf}
+\label{perfil}
+\end{figure}
+
+\newpage
+\subsection{POL: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{POL.pdf}
+\label{perfil}
+\end{figure}
+
+\newpage
+\subsection{KUR: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{KUR.pdf}
+\label{perfil}
+\end{figure}
+
+\newpage
+\subsection{ZDT1: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{ZDT1.pdf}
+\label{perfil}
+\end{figure}
+
+\newpage
+\subsection{ZDT2: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{ZDT2.pdf}
+\label{perfil}
+\end{figure}
+
+\newpage
+\subsection{ZDT3: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{ZDT3.pdf}
+\label{perfil}
+\end{figure}
+
+\newpage
+\subsection{ZDT4: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{ZDT4.pdf}
+\label{perfil}
+\end{figure}
+
+\newpage
+\subsection{ZDT6: }
+\begin{figure}[h!]
+\centering
+\includegraphics[width=180mm]{ZDT6.pdf}
+\label{perfil}
+\end{figure}
+
 \end{document}
 
 
