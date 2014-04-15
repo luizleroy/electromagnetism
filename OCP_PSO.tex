@@ -1,10 +1,10 @@
 \section{OCP via PSO} \label{ocp_pso}
-Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas, é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP). Os passos abaixo serão utilizados para construir a condição inicial do algoritmo.
+Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas, é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição. Os passos abaixo serão utilizados para gerar a condição inicial do algoritmo.
 
 \begin{itemize}
 			\item Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
 			\item Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, propícios a receber um valor de carga capacitiva;
-			\item Calcular fluxo de potência, tensão nas barras e as perda elétricas para todas as partículas da geração inicial, utilizadas na construção de $\textbf{f}(x)$;
+			\item Calcular fluxo de potência, tensão nas barras e as perdas elétricas para todas as partículas da geração inicial, utilizadas na construção de $\textbf{f}(x)$;
 			\item Atualizar o valor inicial de \textbf{pBest} das partículas com o valor calculado no passo anterior;
 			\item Atualizar o valor inicial de \textbf{gBest} com o menor resultado encontrado no passo anterior.
 \end{itemize}
@@ -53,13 +53,13 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 	%\end{algorithmic}
 %\end{algorithm}
 
-Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas. A uma taxa constante de probabilidade de 1\%, cada partícula pode sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta vá, prematuramente, à um ótimo local, o que prejudicaria o resultado final. Este resultado será composto de dois importantes critérios.
+Durante o processo evolutivo da otimização, para um ganho de diversidade, foi elaborado um método de mutação das partículas. A uma taxa constante de probabilidade de 1\%, cada partícula pode sofrer uma alteração aleatória em seus valores. Isto ocorre para evitar que a resposta atinja, prematuramente, à um ótimo local, o que prejudicaria o resultado final. Este resultado será composto de dois importantes critérios.
 
 O primeiro destes critérios tem como foco a minimização de perdas elétricas do circuito. Esta é obtida através da soma da potência dissipada em todas as linhas do alimentador, conforme a \Eq \ref{eq_obj1-perdas}.
 \begin{equation} \label{eq_obj1-perdas}
   perdas = \sum^{linhaFinal}_{l=linhaInicial}ZI^2_l
 \end{equation}
-Já a variação da tensão ao longo do circuito durante a alocação dos capacitores, pode ser mensurada com auxílio da \Eq \ref{eq_vdi}, denominada VDI (\textit{Voltage Deviation Index)}. Similar ao cálculo de \citeasnoun{abul2013optimal}. Estabilidade no nível de tensão, via otimização por PSO, foi explorada em \citeasnoun{kim2011optimal} e \citeasnoun{hernandez2006optimal}.
+Já a variação da tensão ao longo do circuito durante a alocação dos capacitores, pode ser mensurada com auxílio da \Eq \ref{eq_vdi}, denominada VDI (\textit{Voltage Deviation Index)}, similar ao cálculo de \citeasnoun{abul2013optimal}. A estabilidade no nível de tensão, via otimização por PSO, foi explorada em \citeasnoun{kim2011optimal} e \citeasnoun{hernandez2006optimal}.
 \begin{equation} \label{eq_vdi}
   VDI = \sqrt{\sum^{nb}_{b=inicial}\frac{(V_{b} - V)^2}{nb}}
 \end{equation}
@@ -68,5 +68,5 @@ Na \Eq \ref{eq_vdi}, o somatório percorre todas as barras calculando o erro quad
 Em situações onde ambos os requisitos de rede citados anteriormente são importantes, pode-se utilizar os dois critérios em uma única equação. Neste caso, é necessário avaliar o peso da contribuição de cada critério. Na \Eq \ref{eq_multi} utiliza-se $w_v$ para a contribuição de VDI e $w_p$ para as perdas:
 
 \begin{equation} \label{eq_multi}
-  f = w_v*\frac{VDI}{VDI_{max}} + w_p*\frac{perdas}{perdas_{max}}
+  f(\textbf{x}) = w_v*\frac{VDI}{VDI_{max}} + w_p*\frac{perdas}{perdas_{max}}
 \end{equation}
