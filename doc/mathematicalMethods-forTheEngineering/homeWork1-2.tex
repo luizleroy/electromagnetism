@@ -4,16 +4,165 @@
 \usepackage{amsthm}%for theorem  
 \usepackage{hyperref}
 \usepackage{amssymb} % In LaTeX, how do I represent the hollow "R" symbol that designates the real number space? -> use \mathbb from amsfonts (loaded by amssymb)
-\title{Math by \LaTeX}
-\date{}
+%\title{Math by \LaTeX}
+\usepackage{datetime}
+%\newdateformat{mydate}{\monthname[\THEMONTH] \THEYEAR}
+\newdateformat{mydate}{\THEDAY /\THEMONTH /\THEYEAR}
+
+\title{Exercicios da Primeira Etapa - Prova I}
+\date{\mydate\today}
 \author{Luiz Le Roy}
 \begin{document}
   \maketitle
-  \today
-  
-\begin{center}
-{\LARGE \textbf{  Primeiro conjunto de tarefas}}
-\end{center}
+
+\section*{Espaços Vetoriais Arbitrários}
+\begin{itemize}
+\item[1] O conjunto das funções $f:\mathbb{R}\longrightarrow \mathbb{R}$ duas vezes continuamente deriváveis e tais que $f''+af'+bf=0$, onde $\underline{a}$ e $\underline{b}$ são reais fixos, munido das leis usuais, é um espaço vetorial?
+
+\item[2] Prove que o conjunto das funções limitadas $f:\mathbb{R}\longrightarrow \mathbb{R}$ (isto é, tais que existe $M_f>0$ tal que $|f(x)|\leq M_f$ para todo $x\in \mathbb{R}$), com as leis usuais, é um espaço vetorial.
+
+\item[3] Seja $V=\mathfrak{F}(\mathbb{R,R})$. Verifique se W é subespaço de V:
+\begin{itemize}
+\item [a)] W é $f(-x)=f(x)$
+\item [b)] W é $f(-x)=-f(x)$
+\item[c)] W é o conjunto das funções deriváveis.
+\end{itemize}
+
+\item[4] Mostre que $W=\{(0,y,z)\in \mathbb{R}^3;y,z \in \mathbb{R}\}$ é subespaço  de $\mathbb{R}^3$ gerado por (0,1,1) e (0,2,-1).
+
+\item[5] Mostre que $p(t)=t^3-t^2+1$, $q(t)=t^2-1$ e $r(t)=2t^3+t-1$ são L.I. em $P_4$.
+
+\item[6] Prove que $f(t)=t$, $g(t)=e^t$ e $h(t)=sen(t)$ são L.I.
+
+\item[7] Seja W o subespaço de $P_4$ gerado por $u=t^3-t^2+1$, $v=t^2-1$ e $w=t^3-3t^2+3$. Ache uma base de W.
+
+\item[8] Existe base de $P_4$ que não contenha nenhum polinômio de grau 2?
+
+\item[9] Seja $dimV=n$. Prove que se $x={v_1,v_2,...,v^p}$ gera V, então X contém uma base de V.
+
+\item[10] Prove que se $v_1,...,v_n$ geram V e $p>n$, então $u_1,...,u_p\in V$ são L.D.
+
+\item[11] Dado o conjunto finito $X=\{a_1,a_2,...,a_n\}$, ache uma base para o espaço vetorial $V=\mathfrak{F}(X,\mathbb{R})=\{f:X\longrightarrow \mathbb{R}$.
+
+\item[12] Ache $T:\mathbb{R}^2\longrightarrow \mathbb{R}$ tal que $T(1,1)=-1$ e $T(1,0)=3$, T linear.
+
+\item[13] Ache $T:\mathbb{R}^3\longrightarrow \mathbb{R}^4$ linear tal que ImT seja gerada por (1,0,2,-4) e (0,2,-1,3).
+
+\item[14] Seja $T:V\longrightarrow V$ linear. Prove que se $T(v_1),...,T(v_n)$ são L.I., então $v_1,...,v_n$ são L.I.
+
+\item[15] Sejam L, $T:V\longrightarrow V$ isomorfismos. Prove: $(L\circ T)^{-1}=T^{-1}\circ L^{-1}$.
+\end{itemize}
+
+\section*{L.I e L.D. Determinantes e Matrizes}
+
+\begin{itemize}
+\item[1] Sejam $A_{m \times n}$, $P_{m \times m}$ invertível, $\textbf{a}_1, \textbf{a}_2, ..., \textbf{a}_r$ r colunas L.I de A. Prove que $P\textbf{a}_1,P\textbf{a}_2,...,P\textbf{a}_r$ são r colunas L.I. de PA.
+\begin{proof}
+É preciso da seguinte equação:
+\[
+a^2 + b^2 = c^2
+\]
+\textit{Thats all folks!} \qedhere
+\end{proof}
+
+\item[2] Discuta as soluções do sistema:
+\begin{eqnarray*} 
+ax \hspace{9mm} +bz &=&1\\
+ax+ay+4z&=&2\\
+ay+2z&=&3 
+\end{eqnarray*}
+
+Com auxílio da matriz aumentada, e operações como permutação e combinações de linhas temos a seguinte sequência, válida apenas para $a\neq0$ e $b\neq2$:
+
+$$
+\begin{bmatrix}
+a&0&b&1\\0&a&2&3\\a&a&4&2
+\end{bmatrix}
+\begin{bmatrix}
+1&0&\frac{b}{a}&\frac{1}{a}\\0&1&\frac{2}{a}&\frac{3}{a}\\0&a&4-b&1
+\end{bmatrix}
+\begin{bmatrix}
+1&0&\frac{b}{a}&\frac{1}{a}\\0&1&\frac{2}{a}&\frac{3}{a}\\0&0&2-b&-2
+\end{bmatrix}
+\Rightarrow
+$$
+$$
+\Rightarrow
+\begin{bmatrix}
+x\\y\\z
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{1}{a}-\frac{3b}{a^2} + \frac{4b}{a^2(b-2)}\\\frac{3}{a}-\frac{4}{a(b-2)}\\\frac{2}{b-2}
+\end{bmatrix}
+$$
+Se $a=0$ ou $b=2$ o sistema é impossível.
+
+\item[3] Sem calcular o determinante, prove que 
+$ \left \vert
+\begin{array}{lll}
+\displaystyle \text{1 2 3} \\
+\displaystyle \text{4 5 6} \\
+\displaystyle \text{7 8 9}
+\end{array}
+\right \vert = 0.
+$
+
+\item[4] Prove que
+$ v(a,b,c) = \left \vert
+\begin{array}{lll}
+\displaystyle 1&1&1 \\
+\displaystyle a&b&c \\
+\displaystyle a^2&b^2&c^2
+\end{array}
+\right \vert = (c-a)(c-b)(b-a).
+$
+
+\item[5] Seja $A_{m\times n}$. Se $P_{n\times n}$ é invertível e $B=P^-1AP$, prove que $det(A)=det(B)$, e que $det(B-\lambda I_n)=det(A-\lambda I_n)$ qualquer que seja $\lambda \in \mathbb{R}$.
+
+\item[6] Sejam $\mathfrak{v}_1,...,\mathfrak{v}_n\text{ }\in \mathbb{R}^n$, $\mathfrak{v}_j=\sum_{i=1}^n a_{ij}e_i$, $A=(a_{ij})$, $\mathcal{E}=(e_1,...,e_n)$ a base canônica do $\mathbb{R}^n$. Prove que $\mathfrak{v}_1,...,\mathfrak{v}_n$ são L.I. se, e só se, $det(A)\neq0$.
+
+\item[7] Uma matriz quadrada H é \underline{ortogonal} se $HH^t=I_n$. Prove que o produto de duas matrizes ortogonais é uma matriz ortogonal, e que $det(H)=\pm 1$.
+
+\item[8] Sejam $\mathfrak{v}_1,...,\mathfrak{v}_m\text{ }\in \mathbb{R}^3$ linearmente independentes. Prove que \{$\mathfrak{v_1-v_2}$,
+$\mathfrak{v_2-v_3}$,
+...,$\mathfrak{v_{m-1}-v_{m}}$\} é L.I.
+
+\item[9] Se $\mathfrak{v}_1,...,\mathfrak{v}_m\text{ gera } \mathbb{R}^n$, prove que \{$\mathfrak{v_1-v_2}$,
+$\mathfrak{v_2-v_3}$,
+...,$\mathfrak{v_{m-1}-v_{m}}$\} gera $\mathbb{R}^n$.
+
+\item[10] Sejam as matrizes $A_{m\times n}$, $B_{n\times p}$ e $C=AB$. Prove que $r(AB)\leq r(B)$.
+
+\item[11] Mostre que nem toda matriz \textit{A} tal que $det(A)=1$ é ortogonal. Mostre que $
+\left(\begin{array}{rr}
+cos\theta & sen\theta \\
+-sen\theta & cos\theta
+\end{array}\right)
+$ é ortogonal.
+
+\item[12] Mostre que:
+\begin{itemize}
+\item[(a)] $
+\left|\begin{array}{rrrr}
+a&b&c&d\\
+-1&x&0&0\\
+0&-1&x&0\\
+0&0&-1&x
+\end{array}\right|=ax^3+bx^2+cx+d;
+$
+\item[(b)] $
+\left|\begin{array}{rrrr}
+1&-1&-1&-1\\
+-1&1&-1&-1\\
+-1&-1&1&-1\\
+-1&-1&-1&1
+\end{array}\right|=16.
+$
+\end{itemize}
+\end{itemize}
+
+\section*{Matrizes e Sistemas Lineares}
 
 \begin{itemize}
 \item[1] Um exemplo de matriz $A \neq 0$ tal que $A^2=0$:
@@ -95,11 +244,16 @@ Com auxílio das equações acima pode-se concluir que no caso em questão, onde
 %% itens não finalizados
 %%
 
-\item[4] Sejam A e B nxn tais que $A=A^t$, $B=B^t$, isto é, simétricas. Prove que AB é simétrica se, e só se, A e B comutam.
+\item[4] Sejam A e B $n\times n$ tais que $A=A^t$, $B=B^t$, isto é, simétricas. Prove que AB é simétrica se, e só se, A e B comutam.
 
-\item[5] Uma matriz de probabilidade é uma matriz $P=(p_{ij})_{n \times n}$ tal que $p_{ij}\geq0$ pra todo par (i,j) e $\sum_{j=1}^{n}(p_{ij})=1$ para todo i. Prove que se P e Q são matrizes de probabilidade $n \times n$, então PQ também o é.
+Se elas comutam, temos, em conjunto com a outra hipótese:
+$$AB=BA=B^tA^t$$
+Do teorema das transpostas\footnote{$(\mathbf{A B}^\mathrm{T}) = \mathbf{B}^\mathrm{T} \mathbf{A}^\mathrm{T}$}, e da equação acima, vemos que elas só são simétricas se comutam, conforme:
+$$AB=B^tA^t=(AB)^t$$
 
-\item[6] Resolva os sistemas:\\
+\item[5] Uma \textbf{matriz de probabilidade} é uma matriz $P=(p_{ij})_{n \times n}$ tal que $p_{ij} \geq 0$ pra todo par (i,j) e $\sum_{j=1}^{n}(p_{ij})=1$ para todo \underline{i}. Prove que se \underline{P} e \underline{Q} são matrizes de probabilidade $n \times n$, então PQ também o é.
+
+\item[6] Resolva os sistemas:
 \begin{itemize}
 \item[a]
 $ \left\{
@@ -152,75 +306,23 @@ $
 
 \item[8] Discuta como o posto de A varia com teR, onde:
 
+\item[9] Discuta as soluções do sistema
+$ \left\{
+\begin{array}{ll}
+\displaystyle x - ay = 1 \\
+\displaystyle ax + y = a^3
+\end{array}
+\right.
+$ conforme os valores do parâmetro $a \in \mathbb{R}.$
+
+\item[10] Dê exemplo de sistema linear com 4 equações e 4 incógnitas cuja solução dependa de:
+\begin{enumerate}
+\item[a)] 1 parâmetro
+\item[b)] 2 parâmetros
+\item[c)] 3 parâmetros
+\end{enumerate}
+
 \end{itemize}
-
-\begin{center}
-{\LARGE \textbf{Segundo conjunto de tarefas}}
-\end{center}
-
-\begin{itemize}
-\item[1] Sejam $A_{m \times n}$, $P_{m \times m}$ invertível, $\textbf{a}_1, \textbf{a}_2, ..., \textbf{a}_r$ r colunas L.I de A. Prove que $P\textbf{a}_1,P\textbf{a}_2,...,P\textbf{a}_r$ são r colunas L.I. de PA.
-\begin{proof}
-É preciso da seguinte equação:
-\[
-a^2 + b^2 = c^2
-\]
-\textit{Thats all folks!} \qedhere
-\end{proof}
-
-\item[2] Discuta as soluções do sistema:
-\begin{eqnarray*} 
-ax \hspace{9mm} +bz &=&1\\
-ax+ay+4z&=&2\\
-ay+2z&=&3 
-\end{eqnarray*}
-\end{itemize}
-
-%
-%
-%Seja A_{nxn} tal que A^3=0. Prove que (I_n - A)^{-1}=I_n + A + A^2.
-%
-%Sejam A e B nxn tais que A=A^t, B=B^t, isto �, sim�tricas. Prove que AB � sim�trica se, e s�se, A e B comutam.
-%
-%Uma matriz de probabilidade � uma matriz P=(p_{ij}) nxn tal que p_{ij}>=0 para todo par (i,j) e \sum{pij}=1 para todo i. Prove que se P e Q s�o matrizes de probabilidade nxn, ent�o PQ tamb�m o �.
-%
-%Resolva os sistemas:
-%2x1 - 3x2 + 7x3 = 2
-%6x1 -9x2+21x3=-1
-%
-%6x1+9x2+14x3=0
-%3x1-8x2+7x3=0
-%
-%x1+x2-x3=-2
-%2x1+x2-x3=-7
-%4x1-5x2-13x3=-35
-%-3x1+2x2+8x3=21
-%
-%2x1+x2=x3=0
-%x1 - x3=0
-%-5x1+x2+2x3=0
-%12x1-x2-x3=0
-%
-%Calcule a e b de modo que sejam compat�veis os equa��es:
-%4x1+3x2=-3
-%5x1+4x2=-5
-%ax1+2x2=5
-%3x1+bx2=-1
-%
-%Discuta como o posto de A varia com teR, onde A = [1 1 t; 1 t 1; t 1 1].
-%
-%Discuta as solu��es do sistema {x + ay =1
-%								ax+y=a^3} conforme os valores do par�metro a e R.
-%
-%D� o exemplo de sistema linear com 4 equa��es e 4 inc�gnitas cuja solu��o dependa de:
-%a) 1 par�metro, b) 2 c) 3 
 								
 \end{document}
-
-%%exemplo de sistema
-%\begin{eqnarray*} 
-%a \hspace{18mm} &=&1\\
-%\hspace{9mm}b\hspace{9mm}&=&2\\
-%c&=&3
-%\end{eqnarray*}
 

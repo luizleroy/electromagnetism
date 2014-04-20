@@ -1,0 +1,72 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newenvironment{proof}[1][Prova]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{definition}[1][Definição]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
+
+\title{Métodos Matemáticos\\O que há de importante na Álgebra Abstrata}
+\author{Luiz Le Roy}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%Your abstract.
+%\end{abstract}
+
+\section{Definições e Exemplos}
+Uma importantíssima definição descreve o que é um espaço vetorial, como se segue \cite{anton}:
+\begin{definition}
+Seja \textit{V} um conjunto não vazio de objetos sobre os quais estão definidas operações de adição vetorial e multiplicação por escalar. Por \textbf{adição vetorial} queremos dizer uma regra que associa a cada par de objetos \textbf{u} e \textbf{v} de \textit{V} um único objeto $\textbf{u}+\textbf{v}$ que consideramos como a soma de \textbf{u} com \textbf{v} e por \textbf{multiplicação por escalar} queremos dizer uma regra que associa a cada escalar \textit{a} e a cada objeto \textbf{u} de \textit{V} um único objeto $\textit{a}\textbf{u}$ que consideramos como a multiplicação de \textbf{u} pelo escalar \textit{a}. O conjunto \textit{V} munido dessas operações será denominado um \textbf{espaço vetorial} e os objetos de \textit{V} serão denominados \textbf{vetores} se valeram as seguintes propriedades para quaisquer \textbf{u}, \textbf{v} e \textbf{w} de \textit{V} e quaisquer escalares \textit{a} e \textit{b}.
+\begin{enumerate}
+\item V é \textbf{fechado na adição}, ou seja, se \textbf{u} e \textbf{v} estão em \textit{V}, então $\textbf{u}+\textbf{v}$ está em \textit{V}.
+\item $ \mathbf{u}+\mathbf{v}=\mathbf{v}+\mathbf{u}$
+\item $ (\mathbf{u}+\mathbf{v})+\mathbf{w}=\mathbf{u}+(\mathbf{v}+\mathbf{w})$
+\item \textit{V} contém um objeto \textbf{0} (que denominamos \textbf{vetor nulo} ou \textbf{vetor zero}) que se comporta como um zero aditivo no seguinte sentido: $\mathbf{u}+\mathbf{0}=\mathbf{u}$ para cada $\mathbf{u}$ em $\mathit{V}$.
+\item Para cada objeto \textbf{u} em \textit{V} existe um objeto $-\mathbf{u}$ em \textit{V} (que denominamos um \textbf{negativo} de \textbf{u}) tal que $\mathbf{u}+\mathbf{(-u)}=\mathbf{0}$.
+\item \textit{V} é \textbf{fechado na multiplicação por escalar}, ou seja, se \textbf{u} está em \textit{V} e \textit{a} é um escalar, então $\textit{a}\textbf{u}$ está em \textit{V}.
+\item $\mathit{a}(\mathbf{u+v})=\mathit{a}\mathbf{u}+\mathit{a}\mathbf{v}$
+\item $(\mathit{a+b})\mathbf{u}=\mathit{a}\mathbf{u}+\mathit{b}\mathbf{u}$
+\item $\mathit{a}(\mathit{b}\mathbf{u})=(\mathit{a}\mathit{b})\mathbf{u}$
+\item $1\mathbf{u}=\mathbf{u}$
+\end{enumerate}
+\end{definition}
+\begin{definition}
+Uma função $T:R^n \longrightarrow R^m$ é dita uma \textbf{transformação linear} de $R^n$ em $R^m$ se as propriedades seguintes valem para quaisquer vetores \textbf{v} e \textbf{w} de $R^n$ e qualquer escalar \textit{c}:
+\begin{enumerate}[label=\roman*]
+\item $T(c\textbf{v})=cT(\textbf{v})$ \textbf{Homogeneidade}
+\item $T(\textbf{v}+\textbf{w})= T(\textbf{v}) + T(\textbf{w})$ \textbf{Aditividade}
+\end{enumerate}
+No caso especial em que m=n, a transformação linear T é denominada um \textbf{operador linear} de $R^n$.
+\end{definition}
+
+\begin{theorem}
+\label{Desigualdade_Quadrados_Inversos}
+$$
+(a^2_1+a^2_2+a^2_3+ ... +a^2_n) \ast \left(\frac{1}{a^2_1}+\frac{1}{a^2_2}+\frac{1}{a^2_3}+ ... + \frac{1}{a^2_n}\right) \geq n^2
+$$
+\end{theorem}
+\bibliographystyle{abnt}
+\bibliography{mmb}
+\end{document}

@@ -7,13 +7,13 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{enumitem}% http://ctan.org/pkg/enumitem
 
-\newtheorem{theorem}{Teorema}[section]
-\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
-\newenvironment{proof}[1][Prova]{\begin{trivlist}
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-\newenvironment{definition}[1][Definição]{\begin{trivlist}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newenvironment{example}[1][Example]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
@@ -24,7 +24,7 @@
       \hskip1.5em plus0em minus0.5em \fi \nobreak
       \vrule height0.75em width0.5em depth0.25em\fi}
 
-\title{Métodos Matemáticos}
+\title{How to Write Mathematical Objects}
 \author{Luiz Le Roy}
 \date{\today}
 
@@ -32,27 +32,8 @@
 \maketitle
 
 \begin{abstract}
-Your abstract.
+
 \end{abstract}
-
-\section{Em bom português}
-\begin{definition}
-Uma função $T:R^n \longrightarrow R^m$ é dita uma \textbf{transformação linear} de $R^n$ em $R^m$ se as duas propriedades seguintes valem para quaisquer vetores \textbf{v} e \textbf{w} de $R^n$ e qualquer escalar \textit{c}:
-\begin{enumerate}[label=\roman*]
-\item $T(c\textbf{v})=cT(\textbf{v})$ \textbf{Homogeneidade}
-\item $T(\textbf{v}+\textbf{w})= T(\textbf{v}) + T(\textbf{w})$ \textbf{Aditividade}
-\end{enumerate}
-No caso especial em que m=n, a transformação linear T é denominada um \textbf{operador linear} de $R^n$.
-\end{definition}
-
-\begin{theorem}
-\label{Desigualdade_Quadrados_Inversos}
-$$
-(a^2_1+a^2_2+a^2_3+ ... +a^2_n) \ast \left(\frac{1}{a^2_1}+\frac{1}{a^2_2}+\frac{1}{a^2_3}+ ... + \frac{1}{a^2_n}\right) \geq n^2
-$$
-\end{theorem}
-
-
 
 \section{English}
 \begin{definition}
