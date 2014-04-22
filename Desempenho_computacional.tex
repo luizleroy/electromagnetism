@@ -47,7 +47,7 @@ Observa-se que o \textit{speedup}\footnote{Em computação paralela, \textit{speed
 Abaixo segue o trecho de código paralelizado. A ideia foi trabalhar no nível mais alto, buscando realizar a tarefa mais pesada em simultâneo: a obtenção de $f(\textbf{x})$, que realiza o cálculo do fluxo de carga em toda a rede de distribuição.
 %%\onecolumn
 \begin{lstlisting}
-// retorna o vetor com "fitness function"
+// return: fitness function
 complex double *
 aFF(size_t * aX, 
 	n_aX_dots, 
