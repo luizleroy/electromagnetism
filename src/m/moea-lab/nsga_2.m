@@ -185,7 +185,7 @@ end
 
 %% Result
 % Save the result in ASCII text format.
-save solution.txt chromosome -ASCII
+%%%%%%save solution.txt chromosome -ASCII
 
 %% Visualize
 % The following is used to visualize the result if objective space

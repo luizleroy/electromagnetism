@@ -9,26 +9,24 @@
 % Zitzler et al. followed those guidelines and suggested six test problems. 
 % We choose five of those
 % seven problems here and counting...
-%SCH  -> Schaffer's study is a convex and continum function in the objective space
-%FON  -> nonconvex 
-%POL  -> nonconvex and disconected
-%KUR  -> nonconvex
-%ZDT1 
-%ZDT4 -> therrifc function: não convexa, discontinua ??????
-%ZDT6
+%SCH  -> dificult for big space! "Schaffer"
+%FON  -> nonconvex "Fonseca and Flaming"
+%POL  -> disconected "Poloni"
+%KUR  -> disconected "Kursawe"
+%ZDT1 -> "Zitzler–Deb–Thiele"
+%ZDT2 -> "Zitzler–Deb–Thiele"
+%ZDT3 -> disconected "Zitzler–Deb–Thiele"
+%ZDT4 -> TERRIFIC "Zitzler–Deb–Thiele"
+%ZDT6 -> "Zitzler–Deb–Thiele"
 
 %my
-%SPHERES -> with dim=100!
-
-%% Section Principal: evaluate metrics
-% TIME
-% NICHO (?)
+%SPHERES contínua
 
 %rng('default');
 clear;
 tic;
-pop = 150;
-gen = 3000;
+pop = 250*2;
+gen = 100*50;
 nsga_2('ZDT4',pop,gen);
 toc;
 %figure;

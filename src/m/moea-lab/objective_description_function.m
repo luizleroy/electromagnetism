@@ -44,7 +44,7 @@ if number_of_objectives < 2
 end
 switch func
     case 'SPHERES';
-        number_of_decision_variables = 100;
+        number_of_decision_variables = 2;
         a=-2; b=2;
         for i = 1 : number_of_decision_variables
             % Obtain the minimum possible value for each decision variable
