@@ -1,13 +1,34 @@
-\documentclass[11pt]{article}
+\documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath} %(?)
-\usepackage{amsthm}%for theorem  
 \usepackage{hyperref}
+\usepackage{color}
 \usepackage{amssymb} % In LaTeX, how do I represent the hollow "R" symbol that designates the real number space? -> use \mathbb from amsfonts (loaded by amssymb)
 %\title{Math by \LaTeX}
 \usepackage{datetime}
 %\newdateformat{mydate}{\monthname[\THEMONTH] \THEYEAR}
 \newdateformat{mydate}{\THEDAY /\THEMONTH /\THEYEAR}
+
+
+%\usepackage[backend=bibtex]{biblatex} %to cite
+%\bibliography{myalgebra} 
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
 
 \title{Exercicios da Primeira Etapa - Prova I}
 \date{\mydate\today}
@@ -18,26 +39,46 @@
 \section*{Espaços Vetoriais Arbitrários}
 \begin{itemize}
 \item[1] O conjunto das funções $f:\mathbb{R}\longrightarrow \mathbb{R}$ duas vezes continuamente deriváveis e tais que $f''+af'+bf=0$, onde $\underline{a}$ e $\underline{b}$ são reais fixos, munido das leis usuais, é um espaço vetorial?
-
+\\\textcolor[rgb]{0,0,1}{Pelas leis usuais do cálculo a função identicamente nula encontra-se no conjunto acima. Temos também, do cálculo, a garantia de que a soma de duas funções do espaço acima e o produto por um escalar, também satisfazem a equação portanto pertencem ao espaço descrito. É possível observar também que as funções duas vezes continuamente deriváveis são um subespaço de $F(\infty,\infty)$ .%conforme  \cite{anton2013elementary} %541-543
+}
 \item[2] Prove que o conjunto das funções limitadas $f:\mathbb{R}\longrightarrow \mathbb{R}$ (isto é, tais que existe $M_f>0$ tal que $|f(x)|\leq M_f$ para todo $x\in \mathbb{R}$), com as leis usuais, é um espaço vetorial.
 
-\item[3] Seja $V=\mathfrak{F}(\mathbb{R,R})$. Verifique se W é subespaço de V:
+\item[3] Seja $V=\mathfrak{F}(\mathbb{R,R})$. Verifique se W é subespaço de V onde:
 \begin{itemize}
 \item [a)] W é $f(-x)=f(x)$
 \item [b)] W é $f(-x)=-f(x)$
 \item[c)] W é o conjunto das funções deriváveis.
 \end{itemize}
 
-\item[4] Mostre que $W=\{(0,y,z)\in \mathbb{R}^3;y,z \in \mathbb{R}\}$ é subespaço  de $\mathbb{R}^3$ gerado por (0,1,1) e (0,2,-1).
-
+\textit{\item[4] Mostre que $W=\{(0,y,z)\in \mathbb{R}^3;y,z \in \mathbb{R}\}$ é subespaço  de $\mathbb{R}^3$ gerado por (0,1,1) e (0,2,-1).
 \item[5] Mostre que $p(t)=t^3-t^2+1$, $q(t)=t^2-1$ e $r(t)=2t^3+t-1$ são L.I. em $P_4$.
-
 \item[6] Prove que $f(t)=t$, $g(t)=e^t$ e $h(t)=sen(t)$ são L.I.
-
 \item[7] Seja W o subespaço de $P_4$ gerado por $u=t^3-t^2+1$, $v=t^2-1$ e $w=t^3-3t^2+3$. Ache uma base de W.
-
+\\\textcolor[rgb]{0,0,1}{A base abaixo, do espaço linha da matriz A é equivalente ao procurado:
+$$
+\left[\begin{array}{rrrr}
+1&-1&0&1\\
+0&1&0&-1\\
+1&-3&0&3
+\end{array}\right]
+\rightarrow
+\left[\begin{array}{rrrr}
+1&-1&0&1\\
+0&1&0&-1\\
+0&2&0&-2
+\end{array}\right]
+\rightarrow
+\left[\begin{array}{rrrr}
+1&-1&0&1\\
+0&1&0&-1\\
+0&0&0&0
+\end{array}\right]
+$$
+Após reduzir por linhas a matriz basta extrair a base a partir das linhas não nulas:
+(1,-1,0,1) e (0,1,0,-1).}
+}
 \item[8] Existe base de $P_4$ que não contenha nenhum polinômio de grau 2?
-
+\textcolor[rgb]{0,0,1}{\\Não. Para ser geradora do espaço é necessário todos os termos do polinômio.}
 \item[9] Seja $dimV=n$. Prove que se $x={v_1,v_2,...,v^p}$ gera V, então X contém uma base de V.
 
 \item[10] Prove que se $v_1,...,v_n$ geram V e $p>n$, então $u_1,...,u_p\in V$ são L.D.
@@ -57,13 +98,6 @@
 
 \begin{itemize}
 \item[1] Sejam $A_{m \times n}$, $P_{m \times m}$ invertível, $\textbf{a}_1, \textbf{a}_2, ..., \textbf{a}_r$ r colunas L.I de A. Prove que $P\textbf{a}_1,P\textbf{a}_2,...,P\textbf{a}_r$ são r colunas L.I. de PA.
-\begin{proof}
-É preciso da seguinte equação:
-\[
-a^2 + b^2 = c^2
-\]
-\textit{Thats all folks!} \qedhere
-\end{proof}
 
 \item[2] Discuta as soluções do sistema:
 \begin{eqnarray*} 
@@ -72,8 +106,7 @@ ax+ay+4z&=&2\\
 ay+2z&=&3 
 \end{eqnarray*}
 
-Com auxílio da matriz aumentada, e operações como permutação e combinações de linhas temos a seguinte sequência, válida apenas para $a\neq0$ e $b\neq2$:
-
+\textcolor[rgb]{0,0,1}{Com auxílio da matriz aumentada, e operações como permutação e combinações de linhas temos a seguinte sequência, válida apenas para $a\neq0$ e $b\neq2$:
 $$
 \begin{bmatrix}
 a&0&b&1\\0&a&2&3\\a&a&4&2
@@ -96,7 +129,7 @@ x\\y\\z
 \frac{1}{a}-\frac{3b}{a^2} + \frac{4b}{a^2(b-2)}\\\frac{3}{a}-\frac{4}{a(b-2)}\\\frac{2}{b-2}
 \end{bmatrix}
 $$
-Se $a=0$ ou $b=2$ o sistema é impossível.
+Se $a=0$ ou $b=2$ o sistema é impossível.}
 
 \item[3] Sem calcular o determinante, prove que 
 $ \left \vert
@@ -151,6 +184,31 @@ a&b&c&d\\
 0&0&-1&x
 \end{array}\right|=ax^3+bx^2+cx+d;
 $
+\textcolor[rgb]{0,0,1}{
+$$
+a\left|\begin{array}{rrr}
+x&0&0\\
+-1&x&0\\
+0&-1&x
+\end{array}\right|
+-b\left|\begin{array}{rrr}
+-1&0&0\\
+0&x&0\\
+0&-1&x
+\end{array}\right|
++c\left|\begin{array}{rrr}
+-1&x&0\\
+0&-1&0\\
+0&0&x
+\end{array}\right|
+-d\left|\begin{array}{rrr}
+-1&x&0\\
+0&-1&x\\
+0&0&-1
+\end{array}\right|
+$$
+\\$=ax^3+bx^2+cx+d$
+\\
 \item[(b)] $
 \left|\begin{array}{rrrr}
 1&-1&-1&-1\\
@@ -159,13 +217,37 @@ $
 -1&-1&-1&1
 \end{array}\right|=16.
 $
+$$
+1\left|\begin{array}{rrr}
+1&-1&-1\\
+-1&1&-1\\
+-1&-1&1
+\end{array}\right|
+-1\left|\begin{array}{rrr}
+-1&-1&-1\\
+-1&1&-1\\
+-1&-1&1
+\end{array}\right|
+-1\left|\begin{array}{rrr}
+-1&1&-1\\
+-1&-1&-1\\
+-1&-1&1
+\end{array}\right|
+-1\left|\begin{array}{rrr}
+-1&1&-1\\
+-1&-1&1\\
+-1&-1&-1
+\end{array}\right|
+$$
+\\$=1*(-4)-1*(-1)*(-4)-1*4-1*(-1)*(-4)=-16$
+}
 \end{itemize}
 \end{itemize}
 
 \section*{Matrizes e Sistemas Lineares}
 
 \begin{itemize}
-\item[1] Um exemplo de matriz $A \neq 0$ tal que $A^2=0$:
+\item[1*] Um exemplo de matriz $A \neq 0$ tal que $A^2=0$:
 $$
 \left[\begin{array}{rr}
 a&b\\
@@ -183,8 +265,27 @@ c&d
 0&0
 \end{array}\right]
 $$
-\textbf{Onde a = 1, b = 1, c = -1 e d = -1.}
-\item[2] As matrizes quadradas de ordem n, A e B, comutam se $AB = BA$. 
+\textcolor[rgb]{0,0,1}{Basta observar que se as linhas de uma matriz 2 por 2 possuem o mesmo valor em todos os elementos mas são de sinal trocado, temos uma matriz com quadrado nulo, conforme:
+$$
+k\left[\begin{array}{rr}
+1&1\\
+-1&-1
+\end{array}\right]
+\quad
+k\left[\begin{array}{rr}
+1&1\\
+-1&-1
+\end{array}\right]
+=
+k^2
+\left[\begin{array}{cc}
+0&0\\
+0&0
+\end{array}\right]
+$$
+Serve para qualquer valor de k diferente de zero!
+}
+\item[2*] As matrizes quadradas de ordem n, A e B, comutam se $AB = BA$. 
 \\As matrizes 2x2 que comutam com $\left[\begin{array}{cc}
 1&0\\0&2
 \end{array}\right]$ são:
@@ -226,7 +327,7 @@ $$
 \textbf{Com b = f = a, i = e, d = 0, g = 0 e h = 0 onde $a,c,e\hspace{2mm}\in\hspace{2mm}\mathbb{R}^3$.}
 
 \item[3] Com auxílio do seguinte teorema:
-\\ Se A é uma matriz quadrada e se existe um inteiro positivo k tal que $A^k=0$, então a matriz $I-A$ é invertível e $$(I-A)^{-1} = I + A + A^2 + ... + A^{k-1}$$
+\textcolor[rgb]{0,0,1}{\\ Se A é uma matriz quadrada e se existe um inteiro positivo k tal que $A^k=0$, então a matriz $I-A$ é invertível e $$(I-A)^{-1} = I + A + A^2 + ... + A^{k-1}$$
 É possível aplicar facilmente para o caso em questão, onde $k=3$.
 \begin{proof}
 Por exemplo, se x é um número real qualquer e k é um inteiro positivo, então a identidade algébrica $$(1-x)(1+x+x^2+...+x^{k-1}$$ traduz para a seguinte identidade entre matrizes quadradas:
@@ -237,23 +338,33 @@ Isso pode ser confirmado multiplicando os fatores do lado esquerdo, pois temos o
 $$
 (I+A+A^2+...+A^{k-1}) - (A+A^2+A^3...+A^k) = I-A^k
 $$
-Com auxílio das equações acima pode-se concluir que no caso em questão, onde $k=3$ e $A^k=0$,      $I-A$ possui inversa (da definição) e seu valor é $I + A + A^2$ pois qualquer potência maior que três também vale zero quando $A^3=0$.\qedhere
-\end{proof}
+Com auxílio das equações acima pode-se concluir que no caso em questão, onde $k=3$ e $A^k=0$,      $I-A$ possui inversa (da definição) e seu valor é $I + A + A^2$ pois qualquer potência maior que três também vale zero quando $A^3=0$.
+\end{proof}}
 
 %%
 %% itens não finalizados
 %%
 
 \item[4] Sejam A e B $n\times n$ tais que $A=A^t$, $B=B^t$, isto é, simétricas. Prove que AB é simétrica se, e só se, A e B comutam.
-
-Se elas comutam, temos, em conjunto com a outra hipótese:
+\textcolor[rgb]{0,0,1}{\\Se elas comutam, temos, em conjunto com a outra hipótese:
 $$AB=BA=B^tA^t$$
 Do teorema das transpostas\footnote{$(\mathbf{A B}^\mathrm{T}) = \mathbf{B}^\mathrm{T} \mathbf{A}^\mathrm{T}$}, e da equação acima, vemos que elas só são simétricas se comutam, conforme:
-$$AB=B^tA^t=(AB)^t$$
+$$AB=B^tA^t=(AB)^t$$}
 
-\item[5] Uma \textbf{matriz de probabilidade} é uma matriz $P=(p_{ij})_{n \times n}$ tal que $p_{ij} \geq 0$ pra todo par (i,j) e $\sum_{j=1}^{n}(p_{ij})=1$ para todo \underline{i}. Prove que se \underline{P} e \underline{Q} são matrizes de probabilidade $n \times n$, então PQ também o é.
+\item[5] Uma \textbf{matriz de probabilidade} é uma matriz $P=(p_{ij})_{n \times n}$ tal que $p_{ij} \geq 0$ pra todo par (i,j) e $\sum\limits_{j=1}^{n}(p_{ij})=1$ para todo \underline{i}. Prove que se \underline{P} e \underline{Q} são matrizes de probabilidade $n \times n$, então PQ também o é.
 
-\item[6] Resolva os sistemas:
+\textcolor[rgb]{0,0,1}{Se o produto PQ=C temos que, a soma de uma linha arbitrária é:
+$$
+\sum\limits_{l=1}^nc_{il}=\sum\limits_{l=1}^n\sum\limits_{k=1}^n p_{ik}q_{kl}=\sum\limits_{k=1}^n\sum\limits_{l=1}^n p_{ik}q_{kl}=\sum\limits_{k=1}^n p_{ik}\sum\limits_{l=1}^n q_{kl}
+$$.
+O termo constante durante o loop da soma em l pode ser retirado após a troca da prioridade no somatório. Observando a hipótese, onde a soma dos elementos de uma mesma linha é a unidade, temos:
+$$
+\sum\limits_{k=1}^n p_{ik}\sum\limits_{l=1}^n q_{kl}
+=\sum\limits_{k=1}^n p_{ik}\times 1=1\times \sum\limits_{k=1}^n p_{ik} = 1 \times 1 = 1
+$$
+O produto de duas matrizes de probabilidade também possui a soma das linhas igual a unidade.
+}
+\item[6*] Resolva os sistemas:
 \begin{itemize}
 \item[a]
 $ \left\{
@@ -293,7 +404,7 @@ $ \left\{
 $
 \end{itemize}
 
-\item[7] Calcule a e b de modo que sejam compatíveis com as equações:\\
+\item[7*] Calcule a e b de modo que sejam compatíveis com as equações:\\
 $ \left\{
 \begin{array}{llll}
 \displaystyle 4x_1+3x_2=-3 \\
@@ -304,9 +415,13 @@ $ \left\{
 \right.
 $
 
-\item[8] Discuta como o posto de A varia com teR, onde:
-
-\item[9] Discuta as soluções do sistema
+\item[8*] Discuta como o posto de A varia com $t\in \mathbb{R}$, onde:
+$$
+A=\left[\begin{array}{ccc}
+1&1&t\\1&t&1\\t&1&1
+\end{array}\right]
+$$
+\item[9*] Discuta as soluções do sistema
 $ \left\{
 \begin{array}{ll}
 \displaystyle x - ay = 1 \\
@@ -315,7 +430,7 @@ $ \left\{
 \right.
 $ conforme os valores do parâmetro $a \in \mathbb{R}.$
 
-\item[10] Dê exemplo de sistema linear com 4 equações e 4 incógnitas cuja solução dependa de:
+\item[10*] Dê exemplo de sistema linear com 4 equações e 4 incógnitas cuja solução dependa de:
 \begin{enumerate}
 \item[a)] 1 parâmetro
 \item[b)] 2 parâmetros
@@ -323,6 +438,28 @@ $ conforme os valores do parâmetro $a \in \mathbb{R}.$
 \end{enumerate}
 
 \end{itemize}
-								
+
+%\section{Miscelânea: Exercícios Extras}
+%
+%\begin{theorem}
+%\emph{Teorema 3.5.3: Equivalências entre solução do sistema homogêneo e não homogêneo.}
+%
+%\label{ANTON_3.5.3_equivalencias_sistemas}
+%Se \textit{A} é uma matriz $m\times n$, então as seguintes afirmações são equivalentes.
+%\begin{enumerate}
+%\item $A\mathbf{x}=\mathbf{0}$ tem somente a solução trivial.
+%\item $A\mathbf{x}=\mathbf{b}$ tem, no máximo, uma solução para cada \textbf{b} em $\mathbb{R}^m$ (ou seja, ou é inconsistente ou tem solução única).
+%\end{enumerate}
+%\end{theorem}
+%
+%\begin{proof}
+%[ANTON-3.5.P1] Provando que $(a)\Rightarrow (b)$ no Teorema 3.5.3.
+%\end{proof}
+%
+%\begin{proof} 
+%[ANTON-3.5.P2] Provando que $(b)\Rightarrow (a)$ no Teorema 3.5.3. 
+%\end{proof}
+%
+%[Sugestão seguida: Usar contraposição, supondo que o sistema não-homogêneo tem duas soluções distintas, e usando essas soluções para encontrar uma solução não trivial do sistema homogêneo.]
 \end{document}
 
