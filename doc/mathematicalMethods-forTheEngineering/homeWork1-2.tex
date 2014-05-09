@@ -36,7 +36,7 @@
 \begin{document}
   \maketitle
 
-\section*{Espaços Vetoriais Arbitrários}
+\section*{Lista 3: Espaços Vetoriais Arbitrários}
 \begin{itemize}
 \item[1] O conjunto das funções $f:\mathbb{R}\longrightarrow \mathbb{R}$ duas vezes continuamente deriváveis e tais que $f''+af'+bf=0$, onde $\underline{a}$ e $\underline{b}$ são reais fixos, munido das leis usuais, é um espaço vetorial?
 \\\textcolor[rgb]{0,0,1}{Pelas leis usuais do cálculo a função identicamente nula encontra-se no conjunto acima. Temos também, do cálculo, a garantia de que a soma de duas funções do espaço acima e o produto por um escalar, também satisfazem a equação portanto pertencem ao espaço descrito. É possível observar também que as funções duas vezes continuamente deriváveis são um subespaço de $F(\infty,\infty)$ .%conforme  \cite{anton2013elementary} %541-543
@@ -83,7 +83,7 @@ Após reduzir por linhas a matriz basta extrair a base a partir das linhas não 
 
 \item[10] Prove que se $v_1,...,v_n$ geram V e $p>n$, então $u_1,...,u_p\in V$ são L.D.
 
-\item[11] Dado o conjunto finito $X=\{a_1,a_2,...,a_n\}$, ache uma base para o espaço vetorial $V=\mathfrak{F}(X,\mathbb{R})=\{f:X\longrightarrow \mathbb{R}$.
+\item[11] Dado o conjunto finito $X=\{a_1,a_2,...,a_n\}$, ache uma base para o espaço vetorial $V=\mathfrak{F}(X,\mathbb{R})=\{f:X\longrightarrow \mathbb{R}\}$.
 
 \item[12] Ache $T:\mathbb{R}^2\longrightarrow \mathbb{R}$ tal que $T(1,1)=-1$ e $T(1,0)=3$, T linear.
 
@@ -94,7 +94,7 @@ Após reduzir por linhas a matriz basta extrair a base a partir das linhas não 
 \item[15] Sejam L, $T:V\longrightarrow V$ isomorfismos. Prove: $(L\circ T)^{-1}=T^{-1}\circ L^{-1}$.
 \end{itemize}
 
-\section*{L.I e L.D. Determinantes e Matrizes}
+\section*{Lista 2: Determinantes e Matrizes. Também temos: Conjuntos L.I e L.D.}
 
 \begin{itemize}
 \item[1] Sejam $A_{m \times n}$, $P_{m \times m}$ invertível, $\textbf{a}_1, \textbf{a}_2, ..., \textbf{a}_r$ r colunas L.I de A. Prove que $P\textbf{a}_1,P\textbf{a}_2,...,P\textbf{a}_r$ são r colunas L.I. de PA.
@@ -165,7 +165,7 @@ $\mathfrak{v_2-v_3}$,
 $\mathfrak{v_2-v_3}$,
 ...,$\mathfrak{v_{m-1}-v_{m}}$\} gera $\mathbb{R}^n$.
 
-\item[10] Sejam as matrizes $A_{m\times n}$, $B_{n\times p}$ e $C=AB$. Prove que $r(AB)\leq r(B)$.
+\item[10*] Sejam as matrizes $A_{m\times n}$, $B_{n\times p}$ e $C=AB$. Prove que $r(AB)\leq r(B)$.
 
 \item[11] Mostre que nem toda matriz \textit{A} tal que $det(A)=1$ é ortogonal. Mostre que $
 \left(\begin{array}{rr}
@@ -244,10 +244,10 @@ $$
 \end{itemize}
 \end{itemize}
 
-\section*{Matrizes e Sistemas Lineares}
+\section*{Lista 1: Matrizes e Sistemas Lineares}
 
 \begin{itemize}
-\item[1*] Um exemplo de matriz $A \neq 0$ tal que $A^2=0$:
+\item[1] Um exemplo de matriz $A \neq 0$ tal que $A^2=0$:
 $$
 \left[\begin{array}{rr}
 a&b\\
@@ -421,20 +421,74 @@ A=\left[\begin{array}{ccc}
 1&1&t\\1&t&1\\t&1&1
 \end{array}\right]
 $$
-\item[9*] Discuta as soluções do sistema
+\item[9] Discuta as soluções do sistema
 $ \left\{
 \begin{array}{ll}
-\displaystyle x - ay = 1 \\
+\displaystyle x + ay = 1 \\
 \displaystyle ax + y = a^3
 \end{array}
 \right.
 $ conforme os valores do parâmetro $a \in \mathbb{R}.$
+\\
+\textcolor[rgb]{0,0,1}{Calculando a matriz escalonada reduzida, em função de a:
+\\$
+\left[\begin{array}{ccc}
+1&a&1\\
+0&1-a^2&a^3-a
+\end{array}\right]
+$
+\\\\ Se $a=-1$:
+\\$
+\left[\begin{array}{ccc}
+1&-1&1\\
+0&0&0
+\end{array}\right]
+$, então: $<x,y>=<t+1,t>$ para qualquer $t\in \mathbb{R}$.
+\\\\ Se $a=1$:
+\\$
+\left[\begin{array}{ccc}
+1&1&1\\
+0&0&0
+\end{array}\right]
+$, então: $<x,y>=<-t+1,t>$ para qualquer $t\in \mathbb{R}$.
+\\\\ Nos outros casos:
+\\$
+\left[\begin{array}{ccc}
+1&a&1\\
+0&1&a
+\end{array}\right]
+$, então: $<x,y>=<1-a^2,a>$.
+}
 
-\item[10*] Dê exemplo de sistema linear com 4 equações e 4 incógnitas cuja solução dependa de:
+\item[10] Dê exemplo de sistema linear com 4 equações e 4 incógnitas cuja solução dependa de:
 \begin{enumerate}
-\item[a)] 1 parâmetro
+\item[a)] 1 parâmetro:
+\\
+\textcolor[rgb]{0,0,1}{$ \left\{
+\begin{array}{lll}
+\displaystyle x \hspace{12mm} - w = 0 \\
+\displaystyle \hspace{6mm} y \hspace{6mm} - w = 0 \\
+\displaystyle \hspace{12mm} z - w = 0
+\end{array}
+\right.
+$}
 \item[b)] 2 parâmetros
+\\
+\textcolor[rgb]{0,0,1}{$ \left\{
+\begin{array}{ll}
+\displaystyle x \hspace{12mm} - w = 0 \\
+\displaystyle \hspace{6mm} y \hspace{6mm} - w = 0
+\end{array}
+\right.
+$}
 \item[c)] 3 parâmetros
+\\
+\textcolor[rgb]{0,0,1}{$ \left\{
+\begin{array}{l}
+\displaystyle x \hspace{12mm} - w = 0
+\end{array}
+\right.
+$}
 \end{enumerate}
 
 \end{itemize}
