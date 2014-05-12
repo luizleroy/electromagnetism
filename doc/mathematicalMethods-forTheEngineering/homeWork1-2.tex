@@ -42,15 +42,42 @@
 \\\textcolor[rgb]{0,0,1}{Pelas leis usuais do cálculo a função identicamente nula encontra-se no conjunto acima. Temos também, do cálculo, a garantia de que a soma de duas funções do espaço acima e o produto por um escalar, também satisfazem a equação portanto pertencem ao espaço descrito. É possível observar também que as funções duas vezes continuamente deriváveis são um subespaço de $F(\infty,\infty)$ .%conforme  \cite{anton2013elementary} %541-543
 }
 \item[2] Prove que o conjunto das funções limitadas $f:\mathbb{R}\longrightarrow \mathbb{R}$ (isto é, tais que existe $M_f>0$ tal que $|f(x)|\leq M_f$ para todo $x\in \mathbb{R}$), com as leis usuais, é um espaço vetorial.
+\\\textcolor[rgb]{0,0,1}{É fácil mostrar que, este tipo de função, é um subespaço de $f:\mathbb{R}\longrightarrow \mathbb{R}$. Por ser um conjunto fechado na adição e multiplicação por um escalar. Portanto ele é um espaço vetorial.}
 
 \item[3] Seja $V=\mathfrak{F}(\mathbb{R,R})$. Verifique se W é subespaço de V onde:
 \begin{itemize}
 \item [a)] W é $f(-x)=f(x)$
+\\\textcolor[rgb]{0,0,1}{É subespaço, pois $f(-x)+g(-x)=f(x)+g(x)$ e $af(-x)=af(x)$.}
 \item [b)] W é $f(-x)=-f(x)$
+\\\textcolor[rgb]{0,0,1}{É subespaço, pois $f(-x)+g(-x)=-f(x)-g(x)$ e $af(-x)=-af(x)$.}
 \item[c)] W é o conjunto das funções deriváveis.
+\\\textcolor[rgb]{0,0,1}{Sim. Pois, pelas leis usuais do cálculo, um conjunto de funções deriváveis é fechado na adição e na multiplicação por um escalar.}
 \end{itemize}
 
-\textit{\item[4] Mostre que $W=\{(0,y,z)\in \mathbb{R}^3;y,z \in \mathbb{R}\}$ é subespaço  de $\mathbb{R}^3$ gerado por (0,1,1) e (0,2,-1).
+\item[4] Mostre que $W=\{(0,y,z)\in \mathbb{R}^3;y,z \in \mathbb{R}\}$ é subespaço  de $\mathbb{R}^3$ gerado por (0,1,1) e (0,2,-1).
+\\ \textcolor[rgb]{0,0,1}{
+Observa-se que qualquer combinação dos vetores acima mantém o valor de $x=0$. Portanto basta analisar o seguinte sistema:
+\\
+$
+\left[\begin{array}{rr}
+1&2\\
+1&-1
+\end{array}\right]
+\quad
+\left[\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right]
+=
+\quad
+\left[\begin{array}{c}
+y\\
+z
+\end{array}\right]
+$
+\\ Como o determinante da matriz é diferente de zero, a solução do sistema é única, mostrando que o subespaço é gerado pelos vetores.
+}
+
 \item[5] Mostre que $p(t)=t^3-t^2+1$, $q(t)=t^2-1$ e $r(t)=2t^3+t-1$ são L.I. em $P_4$.
 \item[6] Prove que $f(t)=t$, $g(t)=e^t$ e $h(t)=sen(t)$ são L.I.
 \item[7] Seja W o subespaço de $P_4$ gerado por $u=t^3-t^2+1$, $v=t^2-1$ e $w=t^3-3t^2+3$. Ache uma base de W.
@@ -76,7 +103,7 @@ $$
 $$
 Após reduzir por linhas a matriz basta extrair a base a partir das linhas não nulas:
 (1,-1,0,1) e (0,1,0,-1).}
-}
+
 \item[8] Existe base de $P_4$ que não contenha nenhum polinômio de grau 2?
 \textcolor[rgb]{0,0,1}{\\Não. Para ser geradora do espaço é necessário todos os termos do polinômio.}
 \item[9] Seja $dimV=n$. Prove que se $x={v_1,v_2,...,v^p}$ gera V, então X contém uma base de V.
@@ -86,6 +113,28 @@ Após reduzir por linhas a matriz basta extrair a base a partir das linhas não 
 \item[11] Dado o conjunto finito $X=\{a_1,a_2,...,a_n\}$, ache uma base para o espaço vetorial $V=\mathfrak{F}(X,\mathbb{R})=\{f:X\longrightarrow \mathbb{R}\}$.
 
 \item[12] Ache $T:\mathbb{R}^2\longrightarrow \mathbb{R}$ tal que $T(1,1)=-1$ e $T(1,0)=3$, T linear.
+\\
+\textcolor[rgb]{0,0,1}{
+Basta resolver o sistema:
+$$
+\left[\begin{array}{rr}
+1&1\\
+1&0
+\end{array}\right]
+\quad
+\left[\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right]
+=
+\quad
+\left[\begin{array}{c}
+-1\\
+2
+\end{array}\right]
+$$
+Onde $\alpha=3$  e $\beta=-4$.
+}
 
 \item[13] Ache $T:\mathbb{R}^3\longrightarrow \mathbb{R}^4$ linear tal que ImT seja gerada por (1,0,2,-4) e (0,2,-1,3).
 
@@ -140,7 +189,7 @@ $ \left \vert
 \end{array}
 \right \vert = 0.
 $
-
+\\ \textcolor[rgb]{0,0,1}{Basta observar que a linha dois é um múltiplo da linha 1. Neste caso o determinante é igual a 0.}
 \item[4] Prove que
 $ v(a,b,c) = \left \vert
 \begin{array}{lll}
@@ -150,12 +199,46 @@ $ v(a,b,c) = \left \vert
 \end{array}
 \right \vert = (c-a)(c-b)(b-a).
 $
+\\ \textcolor[rgb]{0,0,1}{
+$
+\left \vert
+\begin{array}{lll}
+\displaystyle 1&1&1 \\
+\displaystyle a&b&c \\
+\displaystyle a^2&b^2&c^2
+\end{array}
+\right \vert = \left \vert
+\begin{array}{lll}
+\displaystyle 1&1&1 \\
+\displaystyle 0&b-a&c-a \\
+\displaystyle 0&b^2-a^2&c^2-a^2
+\end{array}
+\right \vert = $
+\\
+$(b-a)(c^2-a^2)-(c-a)(b^2-a^2) = $
+\\
+$(b-a)(c-a)(c+a)-(c-a)(b-a)(b+a) = $
+\\
+$(b-a)(c-a)[(c+a)-(b+a)] = $
+\\
+$(c-a)(c-b)(b-a).
+$
+}
 
-\item[5] Seja $A_{m\times n}$. Se $P_{n\times n}$ é invertível e $B=P^-1AP$, prove que $det(A)=det(B)$, e que $det(B-\lambda I_n)=det(A-\lambda I_n)$ qualquer que seja $\lambda \in \mathbb{R}$.
+\item[5] Seja $A_{m\times n}$. Se $P_{n\times n}$ é invertível e $B=P^{-1}AP$, prove que $det(A)=det(B)$, e que $det(B-\lambda I_n)=det(A-\lambda I_n)$ qualquer que seja $\lambda \in \mathbb{R}$.
+\\ \textcolor[rgb]{0,0,1}{
+$det(B)=det(P^{-1}AP)=det(P^{-1})det(A)det(B)=\frac{1}{p}det(A)p=det(A)$
+\\
+$det(B-\lambda I_n)=det(B)-\lambda det(I_n)=det(A)-\lambda det(I_n)=det(A-\lambda I_n)$
+}
 
 \item[6] Sejam $\mathfrak{v}_1,...,\mathfrak{v}_n\text{ }\in \mathbb{R}^n$, $\mathfrak{v}_j=\sum_{i=1}^n a_{ij}e_i$, $A=(a_{ij})$, $\mathcal{E}=(e_1,...,e_n)$ a base canônica do $\mathbb{R}^n$. Prove que $\mathfrak{v}_1,...,\mathfrak{v}_n$ são L.I. se, e só se, $det(A)\neq0$.
 
 \item[7] Uma matriz quadrada H é \underline{ortogonal} se $HH^t=I_n$. Prove que o produto de duas matrizes ortogonais é uma matriz ortogonal, e que $det(H)=\pm 1$.
+\\ \textcolor[rgb]{0,0,1}{
+Temos: $(AB)(AB)^t=ABB^tA^t=AIA^t=AA^t=I$
+\\$det(AA^t)=det(A)det(A^t)=det(A)det(A)=det^2(A)=det(I)=1$. Portanto, $|det(A)|=1$.
+}
 
 \item[8] Sejam $\mathfrak{v}_1,...,\mathfrak{v}_m\text{ }\in \mathbb{R}^3$ linearmente independentes. Prove que \{$\mathfrak{v_1-v_2}$,
 $\mathfrak{v_2-v_3}$,
@@ -173,6 +256,16 @@ cos\theta & sen\theta \\
 -sen\theta & cos\theta
 \end{array}\right)
 $ é ortogonal.
+\\ \textcolor[rgb]{0,0,1}{
+Como exemplo temos:
+$
+\left(\begin{array}{rr}
+1 & 1 \\
+1 & 2
+\end{array}\right)
+$
+\\É ortogonal pois $<Cos\theta,-Sen\theta>\cdot<Sen\theta,Cos\theta>=0$
+}
 
 \item[12] Mostre que:
 \begin{itemize}
@@ -285,8 +378,8 @@ k^2
 $$
 Serve para qualquer valor de k diferente de zero!
 }
-\item[2*] As matrizes quadradas de ordem n, A e B, comutam se $AB = BA$. 
-\\As matrizes 2x2 que comutam com $\left[\begin{array}{cc}
+\item[2] As matrizes quadradas de ordem n, A e B, comutam se $AB = BA$. 
+\\\textcolor[rgb]{0,0,1}{As matrizes 2x2 que comutam com $\left[\begin{array}{cc}
 1&0\\0&2
 \end{array}\right]$ são:
 $$
@@ -324,7 +417,7 @@ a&b&c\\d&e&f\\g&h&i
 1&1&0\\1&1&1\\0&0&1
 \end{bmatrix}
 $$
-\textbf{Com b = f = a, i = e, d = 0, g = 0 e h = 0 onde $a,c,e\hspace{2mm}\in\hspace{2mm}\mathbb{R}^3$.}
+\textbf{Com b = f = a, i = e, d = 0, g = 0 e h = 0 onde $a,c,e\hspace{2mm}\in\hspace{2mm}\mathbb{R}^3$.}}
 
 \item[3] Com auxílio do seguinte teorema:
 \textcolor[rgb]{0,0,1}{\\ Se A é uma matriz quadrada e se existe um inteiro positivo k tal que $A^k=0$, então a matriz $I-A$ é invertível e $$(I-A)^{-1} = I + A + A^2 + ... + A^{k-1}$$
@@ -364,7 +457,8 @@ $$
 $$
 O produto de duas matrizes de probabilidade também possui a soma das linhas igual a unidade.
 }
-\item[6*] Resolva os sistemas:
+\item[6] Solução dos sistemas:
+\textcolor[rgb]{0,0,1}{
 \begin{itemize}
 \item[a]
 $ \left\{
@@ -373,12 +467,36 @@ $ \left\{
 \displaystyle 6x_1 - 9x_2 + 21x_3 = -1
 \end{array}
 \right.
+ \left\{
+\begin{array}{ll}
+\displaystyle x_1 - \frac{3}{2}x_2 + \frac{7}{2}x_3 = 2 \\
+\displaystyle \hspace{6mm} - 18x_2 \hspace{9mm} = -13
+\end{array}
+\right.
+ \left\{
+\begin{array}{ll}
+\displaystyle x_1= \frac{37}{12} - \frac{7}{2}x_3 \\
+\displaystyle x_2 = \frac{13}{18}
+\end{array}
+\right.
 $
 \item[b]
 $ \left\{
 \begin{array}{ll}
 \displaystyle 6x_1+9x_2+14x_3=0 \\
 \displaystyle 3x_1-8x_2+7x_3=0
+\end{array}
+\right.
+ \left\{
+\begin{array}{ll}
+\displaystyle x_1+\frac{3}{2}x_2+\frac{7}{3}x_3=0 \\
+\displaystyle \hspace{5mm}-\frac{25}{2}x_2 \hspace{9mm}=0
+\end{array}
+\right.
+ \left\{
+\begin{array}{ll}
+\displaystyle x_1 =-\frac{7}{3}x_3 \\
+\displaystyle x_2=0
 \end{array}
 \right.
 $
@@ -391,6 +509,43 @@ $ \left\{
 \displaystyle -3x_1+2x_2+8x_3=21
 \end{array}
 \right.
+ \left\{
+\begin{array}{llll}
+\displaystyle x_1+x_2-x_3=-2 \\
+\displaystyle \hspace{6mm} - x_2-x_3=-3 \\
+\displaystyle \hspace{6mm} -9x_2-9x_3=-27 \\
+\displaystyle \hspace{6mm}+5x_2+5x_3=15
+\end{array}
+\right.
+ \left\{
+\begin{array}{llll}
+\displaystyle x_1+x_2-x_3=-2 \\
+\displaystyle \hspace{6mm} x_2+x_3=3 \\
+\displaystyle \hspace{6mm} x_2+x_3=3 \\
+\displaystyle \hspace{6mm} x_2+x_3=3
+\end{array}
+\right.
+$
+\\
+$
+ \left\{
+\begin{array}{ll}
+\displaystyle x_1+x_2-x_3=-2 \\
+\displaystyle \hspace{6mm} x_2+x_3=3
+\end{array}
+\right.
+ \left\{
+\begin{array}{ll}
+\displaystyle x_1+x_2-x_3=-2 \\
+\displaystyle \hspace{6mm} x_2=3-x_3
+\end{array}
+\right.
+ \left\{
+\begin{array}{ll}
+\displaystyle x_1=2x_3 -5 \\
+\displaystyle x_2=3-x_3
+\end{array}
+\right.
 $
 \item[d]
 $ \left\{
@@ -401,10 +556,34 @@ $ \left\{
 \displaystyle 12x_1-x_2-x_3=0
 \end{array}
 \right.
+ \left\{
+\begin{array}{llll}
+\displaystyle x_1-x_3=0 \\
+\displaystyle x_2-x_3=0 \\
+\displaystyle x_2-3x_3=0 \\
+\displaystyle -x_2-11x_3=0
+\end{array}
+\right.
+ \left\{
+\begin{array}{llll}
+\displaystyle x_1-x_3=0 \\
+\displaystyle x_2-x_3=0 \\
+\displaystyle -2x_3=0 \\
+\displaystyle -12x_3=0
+\end{array}
+\right.
+ \left\{
+\begin{array}{lll}
+\displaystyle x_1=0 \\
+\displaystyle x_2=0 \\
+\displaystyle x_3=0
+\end{array}
+\right.
 $
 \end{itemize}
-
-\item[7*] Calcule a e b de modo que sejam compatíveis com as equações:\\
+}
+\item[7] Calcule a e b de modo que sejam compatíveis com as equações abaixo:\\
+\textcolor[rgb]{0,0,1}{
 $ \left\{
 \begin{array}{llll}
 \displaystyle 4x_1+3x_2=-3 \\
@@ -413,14 +592,53 @@ $ \left\{
 \displaystyle 3x_1+bx_2=-1
 \end{array}
 \right.
+ \left\{
+\begin{array}{llll}
+\displaystyle x_1+\frac{3}{4}x_2=-\frac{3}{4} \\
+\displaystyle \hspace{8mm}\frac{1}{4}x_2=-\frac{5}{4} \\
+\displaystyle \hspace{8mm}\frac{8-3a}{4}x_2=\frac{3a+20}{4} \\
+\displaystyle \hspace{8mm}\frac{4b-9}{4}x_2=\frac{5}{4}
+\end{array}
+\right.
 $
+Observa-se que, para solução do sistema, $x_2=-5$. Assim:\\
+$ \left\{
+\begin{array}{ll}
+\displaystyle -40+15a=3a+20 \\
+\displaystyle -20b+45=5
+\end{array}
+\right.
+ \left\{
+\begin{array}{ll}
+\displaystyle a=5 \\
+\displaystyle b=2
+\end{array}
+\right.
+$}
 
-\item[8*] Discuta como o posto de A varia com $t\in \mathbb{R}$, onde:
+\item[8] Discuta como o posto de A varia com $t\in \mathbb{R}$, onde:
 $$
 A=\left[\begin{array}{ccc}
 1&1&t\\1&t&1\\t&1&1
+\end{array}\right]=
+$$
+\textcolor[rgb]{0,0,1}{
+$$
+\left[\begin{array}{ccc}
+1&1&t\\0&t-1&1-t\\0&1-t&1-t^2
+\end{array}\right]=
+$$
+Se $t=1$ o posto é igual a 1. Senão:
+$$
+=\left[\begin{array}{ccc}
+1&1&t\\0&1&-1\\0&1&1+t
+\end{array}\right]
+=\left[\begin{array}{ccc}
+1&1&t\\0&1&-1\\0&0&2+t
 \end{array}\right]
 $$
+Se $t=-2$ o posto é 2. Caso contrário, o posto é 3.
+}
 \item[9] Discuta as soluções do sistema
 $ \left\{
 \begin{array}{ll}
