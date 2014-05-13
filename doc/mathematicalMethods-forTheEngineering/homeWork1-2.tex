@@ -79,7 +79,13 @@ $
 }
 
 \item[5] Mostre que $p(t)=t^3-t^2+1$, $q(t)=t^2-1$ e $r(t)=2t^3+t-1$ são L.I. em $P_4$.
-\item[6] Prove que $f(t)=t$, $g(t)=e^t$ e $h(t)=sen(t)$ são L.I.
+\\ \textcolor[rgb]{0,0,1}{A divisão de p por q é $t-1$ com resto, o que mostra que eles não são múltiplos. O mesmo ocorre com p/r e q/r. Fica claro pois estes polinômios possuem sempre fatores distintos quando comparados dois a dois.}
+\item[6] Prove que $f(t)=t$, $g(t)=e^t$ e $h(t)=sen(t)$ são L.I.\\
+\textcolor[rgb]{0,0,1}{Suponha $t=\frac{\pi}{2}$. Então $f=\frac{\pi}{2}$, $g=e^{\frac{\pi}{2}}$ e h=1
+\\Suponha $t=\frac{-\pi}{2}$. Então $f=\frac{-\pi}{2}$, $g=e^{\frac{-\pi}{2}}$ e h=-1.
+Estes dois não são múltiplos. Portanto, o sistema é L.I.}.
+
+
 \item[7] Seja W o subespaço de $P_4$ gerado por $u=t^3-t^2+1$, $v=t^2-1$ e $w=t^3-3t^2+3$. Ache uma base de W.
 \\\textcolor[rgb]{0,0,1}{A base abaixo, do espaço linha da matriz A é equivalente ao procurado:
 $$
@@ -232,7 +238,8 @@ $det(B)=det(P^{-1}AP)=det(P^{-1})det(A)det(B)=\frac{1}{p}det(A)p=det(A)$
 $det(B-\lambda I_n)=det(B)-\lambda det(I_n)=det(A)-\lambda det(I_n)=det(A-\lambda I_n)$
 }
 
-\item[6] Sejam $\mathfrak{v}_1,...,\mathfrak{v}_n\text{ }\in \mathbb{R}^n$, $\mathfrak{v}_j=\sum_{i=1}^n a_{ij}e_i$, $A=(a_{ij})$, $\mathcal{E}=(e_1,...,e_n)$ a base canônica do $\mathbb{R}^n$. Prove que $\mathfrak{v}_1,...,\mathfrak{v}_n$ são L.I. se, e só se, $det(A)\neq0$.
+\item[6] Sejam $\mathfrak{v}_1,...,\mathfrak{v}_n\text{ }\in \mathbb{R}^n$, $\mathfrak{v}_j=\sum_{i=1}^n a_{ij}e_i$, $A=(a_{ij})$, $\mathcal{E}=(e_1,...,e_n)$ a base canônica do $\mathbb{R}^n$. Prove que $\mathfrak{v}_1,...,\mathfrak{v}_n$ são L.I. se, e só se, $det(A)\neq0$.\\
+\textcolor[rgb]{0,0,1}{Simples: as componentes dos vetores são as colunas da matriz A, na definição, na base canônica. Se o determinante da matriz é diferente de zero, o sistema homogêneo associado a matriz só tem uma solução (obviamente a solução nula). Portanto, os vetores são L.I., conforme a definição de L.I.}
 
 \item[7] Uma matriz quadrada H é \underline{ortogonal} se $HH^t=I_n$. Prove que o produto de duas matrizes ortogonais é uma matriz ortogonal, e que $det(H)=\pm 1$.
 \\ \textcolor[rgb]{0,0,1}{
@@ -242,13 +249,24 @@ Temos: $(AB)(AB)^t=ABB^tA^t=AIA^t=AA^t=I$
 
 \item[8] Sejam $\mathfrak{v}_1,...,\mathfrak{v}_m\text{ }\in \mathbb{R}^3$ linearmente independentes. Prove que \{$\mathfrak{v_1-v_2}$,
 $\mathfrak{v_2-v_3}$,
-...,$\mathfrak{v_{m-1}-v_{m}}$\} é L.I.
+...,$\mathfrak{v_{m-1}-v_{m}}$,$\mathfrak{v_{m}}$\} é L.I.
+\\ \textcolor[rgb]{0,0,1}{Simples, trocando os vetores v acima pela lista $w_{1-2},w_{2-3},w_{3-4}...$ (e mantendo a correspondência) temos o seguinte sistema:
+$$
+ \left\{
+\begin{array}{llll}
+\displaystyle \alpha_1w_{1-2}+\alpha_2w_{2-3} ...=0 \\
+\displaystyle 5x_1+4x_2=-5 \\
+\displaystyle ax_1+2x_2=5 \\
+...
+\end{array}
+\right.
+$$}
 
 \item[9] Se $\mathfrak{v}_1,...,\mathfrak{v}_m\text{ gera } \mathbb{R}^n$, prove que \{$\mathfrak{v_1-v_2}$,
 $\mathfrak{v_2-v_3}$,
-...,$\mathfrak{v_{m-1}-v_{m}}$\} gera $\mathbb{R}^n$.
+...,$\mathfrak{v_{m-1}-v_{m}}$,$\mathfrak{v_{m}}$\} gera $\mathbb{R}^n$.
 
-\item[10*] Sejam as matrizes $A_{m\times n}$, $B_{n\times p}$ e $C=AB$. Prove que $r(AB)\leq r(B)$.
+\item[10] Sejam as matrizes $A_{m\times n}$, $B_{n\times p}$ e $C=AB$. Prove que $r(AB)\leq r(B)$.
 
 \item[11] Mostre que nem toda matriz \textit{A} tal que $det(A)=1$ é ortogonal. Mostre que $
 \left(\begin{array}{rr}
@@ -733,5 +751,6 @@ $}
 %\end{proof}
 %
 %[Sugestão seguida: Usar contraposição, supondo que o sistema não-homogêneo tem duas soluções distintas, e usando essas soluções para encontrar uma solução não trivial do sistema homogêneo.]
+{\small That's all folks!}\footnote{Existem exercícios não digitalizados! Estão nos rascunhos em anexo.}
 \end{document}
 
