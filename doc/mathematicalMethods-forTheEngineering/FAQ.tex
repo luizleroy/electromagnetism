@@ -1,30 +1,217 @@
-Qual a melhor ordem para determinar os espaços nulo, linha e coluna?
-\\Se a questão é resolver para uma mesma matriz estes três problemas é sempre mais vantajoso, ou seja, é gerado menos cálculos, se executarmos os seguintes passos:
-\item Encontrar a matriz escalonada por linhas. Dela obtemos o espaço linha.
-\item Encontrar a matriz escalonada reduzida. Dela, com auxílio dos pivôs, obtemos o espaço coluna.
-\item Com a matriz escalonada reduzida o sistema linear poderá ser resolvido e, assim, encontramos o espaço nulo.
+% abtex2-modelo-artigo.tex, v-1.9.2 laurocesar
+% Copyright 2012-2014 by abnTeX2 group at http://abntex2.googlecode.com/ 
+%
 
-Quais teoremas já foram necessários enunciar em anos anteriores?
-\\Seguem os teoremas e um ponteiro para as demostrações:
-\item O teorema espectral para operadores auto-adjuntos. \cite{x}
-\item O teorema do núcleo e da imagem. \cite{y}
-\item A desigualdade de Bessel
-\item Três condições equivalentes para que uma matriz $n\times n$ seja invertível.
-\item Identidade de Jacobi
-\item Teorema de Gren-Shidt \cite{406}
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2003: Informação e documentação - Artigo em publicação 
+% periódica científica impressa - Apresentação
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
 
-O que é decomposição espectral?
+\documentclass[
+	% -- opções da classe memoir --
+	article,			% indica que é um artigo acadêmico
+	11pt,				% tamanho da fonte
+	oneside,			% para impressão apenas no verso. Oposto a twoside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	brazil,				% o último idioma é o principal do documento
+	sumario=tradicional
+	]{abntex2}
 
-Como diagonalizar uma matriz?
 
-O que é reduzir a uma forma quadrática uma determinada expressão?
+% ---
+% PACOTES
+% ---
 
-O que é identidade de Jacobi?
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{lmodern}			% Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl} 			% Lista de simbolos
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+% ---
+		
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+		
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+% ---
 
-Como resumir ao máximo a aplicação do teorema de Gren-Schmidt? \cite{406}
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
 
-Como diagonalizar uma matriz? \cite{158}
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{F.A.Q Métodos Matemáticos}
+\autor{TEMPLATE: \abnTeX\thanks{\url{http://abntex2.googlecode.com/}} \and Lauro
+César
+Araujo\thanks{laurocesar@laurocesar.com}}
+\local{Brasil}
+\data{2014, v-1.9.2}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={Modelo de artigo científico com abnTeX2},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% Espaçamento simples
+\SingleSpacing
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
+% página de titulo
+\maketitle
+
+% resumo em português
+\begin{resumoumacoluna}
+A idéia deste trabalho é montar um resumo de tudo o que é necessário pesquisar para conseguir a glória máxima em Métodos Matemáticos. Inicialmente, este documento foi construído como um ``\textit{Frequently Ask Questions}''- F.A.Q.
+ 
+ \vspace{\onelineskip}
+ 
+ \noindent
+ \textbf{Palavras-chaves}: F.A.Q, Definições, Teoremas e Corolários
+\end{resumoumacoluna}
+
+% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\section*{F.A.Q.}
+\addcontentsline{toc}{section}{Introdução}
+
+1.    Qual a melhor ordem para determinar os espaços: nulo, linha e coluna de uma matriz? Se a questão é resolver para uma mesma matriz estes três problemas é sempre mais vantajoso, ou seja, é gerado menos cálculos, se executarmos os seguintes passos:
+
+a.    Encontrar a matriz escalonada por linhas. Dela obtemos o espaço linha.
+
+b.    Encontrar a matriz escalonada por linhas reduzida. Aí, com auxílio dos pivôs, obtemos o espaço coluna.
+
+c.    Com a matriz escalonada reduzida o sistema linear poderá ser resolvido e, assim, encontramos o espaço nulo.
+
+2.    Quais teoremas já foram necessários enunciar?
+
+a.    O teorema do núcleo e da imagem.
+
+b.    A desigualdade de Cauchy-Schwarz / Triangular.
+
+c.    Três condições equivalentes para que uma matriz nxn seja invertível (Teorema de unificação).
+
+d.    O teorema espectral para operadores autoadjuntos.
+
+e.    Teorema de Gren-Schmidt.
+
+f.     SVD.
+
+3.    Como diagonalizar uma matriz? 
+%http://www.mat.ufmg.br/~rodney/notas_de_aula/diagonalizacao.pdf
+
+4.    O que é reduzir a uma forma quadrática uma determinada expressão?
+
+%Pag 133: http://www.pucminas.br/imagedb/documento/DOC_DSC_NOME_ARQUI20131122095647.pdf
 
 
-
-
+\end{document}

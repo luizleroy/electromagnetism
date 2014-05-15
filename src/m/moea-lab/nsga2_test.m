@@ -25,9 +25,9 @@
 %rng('default');
 clear;
 tic;
-pop = 250*2;
-gen = 100*50;
-nsga_2('ZDT4',pop,gen);
+pop = 120;
+gen = 1100;
+nsga_2('ZDT6',pop,gen);
 toc;
 %figure;
 %nsga_2('SPHERES',pop,gen);
