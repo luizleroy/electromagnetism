@@ -29,7 +29,7 @@ Após a análise do resultado observa-se a necessidade de inserção bancos de capac
 
 A \Fig \ref{fig_top-orto}, na próxima página, representa a rede de forma ortogonal e hierárquica, sendo útil para exibir o sistema com foco no nível de distribuição das barras, da fonte para as pontas. A região onde os capacitores foram instalados, para minimização das perdas, está mais a esquerda e é representada por um retângulo. 
 
-Já \Fig \ref{fig_top-geo} (também na próxima página) é útil para observar o circuito de forma georreferenciada, evidenciando a grande quantidade de ramificações da rede. Observa-se que os capacitores que estabilizam o nível de tensão encontram-se em fim de circuito. Esta parte do experimento está detalhada na próxima subseção.
+Já \Fig \ref{fig_top-geo} (também na próxima página) é útil para observar o circuito de forma georreferenciada, evidenciando a grande quantidade de ramificações da rede. Observa-se que os capacitores que elevam o nível de tensão encontram-se em fim de circuito. Esta parte do experimento está detalhada na próxima subseção.
 
 %PDF: origem YED
 \begin{figure*}
@@ -120,7 +120,7 @@ O espaço de busca para o problema de alocação dos capacitores (em redes extensas
 \begin{equation} \label{comb}
   \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
 \end{equation}
-No contexto deste trabalho assume-se que o usuário conheça as especificações do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito. Portanto, ao trabalhar com bancos com TAP fixo, é usual em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões) inserir, por exemplo, cinco cargas capacitivas.
+No contexto deste trabalho assume-se que o usuário conheça as especificações do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito. Portanto, é usual em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões) inserir, por exemplo, cinco cargas capacitivas.
 Neste caso, podemos obter o ótimo em todas as combinações de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
 O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
 
