@@ -71,51 +71,6 @@ As Figs. \ref{perfil} e \ref{perfilz} ilustram os ganhos na qualidade de tensão 
 
 \subsection{Comparações com a literatura}
 
-A primeira proposta é compará-lo a um procedimento padrão, encontrado na literatura. Ao utilizar um processo sequencial, com uma análise barra à barra do alimentador, é preciso realizar algum tipo de decisão, optando por priorizar alguma característica do sistema durante análise. O procedimento utilizado para comparação, que realiza tratamento de perdas e desvios de tensão, encontra-se descrito em \citeasnoun{alcantra}.
-
-Após adaptações necessárias no algoritmo, para comportar redes extensas e a disponibilidade de recursos  utilizou-se o seguinte procedimento formal, aplicado à rede de teste proposta neste artigo. Neste tipo de análise, tanto a potência quanto a granularidade dos capacitores alocados precisa ser definida inicialmente.
-
-\begin{enumerate}[a)]
-\item Resolver o fluxo de carga e calcular as tensões do sistema;
-\vspace{-3mm}
-\item Identificar a barra com a menor tensão e instalar um banco de capacitores de 150kVAr (50kVAr por fase);
-\vspace{-3mm}
-\item Resolver o fluxo de carga e calcular as tensões do sistema modificado;
-\vspace{-3mm}
-\item Voltar ao passo a) apenas se a menor tensão do sistema for menor que 0,95 pu ou a maior tensão do sistema for maior que 1,05 pu.
-\\
-A alocação de capacitores precisa ser menor que um determinado valor de potência reativa e um determinado número de bancos disponíveis (no caso, a proposta é de 10 x 150 kVAr). 
-\vspace{-3mm}
-\item Identificar a barra que proporciona a maior redução nas perdas de potência ativa do sistema e instalar um banco de capacitores de 150 kVAr nessa barra;
-\vspace{-3mm}
-\item Resolver o fluxo de carga;
-\vspace{-3mm}
-\item Calcular as perdas ativas do sistema;
-\vspace{-3mm}
-\item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 1500 kVAr. Ou seja, o restante dos recursos disponíveis. 
-\end{enumerate}
-
-Após aplicar este procedimento, apenas quatro bancos forma alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada. As comparações entre as aplicações do PSO e o processo descrito acima encontram-se na \Tab \ref{tab_final_comparacao}, na próxima página.
-
-\begin{table*}[ht!]
-  \centering
-  \begin{tabular}{| l | l | l | l |}
-  \hline
-  Tipo & VDI & Perdas & Alocações\\
-  \hline
-	PSO por Perdas: & 0,02321 & 13,4 kVA &  45; 85; 99; 117; 126; 128; 191 e 898\\
-  PSO por VDI:& 0,01157 &  61,8 kVA &  1146; 1156; 1187; 1639; 1698; 1725; 1874; 1964; 2111 e 2318 \\
-	\hline
-	PSO (VDI e Perdas): & 0,02124 & 14,0 kVA & 60; 88; 104; 127; 131; 198; 244; 812 e 1307\\
-	\hline
-	Algoritmo Greedy:  & 0,02393 & 15,1  kVA & 1; 30; 96 e 2496 \\
-	Sem alocação:  & 0,02654 & 15,3  kVA & sem alocação \\
-	\hline
-\end{tabular}
-  \caption{Comparação: PSO x Algoritmo Guloso }
-  \label{tab_final_comparacao}
-\end{table*}
-
 O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir é um conjunto muito grande, devido a natureza combinatória do problema. É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas a receber um determinado equipamento, com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de testes praticamente inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da \Eq \ref{comb}.
 \begin{equation} \label{comb}
   \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
@@ -124,9 +79,9 @@ No contexto deste trabalho assume-se que o usuário conheça as especificações do(
 Neste caso, podemos obter o ótimo em todas as combinações de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
 O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
 
-Após observar o tamanho deste espaço de busca, um estudo de caso em um universo menor de possibilidades foi proposto. Este estudo foi realizado através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único banco capacitivo de 100 kVAr. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número inferior a 4\% de cálculos de fluxo de carga (em relação ao tamanho do espaço de busca). E também com um percentual elevado de acertos, conforme consta na \Tab \ref{tab_forca_bruta}. 
+Após observar o tamanho deste espaço de busca, um estudo de caso inicial, em um universo menor de possibilidades foi proposto para a primeira exploração de um circuito alimentador completo de média tensão. Este estudo foi realizado através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único banco capacitivo de 100 kVAr. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número inferior a 4\% de cálculos de fluxo de carga (em relação ao tamanho do espaço de busca). E também com um percentual elevado de acertos, conforme consta na \Tab \ref{tab_forca_bruta}. 
 
-\begin{table}[ht!]
+\begin{table}[h!]
   \centering
   \begin{tabular}{| l | l | l |}
   \hline
@@ -151,3 +106,49 @@ Estas características ocorrem devido a granularidade da distribuição de cargas d
 \caption{Erro máximo durante 100 simulações de duas configurações do PSO}
 \label{fig_forca_bruta}
 \end{figure}
+
+A proposta experimental principal desenvolvida neste artigo, e descrita nas subseções anteriores, foi também comparada a um procedimento padrão, encontrado na literatura. Ao utilizar um processo sequencial, com uma análise barra à barra do alimentador, é preciso realizar algum tipo de decisão, optando por priorizar alguma característica do sistema durante análise. O procedimento utilizado para comparação, que realiza tratamento de perdas e desvios de tensão, encontra-se descrito em \citeasnoun{alcantra}.
+
+Após adaptações necessárias no algoritmo, para comportar redes extensas e a disponibilidade de recursos  utilizou-se o seguinte procedimento formal, aplicado à rede de teste proposta neste artigo. Neste tipo de análise, tanto a potência quanto a granularidade dos capacitores alocados precisa ser definida inicialmente.
+
+\begin{enumerate}[a)]
+\item Resolver o fluxo de carga e calcular as tensões do sistema;
+\vspace{-3mm}
+\item Identificar a barra com a menor tensão e instalar um banco de capacitores de 150kVAr (50kVAr por fase);
+\vspace{-3mm}
+\item Resolver o fluxo de carga e calcular as tensões do sistema modificado;
+\vspace{-3mm}
+\item Voltar ao passo a) apenas se a menor tensão do sistema for menor que 0,95 pu ou a maior tensão do sistema for maior que 1,05 pu.
+\\
+A alocação de capacitores precisa ser menor que um determinado valor de potência reativa e um determinado número de bancos disponíveis (no caso, a proposta é de 10 x 150 kVAr). 
+\vspace{-3mm}
+\item Identificar a barra que proporciona a maior redução nas perdas de potência ativa do sistema e instalar um banco de capacitores de 150 kVAr nessa barra;
+\vspace{-3mm}
+\item Resolver o fluxo de carga;
+\vspace{-3mm}
+\item Calcular as perdas ativas do sistema;
+\vspace{-3mm}
+\item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 1500 kVAr. Ou seja, o restante dos recursos disponíveis. 
+\end{enumerate}
+
+Após aplicar este procedimento, apenas quatro bancos forma alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada. As comparações entre as aplicações do PSO e o processo descrito acima encontram-se na \Tab \ref{tab_final_comparacao}, da próxima página.
+
+\begin{table*}[t]
+  \centering
+  \begin{tabular}{| l | l | l | l |}
+  \hline
+  Tipo & VDI & Perdas & Alocações da alimentação para as pontas\\
+  \hline
+	PSO por Perdas: & 0,02321 & 13,4 kVA &  45; 85; 99; 117; 126; 128; 191 e 898\\
+  PSO por VDI:& 0,01157 &  61,8 kVA &  1146; 1156; 1187; 1639; 1698; 1725; 1874;\\
+  &&&1964; 2111 e 2318 \\
+	\hline
+	PSO (VDI e Perdas): & 0,02124 & 14,0 kVA & 60; 88; 104; 127; 131; 198; 244; 812 e 1307\\
+	\hline
+	Algoritmo Greedy:  & 0,02393 & 15,1  kVA & 1; 30; 96 e 2496 \\
+	Sem alocação:  & 0,02654 & 15,3  kVA & sem alocação \\
+	\hline
+\end{tabular}
+  \caption{Comparação: PSO x Algoritmo Guloso }
+  \label{tab_final_comparacao}
+\end{table*}
