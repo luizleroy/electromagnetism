@@ -1,7 +1,7 @@
 \section{Desempenho computacional} \label{comput}
-Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários (PSO), foram codificados em C ANSI, pois um dos focos deste trabalho foi o desempenho. Portanto, durante a solução do OCP, diversos testes em situações extremas foram realizados.
+Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários, foram codificados em C ANSI. Um dos focos deste trabalho foi o desempenho. Diversos testes em situações extremas (no que tange a performance) foram realizados.
 
-Protótipos foram construídos e problemas conhecidos foram solucionados para a validação da metodologia. Funções com os valores ótimos conhecidos, como o vale de Rosenbrock, a função de De Jong, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Nesta etapa, os parâmetros de operação do PSO, descritos na seção \ref{rev}, foram encontrados. Utilizou-se \citeasnoun{molga2005test} para esta análise.
+Funções de teste com os valores ótimos conhecidos, como o vale de Rosenbrock, a função de De Jong, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Nesta etapa, os parâmetros de operação do PSO, descritos na seção \ref{rev}, foram encontrados. Utilizou-se \citeasnoun{molga2005test} para esta análise.
 
 Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um teste de desempenho é necessário. O hardware disponível para as simulações deste trabalho, foi um servidor de 24 núcleos da Intel\textregistered, com o E5-2630 xeon\textregistered, de 2.30GHz cada. Que favorece o paralelismo de núcleo. Somando ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. 
 

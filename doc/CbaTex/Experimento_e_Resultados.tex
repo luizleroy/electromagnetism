@@ -54,7 +54,7 @@ parcela da função de minimização mono objetivo representada pela \Eq \ref{eq_vdi
 As Figs. \ref{perfil} e \ref{perfilz} ilustram os ganhos na qualidade de tensão após a inserção de 10 bancos de capacitores, visando aumentar o valor da tensão nas pontas do circuito. O valor de tensão, em pu, de todas as 2498 barras, sem alocação de capacitores é representado com os triângulos vermelhos na \Fig \ref{perfilz}. Os pontos em azul mostram que foi possível manter o sistema dentro das normas do PRODIST, no que tange a variação da tensão. O histograma representado na figura \ref{perfil} mostra a distribuição da tensão na fase A para todas as barras do alimentador.
 
 %PDF
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=75mm]{tensao-barras.pdf}
 \caption{Perfil de tensão com e sem alocação de capacitores}
@@ -62,7 +62,7 @@ As Figs. \ref{perfil} e \ref{perfilz} ilustram os ganhos na qualidade de tensão 
 \end{figure}
 
 %PDF
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=75mm]{tensao-barras-ZOOM.pdf}
 \caption{Perfil de tensão com e sem alocação de capacitores (fim de circuito)}
@@ -71,7 +71,7 @@ As Figs. \ref{perfil} e \ref{perfilz} ilustram os ganhos na qualidade de tensão 
 
 \subsection{Comparações com a literatura}
 
-O espaço de busca para o problema de alocação dos capacitores (em redes extensas) pode atingir é um conjunto muito grande, devido a natureza combinatória do problema. É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas a receber um determinado equipamento, com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de testes praticamente inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da \Eq \ref{comb}.
+O espaço de busca para o problema de alocação dos capacitores cresce de muito com o aumento do número de pontos candidatos a instalação destes equipamentos. Isto ocorre devido a natureza combinatória do problema. É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas a receber um determinado equipamento, com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de testes praticamente inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da \Eq \ref{comb}.
 \begin{equation} \label{comb}
   \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
 \end{equation}
@@ -79,7 +79,7 @@ No contexto deste trabalho assume-se que o usuário conheça as especificações do(
 Neste caso, podemos obter o ótimo em todas as combinações de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
 O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
 
-Após observar o tamanho deste espaço de busca, um estudo de caso inicial, em um universo menor de possibilidades foi proposto para a primeira exploração de um circuito alimentador completo de média tensão. Este estudo foi realizado através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único banco capacitivo de 100 kVAr. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número inferior a 4\% de cálculos de fluxo de carga (em relação ao tamanho do espaço de busca). E também com um percentual elevado de acertos, conforme consta na \Tab \ref{tab_forca_bruta}. 
+Após observar o tamanho deste espaço de busca, um estudo de caso inicial, em um universo menor de possibilidades, foi proposto para a primeira exploração de um circuito alimentador completo de média tensão. Este estudo foi realizado através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único banco capacitivo de 100 kVAr. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número inferior a 4\% de cálculos de fluxo de carga (em relação ao tamanho do espaço de busca). E também com um percentual elevado de acertos, conforme consta na \Tab \ref{tab_forca_bruta}. 
 
 \begin{table}[h!]
   \centering
@@ -100,7 +100,7 @@ A metodologia proposta, em cada teste, foi executada 100 vezes para definição do
 
 Estas características ocorrem devido a granularidade da distribuição de cargas do sistema. Mesmo no pior caso, onde utiliza-se 100 cálculos de $f(\textbf{x})$, a perda de potência é inferior a 2\% para todas as simulações, conforme demonstrado pela linha superior da Fig. \ref{fig_forca_bruta}. Na simulação PSO 2 o erro é menor que a precisão do sistema para todas as simulações. O que leva à linha horizontal azul (marcada com asteriscos) no eixo das abcissas. Onde está representada a perda mínima do sistema (normalizada).
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=75mm]{plotForcaBrutaVersusOCP.pdf}
 \caption{Erro máximo durante 100 simulações de duas configurações do PSO}
@@ -128,7 +128,7 @@ A alocação de capacitores precisa ser menor que um determinado valor de potência
 \vspace{-3mm}
 \item Calcular as perdas ativas do sistema;
 \vspace{-3mm}
-\item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 1500 kVAr. Ou seja, o restante dos recursos disponíveis. 
+\item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 1500 kVAr.
 \end{enumerate}
 
 Após aplicar este procedimento, apenas quatro bancos forma alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada. As comparações entre as aplicações do PSO e o processo descrito acima encontram-se na \Tab \ref{tab_final_comparacao}, da próxima página.
