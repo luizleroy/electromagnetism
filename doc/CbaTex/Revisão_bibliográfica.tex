@@ -16,7 +16,7 @@ Partindo de uma topologia com todos os cálculos de fluxo de carga realizados, é 
 
 \subsection{Metodologia de minimização via PSO}
 
-O procedimento usual em métodos estocásticos, e adotado neste trabalho, durante o processo de minimização de uma determinada função objetivo $f(\textbf{x})$ de múltiplas variáveis, é iniciar com uma população de pontos de avaliação e evoluir até encontrar um valor satisfatório para servir de solução ao problema. Este tipo de análise foi realizada também em \citeasnoun{zhang2008active}, \citeasnoun{sedlaczek2006using} e \citeasnoun{yarmohamadi2012capaictor}. Obtém-se a avaliação de $f(\textbf{x})$ através do método de cálculo de fluxo de carga por varredura e utiliza-se a técnica de otimização inteira para o PSO descrita em \citeasnoun{del2008particle}.
+O procedimento usual em métodos estocásticos, e adotado neste trabalho, durante o processo de minimização de uma determinada função objetivo $f(\textbf{x})$ de múltiplas variáveis, é iniciar com uma população de pontos de avaliação e evoluir até encontrar um valor satisfatório para servir de solução ao problema. Este tipo de análise foi realizada também em  \citeasnoun{sedlaczek2006using}; \citeasnoun{zhang2008active}; e \citeasnoun{yarmohamadi2012capaictor}. Obtém-se a avaliação de $f(\textbf{x})$ através do método de cálculo de fluxo de carga por varredura e utiliza-se a técnica de otimização inteira para o PSO descrita em \citeasnoun{del2008particle}.
 
 O algoritmo se adapta atualizando um parâmetro denominado velocidade. Este parâmetro é responsável por evoluir toda a população em direção ao valor ótimo. No PSO, a velocidade $\textbf{v}_i$ e a posição $\textbf{x}_i$ da i-ésima partícula é atualizada conforme as  Eqs. \ref{vel} e \ref{pos}:
 

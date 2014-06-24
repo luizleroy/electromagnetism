@@ -338,11 +338,11 @@ Automa\c{c}\~{a}o em \today}
     \RequirePackage{harvard}
 
     % configure style
-    \iflanguage{english}{}{
+    %\iflanguage{english}{}{
     	\renewcommand{\HAR@and@agsm}{\&}
     	\renewcommand{\HAR@and@dcu}{e}
     	\renewcommand{\HAR@and@apsr}{e}
-    }
+    %}
     \citationmode{abbr}
     \citationstyle{dcu}
     \bibliographystyle{dcu}
