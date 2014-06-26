@@ -1,15 +1,15 @@
 \section{Revisão bibliográfica} \label{rev}
 
 \subsection{Cálculo do fluxo de carga}
-Fluxo de potência ou fluxo de carga (\textit{load flow}) é o estudo de sistemas em condição de regime permanente. Este estudo será fundamental para levantamento das condições iniciais necessárias para solução do problema OCP.
+Fluxo de potência ou fluxo de carga (\textit{load flow}) é o estudo de sistemas em condição de regime permanente. Este estudo será fundamental para levantamento das grandezas elétricas necessárias para solução do problema OCP.
 
 %É um trabalho que demanda uma análise numérica de grande porte, que para sistemas com redes extensas são necessárias técnicas específicas, como notação por unidade (pu) e componentes simétricas. Trata-se de um problema matemático, formado por um conjunto de equações diferenciais parciais, cuja solução permite determinar os valores de tensão, potência e corrente em cada um dos pontos do sistema em estudo.
 
-O método de varredura ou \textit{backward-forward} foi utilizado para a análise. Com ele é possível obter o valor de tensão em todas as barras do alimentador, e também realizar o cálculo de perdas, necessários para determinar o valor das funções objetivo analisadas.
+O método de varredura ou \textit{backward-forward} foi utilizado para a análise. Com ele é possível obter o valor de tensão em todas as barras do alimentador, e também realizar os cálculos das perdas elétricas ativas ao longo do circuito.
 
-Nos sistemas elétricos em estudo, a distribuição de energia é realizada por redes radiais, com apenas uma fonte de tensão. Esta está localizada na barra de referência. O cálculo é realizado de forma unidirecional, isto é, da barra de referência para as barras terminais.
+Nos sistemas elétricos em estudo, a distribuição de energia é realizada por redes radiais, com apenas uma fonte de tensão, que está localizada na barra de referência. O cálculo é realizado de forma unidirecional, isto é, da barra de referência para as barras terminais.
 
-O método \textit{backward-forward} calcula o fluxo em dois passos. No primeiro, \textit{backward}, obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência. No segundo passo, \textit{forward}, calcula-se as magnitudes e os ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0 pu e os ângulos em 0º, -120º e 120º para cada fase A, B e C.  Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida, conforme descrito em \citeasnoun{zimmerman1995comprehensive}.
+O método \textit{backward-forward} calcula o fluxo em dois passos. No primeiro, \textit{backward}, obtém-se a potência ativa e a potência reativa das extremidades para a barra de referência. No segundo passo, \textit{forward}, calcula-se as magnitudes e os ângulos de tensão a partir da barra de referência, em que a tensão normalmente é fixada em 1,0 pu e os ângulos em 0º, -120º e 120º para cada fase A, B e C.  Então, subtrai-se a queda de tensão em cada barra até chegar às extremidades. O cálculo algébrico é feito com as variáveis na forma complexa, iterativamente, até que a convergência seja atingida. Optou-se por utilizar o método baseado em somas de correntes, conforme descrito no capítulo 5 do trabalho de \citeasnoun{zimmerman1995comprehensive}.
 
 Partindo de uma topologia com todos os cálculos de fluxo de carga realizados, é possível obter a potência ativa e reativa, bem como o módulo e ângulo de tensão e corrente por fase ABC, em todas as barras e linhas. É possível somar as perdas ao longo do circuito e calcular o desvio de tensão em cada ponto do sistema. Estes servirão como função objetivo a ser minimizada pelo PSO.
 
@@ -50,7 +50,7 @@ O algoritmo se adapta atualizando um parâmetro denominado velocidade. Este parâm
   \item $c_1$,$c_2$ são dois coeficientes positivos que controlam a contribuição de \textbf{pBest} e \textbf{gBest}.
 \end{itemize}
 
-A \Eq ~\ref{vel} é usada para calcular o nova velocidade de acordo com a velocidade anterior e a distância entre a posição corrente e a melhor posição anterior da partícula. Ou seja, o valor de \textbf{pBest}. Também é contabilizado a inteligência do grupo, através da diferença entre a posição anterior e o valor de \textbf{gBest}. O peso inercial, durante este trabalho, recebeu um decaimento exponencial. A cada iteração $i$,
+A \Eq ~\ref{vel} é usada para calcular a nova velocidade de acordo com a velocidade anterior e a distância entre a posição corrente e a melhor posição anterior da partícula. Ou seja, o valor de \textbf{pBest}. Também é contabilizado a inteligência do grupo, através da diferença entre a posição anterior e o valor de \textbf{gBest}. O peso inercial, durante este trabalho, recebeu um decaimento exponencial. A cada iteração $i$,
 conforme a equação ~\ref{inert}, ele diminui, controlado pelas constantes $w_1$ e $w_2$:
 
 \begin{equation} \label{inert}

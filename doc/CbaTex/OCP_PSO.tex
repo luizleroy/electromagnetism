@@ -63,10 +63,10 @@ Já a variação da tensão ao longo do circuito durante a alocação dos capacitores,
 \begin{equation} \label{eq_vdi}
   VDI = \sqrt{\sum^{nb}_{b=inicial}\frac{(V_{b} - V)^2}{nb}}
 \end{equation}
-Na \Eq \ref{eq_vdi}, o somatório percorre todas as barras, calculando o erro quadrático médio entre o valor de tensão $V_{barra}$ (estimado pelo cálculo de fluxo por varredura) e a tensão nominal de projeto.
+Na \Eq \ref{eq_vdi}, o somatório percorre todas as barras, calculando o erro quadrático médio entre o valor de tensão $V_{b}$, estimado pelo cálculo de fluxo por varredura, e a tensão nominal de projeto.
 
 Em situações onde ambos os requisitos de rede citados anteriormente são importantes, pode-se utilizar os dois critérios em uma única equação. Neste caso, é necessário avaliar o peso da contribuição de cada critério. Na \Eq \ref{eq_multi} utiliza-se $w_v$ para a contribuição de VDI e $w_p$ para as perdas:
 
 \begin{equation} \label{eq_multi}
-  f = w_v*\frac{VDI}{VDI_{max}} + w_p*\frac{perdas}{perdas_{max}}
+  f = w_v\frac{VDI}{VDI_{max}} + w_p\frac{perdas}{perdas_{max}}
 \end{equation}

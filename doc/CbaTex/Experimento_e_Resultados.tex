@@ -19,7 +19,7 @@ A análise atingiu a convergência com 50 gerações, através do método por enxame d
 
 A rede de distribuição de energia extensa utilizada neste trabalho foi construída com 2498 barras, 2497 linhas (radial) e 1319 cargas distribuídas. Todos os cálculos foram realizados para um sistema elétrico real, trifásico, com cargas elétricas desbalanceadas.
 
-Esta evolução, traçada durante a minimização de \Eq \ref{eq_multi}, foi capaz de reduzir as perdas e melhorar o perfil de tensão ao inserir capacitores em pontos específicos da rede. E também diminuir a corrente no tronco principal do alimentador. Antes da alocação dos capacitores, a corrente  era, em módulo, de 59,6 A na fase A, 56,3 A na fase B e 52,5 A na fase C. Após o experimento, estes valores foram para 55,1 A, 52,0 A e 48,5 A em ABC, respectivamente.
+Esta evolução, traçada durante a minimização da \Eq \ref{eq_multi}, foi capaz de reduzir as perdas e melhorar o perfil de tensão ao inserir capacitores em pontos específicos da rede. E também diminuir a corrente no tronco principal do alimentador. Antes da alocação dos capacitores, a corrente  era, em módulo, de 59,6 A na fase A, 56,3 A na fase B e 52,5 A na fase C. Após o experimento, estes valores foram para 55,1 A, 52,0 A e 48,5 A em ABC, respectivamente.
 
 \subsection{Redução de perdas}
 
@@ -49,7 +49,7 @@ Já \Fig \ref{fig_top-geo} (também na próxima página) é útil para observar o circ
 
 \subsection{Estabilização do perfil de tensão}
 As melhorias no perfil de tensão foram obtidas através da 
-parcela da função de minimização mono objetivo representada pela \Eq \ref{eq_vdi}. O valor de VDI, durante este trabalho foi reduzido de $0,02654$ para 0,01157. Observa-se que o nível de tensão inicial não se encontrava dentro dos padrões regulatórios. Existiam 343 pontos de cálculo com valor abaixo de 0,95 pu, dentro da faixa precária de tensão. Durante este trabalho, o nível de tensão foi verificado e elevado para a faixa adequada de tensão, que é menor que 1,05 pu e maior que 0,95 pu para redes de 13,8 kV. Estes níveis estão de acordo com o indicado no anexo I de \citeasnoun{aneel2012procedimentos}.
+parcela da função de minimização mono objetivo representada pela \Eq \ref{eq_vdi}. O valor de VDI, durante este trabalho foi reduzido de $0,02654$ para 0,01157. Observa-se que o nível de tensão inicial não se encontrava dentro dos padrões regulatórios. Existiam 343 pontos de cálculo com valor abaixo de 0,95 pu, dentro da faixa precária de tensão. Durante este trabalho, o nível de tensão foi verificado e elevado para a faixa adequada de tensão, que é menor que 1,05 pu e maior que 0,95 pu para redes de 13,8 kV. Estes níveis estão de acordo com o indicado no Anexo I de \citeasnoun{aneel2012procedimentos}.
 
 As Figs. \ref{perfil} e \ref{perfilz} ilustram os ganhos na qualidade de tensão após a inserção de 10 bancos de capacitores, visando aumentar o valor da tensão nas pontas do circuito. O valor de tensão, em pu, de todas as 2498 barras, sem alocação de capacitores é representado com os triângulos vermelhos na \Fig \ref{perfilz}. Os pontos em azul mostram que foi possível manter o sistema dentro das normas do PRODIST, no que tange a variação da tensão. O histograma representado na figura \ref{perfil} mostra a distribuição da tensão na fase A para todas as barras do alimentador.
 
@@ -71,7 +71,7 @@ As Figs. \ref{perfil} e \ref{perfilz} ilustram os ganhos na qualidade de tensão 
 
 \subsection{Comparações com a literatura}
 
-O espaço de busca para o problema de alocação dos capacitores cresce de muito com o aumento do número de pontos candidatos a instalação destes equipamentos. Isto ocorre devido a natureza combinatória do problema. É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas a receber um determinado equipamento, com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de testes praticamente inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da \Eq \ref{comb}.
+O espaço de busca para o problema de alocação dos capacitores cresce muito com o aumento do número de pontos candidatos a instalação destes equipamentos. O que ocorre devido a natureza combinatória do problema. É possível obter o tamanho deste espaço através da relação entre a quantidade $n$ de barras candidatas a receber um determinado equipamento, com uma quantidade máxima $b$ de capacitores disponíveis. Isto leva um conjunto de testes praticamente inviáveis para cálculos de força bruta, conforme ilustrado no somatório de combinações da \Eq \ref{comb}.
 \begin{equation} \label{comb}
   \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
 \end{equation}
@@ -131,7 +131,7 @@ A alocação de capacitores precisa ser menor que um determinado valor de potência
 \item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 1500 kVAr.
 \end{enumerate}
 
-Após aplicar este procedimento, apenas quatro bancos forma alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada. As comparações entre as aplicações do PSO e o processo descrito acima encontram-se na \Tab \ref{tab_final_comparacao}, da próxima página.
+Após aplicar este procedimento, apenas quatro bancos foram alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada. As comparações entre as aplicações do PSO e o processo descrito acima encontram-se na \Tab \ref{tab_final_comparacao}, da próxima página.
 
 \begin{table*}[t]
   \centering
