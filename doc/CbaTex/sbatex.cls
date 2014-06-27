@@ -275,10 +275,8 @@ Automa\c{c}\~{a}o em \today}
          \vskip 3pt
          {\centering{
             \ifthenelse{\value{tmpauthor} = 0}
-             %%%%%%%%%%%%%% FIXME FIXME FIXME { Email: }
-             %%%%%%%%%%%%%% FIXME FIXME FIXME { Emails: }
-             %RETIRAR LINHA ABAIXO PARA VERSÃO FINAL
-             {   }
+              { Email: }
+              { Emails: }
             \@eebuffer} \par}
       \end{center}
       \vskip 1.5em \par

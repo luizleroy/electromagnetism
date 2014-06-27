@@ -3,12 +3,16 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 
 \begin{itemize}
 			\item Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
+			\vspace{-3mm}
 			\item Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, propícios a receber um valor de carga capacitiva;
+			\vspace{-3mm}
 			\item Calcular fluxo de potência, tensão nas barras e as perda elétricas para todas as partículas da geração inicial, utilizadas na construção de $\textbf{f}(x)$;
+			\vspace{-3mm}
 			\item Atualizar o valor inicial de \textbf{pBest} das partículas com o valor calculado no passo anterior;
+			\vspace{-3mm}
 			\item Atualizar o valor inicial de \textbf{gBest} com o menor resultado encontrado no passo anterior.
 \end{itemize}
-
+\vspace{-3mm}
 \begin{algorithm}[H]
 \caption*{Algoritmo OCP via PSO}
 \label{algoritmo}

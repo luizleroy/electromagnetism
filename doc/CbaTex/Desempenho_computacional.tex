@@ -1,22 +1,22 @@
 \section{Desempenho computacional} \label{comput}
-Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários, foram codificados em C ANSI. Um dos focos deste trabalho foi o desempenho. Diversos testes em situações extremas (no que tange a performance) foram realizados.
+Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários, foram codificados em C ANSI, devido a necessidade de desempenho. Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, diversos testes em situações extremas são necessários.
 
-Funções de teste com os valores ótimos conhecidos, como o vale de Rosenbrock, a função de De Jong, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Nesta etapa, os parâmetros de operação do PSO, descritos na seção \ref{rev}, foram encontrados. Utilizou-se \citeasnoun{molga2005test} para esta análise.
+Portanto, funções de teste com os valores ótimos conhecidos, como o vale de Rosenbrock, a função de De Jong, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Nesta etapa, os parâmetros de operação do PSO, descritos na seção \ref{rev}, foram encontrados. Utilizou-se \citeasnoun{molga2005test} para esta análise.
 
-Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, um teste de desempenho é necessário. O hardware disponível para as simulações deste trabalho, foi um servidor de 24 núcleos da Intel\textregistered, com o E5-2630 xeon\textregistered, de 2.30GHz cada. Que favorece o paralelismo de núcleo. Somando ao fato de que, no PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos, uma estratégia de paralelismo foi construída. 
+ O hardware disponível para as simulações deste trabalho, possui um processador da Intel\textregistered, com o E5-2630 xeon\textregistered, com o clock de 2.30GHz, capaz de executar 12 threads. No PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos em paralelo. Portanto uma estratégia de paralelismo foi construída. 
 
-Todas as funções objetivo de uma geração foram calculadas em paralelo, com auxílio da API OpenMP\textregistered, descrita em \citeasnoun{chapman2008using}. A escolha desta biblioteca se deve ao hardware utilizado, que é de memória compartilhada. Os resultados de ganho de desempenho, em termos absolutos, estão resumidos na \Tab \ref{tab_desempenho}.
+As funções objetivo de cada uma das gerações do algoritmo foram calculadas com paralelismo, com auxílio da API OpenMP\textregistered, descrita em \citeasnoun{chapman2008using}. A escolha desta biblioteca se deve ao hardware utilizado, que é de memória compartilhada. Os resultados de ganho de desempenho, em termos absolutos, e o \textit{speedup}\footnote{Em computação, \textit{speedup} se refere ao quanto um algoritmo é mais rápido que sua versão sequencial.} estão resumidos na \Tab \ref{tab_desempenho}.
 
 %In parallel computing, speedup refers to how much a parallel algorithm is faster than a corresponding sequential algorithm. RODAPÉ?
 \begin{table}[ht!]
   \centering
   \begin{tabular}{| l | l | l |}
   \hline
-  Duração do processo & Núcleos & $\frac{serial}{paralelo}$\\
+  Duração do processo & Threads & Speedup\\
   \hline
-  10.885,378s $\approx$ 3h & serial & - \\
+  10.885,378s $\approx$ 3h & 1 & 1 \\
   02.613,357s $\approx$ 43min & 8 & 4,165 \\
-  01.105,509s $\approx$ 18min & 24 & 9,846 \\
+  01.105,509s $\approx$ 18min & 12 & 9,846 \\
   \hline
 \end{tabular}
   \caption{Teste de desempenho}
