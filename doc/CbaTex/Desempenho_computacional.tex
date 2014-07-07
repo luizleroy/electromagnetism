@@ -1,9 +1,9 @@
 \section{Desempenho computacional} \label{comput}
-Todos os cálculos para o fluxo de carga, e a otimização por métodos evolucionários, foram codificados em C ANSI, devido a necessidade de desempenho. Julga-se que, neste tipo de trabalho, onde os parâmetros de entrada variam muito a performance, diversos testes em situações extremas são necessários.
+Todos os cálculos para o fluxo de carga e a otimização por métodos evolucionários foram codificados em C ANSI devido a necessidade de desempenho. Em implementações desta natureza onde os parâmetros de entrada influenciam diretamente no desempenho do sistema, há necessidade de realizar diversos testes para certificar-se de encontrar configurações de parâmetros que conduzam a execuções com relação custo/benefício satisfatórias.
 
 Portanto, funções de teste com os valores ótimos conhecidos, como o vale de Rosenbrock, a função de De Jong, função de Rastrigin, função de Schwefel entre outras foram utilizadas para calibrar o algoritmo desenvolvido. Nesta etapa, os parâmetros de operação do PSO, descritos na seção \ref{rev}, foram encontrados. Utilizou-se \citeasnoun{molga2005test} para esta análise.
 
- O hardware disponível para as simulações deste trabalho, possui um processador da Intel\textregistered, com o E5-2630 xeon\textregistered, com o clock de 2.30GHz, capaz de executar 12 threads. No PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos em paralelo. Portanto uma estratégia de paralelismo foi construída. 
+ O hardware disponível para as simulações deste trabalho, possui um processador da Intel\textregistered, com o E5-2630 xeon\textregistered, com o clock de 2.30GHz, capaz de executar 12 threads. No PSO, pode-se realizar simultaneamente uma grande quantidade de cálculos em paralelo. Portanto uma estratégia de paralelismo foi construída.
 
 As funções objetivo de cada uma das gerações do algoritmo foram calculadas com paralelismo, com auxílio da API OpenMP\textregistered, descrita em \citeasnoun{chapman2008using}. A escolha desta biblioteca se deve ao hardware utilizado, que é de memória compartilhada. Os resultados de ganho de desempenho, em termos absolutos, e o \textit{speedup}\footnote{Em computação, \textit{speedup} se refere ao quanto um algoritmo é mais rápido que sua versão sequencial.} estão resumidos na \Tab \ref{tab_desempenho}.
 
@@ -25,4 +25,4 @@ As funções objetivo de cada uma das gerações do algoritmo foram calculadas com p
 
 % & Intel Core i5 3.10GHz
 % & Intel Core i7 2 GHz
-% & Intel Xeon e5 2.30GHz
+% & Intel Xeon e5 2.30GHz 

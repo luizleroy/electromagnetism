@@ -1,12 +1,12 @@
 \section{OCP via PSO} \label{ocp_pso}
-Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxames de partículas, é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP). Os passos abaixo serão utilizados para construir a condição inicial do algoritmo.
+Com auxílio de um método de cálculo de fluxo de carga e a otimização por enxames de partículas, é possível construir o procedimento de alocação de dispositivos capacitivos na linha de distribuição (OCP). Os passos abaixo serão utilizados para construir a condição inicial do algoritmo.
 
 \begin{itemize}
 			\item Obter a topologia do circuito: todos os pontos elétricos, suas conexões e impedâncias de linha, os pontos de cadastro da carga elétrica drenada e seus valores de referência \textit{(sem nenhum dispositivo capacitivo alocado)};
 			\vspace{-3mm}
-			\item Definir um conjunto de soluções candidatas iniciais, que correspondem cada uma à um conjunto aleatório de pontos elétricos do circuito, propícios a receber um valor de carga capacitiva;
+			\item Gerar um conjunto de soluções candidatas iniciais aleatórias que correspondem aos pontos no circuito propícios a receber um valor de carga capacitiva;
 			\vspace{-3mm}
-			\item Calcular fluxo de potência, tensão nas barras e as perda elétricas para todas as partículas da geração inicial, utilizadas na construção de $\textbf{f}(x)$;
+			\item Calcular $\textbf{f}(x)$ (fluxo de potência, tensão nas barras e as perda elétricas) para todas as partículas da geração inicial;
 			\vspace{-3mm}
 			\item Atualizar o valor inicial de \textbf{pBest} das partículas com o valor calculado no passo anterior;
 			\vspace{-3mm}
@@ -16,7 +16,7 @@ Com auxílio de um método de cálculo de fluxo de carga, e a otimização por enxame
 \begin{algorithm}[H]
 \caption*{Algoritmo OCP via PSO}
 \label{algoritmo}
-\begin{algorithmic} 
+\begin{algorithmic}
 \REQUIRE Inicializar o PSO
 \ENSURE OCP é o último valor de \textbf{gBest}
 \STATE[1] Calcular constante de inércia com \Eq \ref{inert};
@@ -63,7 +63,7 @@ O primeiro destes critérios tem como foco a minimização de perdas elétricas do c
 \begin{equation} \label{eq_obj1-perdas}
   perdas = \sum^{linhaFinal}_{l=linhaInicial}RI^2_l
 \end{equation}
-Já a variação da tensão ao longo do circuito durante a alocação dos capacitores, pode ser mensurada com auxílio da \Eq \ref{eq_vdi}, denominada VDI (\textit{Voltage Deviation Index)}. Similar ao cálculo de \citeasnoun{abul2013optimal}. Ganhos no nível de tensão, via otimização por PSO, foram bastante explorados em \citeasnoun{hernandez2006optimal} e \citeasnoun{kim2011optimal}.
+Já a variação da tensão ao longo do circuito durante a alocação dos capacitores pode ser mensurada com auxílio da \Eq \ref{eq_vdi}, denominada VDI (\textit{Voltage Deviation Index)}, sendo esse método de cálculo similar ao de \citeasnoun{abul2013optimal}. Ganhos no nível de tensão, via otimização por PSO, foram bastante explorados em \citeasnoun{hernandez2006optimal} e \citeasnoun{kim2011optimal}.
 \begin{equation} \label{eq_vdi}
   VDI = \sqrt{\sum^{nb}_{b=inicial}\frac{(V_{b} - V)^2}{nb}}
 \end{equation}
@@ -73,4 +73,4 @@ Em situações onde ambos os requisitos de rede citados anteriormente são importan
 
 \begin{equation} \label{eq_multi}
   f = w_v\frac{VDI}{VDI_{max}} + w_p\frac{perdas}{perdas_{max}}
-\end{equation}
+\end{equation} 

@@ -8,7 +8,7 @@
 %2851 barras
 %2852 linhas
 
-A análise atingiu a convergência com 50 gerações, através do método por enxame de partículas. Para cada geração foi necessário calcular 100 vezes o fluxos de carga (ou seja, 100 partículas no PSO), devido a grande dimensão da rede em análise, levando a um enorme espaço de busca. A evolução do valor de \textit{gBest}, em comparação com \textit{pBest}, pode ser visualizada na \Fig \ref{evol}. 
+A análise atingiu a convergência com 50 gerações, através do método por enxame de partículas. Para cada geração foi necessário calcular 100 vezes o fluxos de carga (ou seja, 100 partículas no PSO), devido a grande dimensão da rede em análise, levando a um enorme espaço de busca. A evolução do valor de \textit{gBest}, em comparação com \textit{pBest}, pode ser visualizada na \Fig \ref{evol}.
 
 \begin{figure}[h!]
 \centering
@@ -25,17 +25,15 @@ Esta evolução, traçada durante a minimização da \Eq \ref{eq_multi}, foi capaz de
 
 A redução nas perdas elétricas, ocorreu após inserção de 1200 kVAr de potência reativa, através de 8 bancos de capacitores trifásicos com ligação estrela aterrada. A potência dissipada foi reduzida de $13,3kW + 7,5kVAr$ quando o circuito não possui cargas capacitivas, para $11,7kW + 6,5kVAr$ após a distribuição dos equipamentos. O valor final das perdas foi de 15,3 kVA para 13,4 kVA. Uma redução maior que 1,9kVA, que corresponde a 12,4\% do valor inicial.
 
-Após a análise do resultado observa-se a necessidade de inserção bancos de capacitores próximos ao início do circuito, logo após a barra de alimentação. Neste experimento as perdas foram minimizadas com este tipo de distribuição de capacitores. Sabendo que o identificador de cada barra foi construído em ordem crescente, do início do circuito para as pontas, observa-se que a alocação realizada para minimização de perdas, através da parcela da função objetivo ilustrada na \Eq \ref{eq_obj1-perdas}, levou a alocação de barras com identificador menor. 
+Após a análise do resultado observa-se a necessidade de inserção bancos de capacitores próximos ao início do circuito, logo após a barra de alimentação. Neste experimento as perdas foram minimizadas com este tipo de distribuição de capacitores. Sabendo que o identificador de cada barra foi construído em ordem crescente, do início do circuito para as pontas, observa-se que a alocação realizada para minimização de perdas, através da parcela da função objetivo ilustrada na \Eq \ref{eq_obj1-perdas}, levou a alocação de barras com identificador menor.
 
-A \Fig \ref{fig_top-orto}, na próxima página, representa a rede de forma ortogonal e hierárquica, sendo útil para exibir o sistema com foco no nível de distribuição das barras, da fonte para as pontas. A região onde os capacitores foram instalados, para minimização das perdas, está mais a esquerda e é representada por um retângulo. 
-
-Já \Fig \ref{fig_top-geo} (também na próxima página) é útil para observar o circuito de forma georreferenciada, evidenciando a grande quantidade de ramificações da rede. Observa-se que os capacitores que elevam o nível de tensão encontram-se em fim de circuito. Esta parte do experimento está detalhada na próxima subseção.
+A \Fig \ref{fig_top-orto} representa a rede de forma ortogonal e hierárquica, sendo útil para exibir o sistema com foco no nível de distribuição das barras, da fonte para as pontas. A região onde os capacitores foram instalados, para minimização das perdas, está mais a esquerda e é representada por um retângulo. Por outro ponto de vista, a \Fig \ref{fig_top-geo} apresenta o circuito de forma georreferenciada, evidenciando a grande quantidade de ramificações da rede. Observa-se que os capacitores que elevam o nível de tensão encontram-se em fim de circuito. Esta parte do experimento está detalhada na próxima subseção.
 
 %PDF: origem YED
 \begin{figure*}
 \centering
 \includegraphics[width=155mm]{axxxx-05.pdf}
-\caption{Diagrama Ortogonal e Hierárquico: Perfil topológico do alimentador com a ligação ortogonal entre barras. Para redução de perdas, a alocação é no início do circuito (lado esquerdo).}
+\caption{Diagrama Ortogonal e Hierárquico: perfil topológico do alimentador com a ligação ortogonal entre barras. Para redução de perdas, a alocação é no início do circuito (lado esquerdo).}
 \label{fig_top-orto}
 \end{figure*}
 
@@ -43,15 +41,15 @@ Já \Fig \ref{fig_top-geo} (também na próxima página) é útil para observar o circ
 \begin{figure*}
 \centering
 \includegraphics[width=155mm]{axxxx-geo.pdf}
-\caption{Diagrama Georreferenciado: Perfil topológico do alimentador com a ligação em escala entre as barras. Para melhorias na tensão do sistema, a alocação ocorre nas pontas do circuito, no lado direito.}
+\caption{Diagrama Georreferenciado: perfil topológico do alimentador com a ligação em escala entre as barras. Para melhorias na tensão do sistema, a alocação ocorre nas pontas do circuito, no lado direito.}
 \label{fig_top-geo}
 \end{figure*}
 
 \subsection{Estabilização do perfil de tensão}
-As melhorias no perfil de tensão foram obtidas através da 
+As melhorias no perfil de tensão foram obtidas através da
 parcela da função de minimização mono objetivo representada pela \Eq \ref{eq_vdi}. O valor de VDI, durante este trabalho foi reduzido de $0,02654$ para 0,01157. Observa-se que o nível de tensão inicial não se encontrava dentro dos padrões regulatórios. Existiam 343 pontos de cálculo com valor abaixo de 0,95 pu, dentro da faixa precária de tensão. Durante este trabalho, o nível de tensão foi verificado e elevado para a faixa adequada de tensão, que é menor que 1,05 pu e maior que 0,95 pu para redes de 13,8 kV. Estes níveis estão de acordo com o indicado no Anexo I de \citeasnoun{aneel2012procedimentos}.
 
-As Figs. \ref{perfil} e \ref{perfilz} ilustram os ganhos na qualidade de tensão após a inserção de 10 bancos de capacitores, visando aumentar o valor da tensão nas pontas do circuito. O valor de tensão, em pu, de todas as 2498 barras, sem alocação de capacitores é representado com os triângulos vermelhos na \Fig \ref{perfilz}. Os pontos em azul mostram que foi possível manter o sistema dentro das normas do PRODIST, no que tange a variação da tensão. O histograma representado na figura \ref{perfil} mostra a distribuição da tensão na fase A para todas as barras do alimentador.
+As Figs. \ref{perfil} e \ref{perfilz} ilustram os ganhos na qualidade de tensão após a inserção de 10 bancos de capacitores, visando aumentar o valor da tensão nas pontas do circuito. O valor de tensão, em pu, de todas as 2498 barras, sem alocação de capacitores é representado com os triângulos vermelhos na \Fig \ref{perfilz}. Os pontos em azul mostram que foi possível manter o sistema dentro das normas do PRODIST, no que tange a variação da tensão. O histograma representado na Fig. \ref{perfil} mostra a distribuição da tensão na fase A para todas as barras do alimentador.
 
 %PDFs
 \begin{figure}[h!]
@@ -75,10 +73,10 @@ O espaço de busca para o problema de alocação dos capacitores cresce muito com o
   \sum^b_{i=0} C_{n,i} =\sum^b_{i=0} \frac{n!}{(n-i)!i!}
 \end{equation}
 No contexto deste trabalho assume-se que o usuário conheça as especificações do(s) banco(s) de capacitores para alocar em um determinado ponto do circuito. Portanto, é usual em circuitos com um número grande de barras e linhas (para este modelo a ordem é de 2500 conexões) inserir, por exemplo, cinco cargas capacitivas.
-Neste caso, podemos obter o ótimo em todas as combinações de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
+Neste caso, podemos obter a solução ótima realizando todas as combinações de $n=2500$ barras candidatas com 5, 4, 3, 2, 1 ou 0 alocações.
 O número total de possibilidades, neste caso específico, é da ordem de $10^{14}$.
 
-Após observar o tamanho deste espaço de busca, um estudo de caso inicial, em um universo menor de possibilidades, foi proposto para a primeira exploração de um circuito alimentador completo de média tensão. Este estudo foi realizado através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único banco capacitivo de 100 kVAr. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número inferior a 4\% de cálculos de fluxo de carga (em relação ao tamanho do espaço de busca). E também com um percentual elevado de acertos, conforme consta na \Tab \ref{tab_forca_bruta}. 
+Considerando a ordem de grandeza do problema previamente descrito, um estudo de caso inicial, em um universo menor de possibilidades, foi proposto para a primeira exploração de um circuito alimentador completo de média tensão. Este estudo foi realizado através da comparação do algoritmo de otimização PSO com uma análise por força bruta. Por questões de viabilidade computacional, foi testado, em todas as barras, qual seria aquela que traria menor perda quando for disponível para alocação apenas um único banco capacitivo de 100 kVAr. Observa-se que, a otimização evolucionária utilizada neste trabalho, é capaz de encontrar o ponto ótimo para este problema reduzido com um número inferior a 4\% de cálculos de fluxo de carga (em relação ao tamanho do espaço de busca). E também com um percentual elevado de acertos, conforme consta na \Tab \ref{tab_forca_bruta}.
 
 \begin{table}[h!]
   \centering
@@ -95,7 +93,7 @@ Após observar o tamanho deste espaço de busca, um estudo de caso inicial, em um 
   \label{tab_forca_bruta}
 \end{table}
 
-A metodologia proposta, em cada teste, foi executada 100 vezes para definição do percentual de acerto. No primeiro teste (PSO 1), o algoritmo foi calibrado para realizar o cálculo da função objetivo, e, consequentemente o cálculo do fluxo de carga 100 vezes. Este foi o número de chamadas a f(\textbf{x}) em cada iteração. Portanto, o teste inteiro executou 10.000 cálculos da função objetivo. Em seguida, após executar o cálculo da função objetivo 225 vezes (PSO 2), um número menor que o tamanho do espaço de busca (2500 barras candidatas), o nível de precisão foi bastante elevado, de 94 acertos exatos em 100 testes. E mesmo nas simulações em que não foi encontrada exatamente a mesma barra obtida pelo método por força bruta, é possível encontrar uma barra com valor similar de perdas. 
+A metodologia proposta, em cada teste, foi executada 100 vezes para definição do percentual de acerto. No primeiro teste (PSO 1), o algoritmo foi calibrado para realizar o cálculo da função objetivo e, consequentemente, o cálculo do fluxo de carga 100 vezes. Este foi o número de chamadas a f(\textbf{x}) em cada iteração. Portanto, o teste inteiro executou 10.000 cálculos da função objetivo. Em seguida, após executar o cálculo da função objetivo 225 vezes (PSO 2), um número menor que o tamanho do espaço de busca (2500 barras candidatas), o nível de precisão foi bastante elevado, de 94 acertos exatos em 100 testes. E mesmo nas simulações em que não foi encontrada exatamente a mesma barra obtida pelo método por força bruta, é possível encontrar uma barra com valor similar de perdas.
 
 Estas características ocorrem devido a granularidade da distribuição de cargas do sistema. Mesmo no pior caso, onde utiliza-se 100 cálculos de $f(\textbf{x})$, a perda de potência é inferior a 2\% para todas as simulações, conforme demonstrado pela linha superior da Fig. \ref{fig_forca_bruta}. Na simulação PSO 2 o erro é menor que a precisão do sistema para todas as simulações. O que leva à linha horizontal azul (marcada com asteriscos) no eixo das abcissas. Onde está representada a perda mínima do sistema (normalizada).
 
@@ -106,31 +104,29 @@ Estas características ocorrem devido a granularidade da distribuição de cargas d
 \label{fig_forca_bruta}
 \end{figure}
 
-A proposta experimental principal desenvolvida neste artigo, e descrita nas subseções anteriores, foi também comparada a um procedimento padrão, encontrado na literatura. Ao utilizar um processo sequencial, com uma análise barra à barra do alimentador, é preciso realizar algum tipo de decisão, optando por priorizar alguma característica do sistema durante análise. O procedimento utilizado para comparação, que realiza tratamento de perdas e desvios de tensão, encontra-se descrito em \citeasnoun{alcantra}.
+A proposta experimental principal desenvolvida neste artigo foi também comparada a um procedimento padrão encontrado na literatura. Ao utilizar um processo sequencial, com uma análise barra à barra do alimentador, é preciso realizar algum tipo de decisão, optando por priorizar alguma característica do sistema durante análise. O procedimento utilizado para comparação, que realiza tratamento de perdas e desvios de tensão, encontra-se descrito em \citeasnoun{alcantra}.
 
-Após adaptações necessárias no algoritmo, para comportar redes extensas e a disponibilidade de recursos  utilizou-se o seguinte procedimento formal, aplicado à rede de teste proposta neste artigo. Neste tipo de análise, tanto a potência quanto a granularidade dos capacitores alocados precisa ser definida inicialmente.
+Após adaptações necessárias no algoritmo, para comportar redes extensas e a disponibilidade de recursos  utilizou-se o seguinte procedimento formal, aplicado à rede de teste proposta neste artigo. Neste tipo de análise, tanto a potência quanto a granularidade dos capacitores alocados precisa ser definida inicialmente. O procedimento tem os seguintes passos:
 
 \begin{enumerate}[a)]
-\item Resolver o fluxo de carga e calcular as tensões do sistema;
+\item resolver o fluxo de carga e calcular as tensões do sistema;
 \vspace{-3mm}
-\item Identificar a barra com a menor tensão e instalar um banco de capacitores de 150kVAr (50kVAr por fase);
+\item identificar a barra com a menor tensão e instalar um banco de capacitores de 150kVAr (50kVAr por fase);
 \vspace{-3mm}
-\item Resolver o fluxo de carga e calcular as tensões do sistema modificado;
+\item resolver o fluxo de carga e calcular as tensões do sistema modificado;
 \vspace{-3mm}
-\item Voltar ao passo a) apenas se a menor tensão do sistema for menor que 0,95 pu ou a maior tensão do sistema for maior que 1,05 pu.
-\\
-A alocação de capacitores precisa ser menor que um determinado valor de potência reativa e um determinado número de bancos disponíveis (no caso, a proposta é de 10 x 150 kVAr). 
+\item Voltar ao passo (a) apenas se a menor tensão do sistema for menor que 0,95 pu ou a maior tensão do sistema for maior que 1,05 pu. (A alocação de capacitores precisa ser menor que um determinado valor de potência reativa e um determinado número de bancos disponíveis que neste caso é de 10 x 150 kVAr).
 \vspace{-3mm}
-\item Identificar a barra que proporciona a maior redução nas perdas de potência ativa do sistema e instalar um banco de capacitores de 150 kVAr nessa barra;
+\item identificar a barra que proporciona a maior redução nas perdas de potência ativa do sistema e instalar um banco de capacitores de 150 kVAr nessa barra;
 \vspace{-3mm}
-\item Resolver o fluxo de carga;
+\item resolver o fluxo de carga;
 \vspace{-3mm}
-\item Calcular as perdas ativas do sistema;
+\item calcular as perdas ativas do sistema; e
 \vspace{-3mm}
-\item Voltar ao passo e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 1500 kVAr.
+\item voltar ao passo (e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 1500 kVAr.
 \end{enumerate}
 
-Após aplicar este procedimento, apenas quatro bancos foram alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada. As comparações entre as aplicações do PSO e o processo descrito acima encontram-se na \Tab \ref{tab_final_comparacao}, da próxima página.
+Após aplicar este procedimento, apenas quatro bancos foram alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada. As comparações entre as aplicações do PSO e o processo descrito acima encontram-se na \Tab \ref{tab_final_comparacao}.
 
 \begin{table*}[t]
   \centering
@@ -150,4 +146,4 @@ Após aplicar este procedimento, apenas quatro bancos foram alocados. Por ser um 
 \end{tabular}
   \caption{Comparação: PSO x Algoritmo Guloso }
   \label{tab_final_comparacao}
-\end{table*}
+\end{table*} 
