@@ -104,9 +104,29 @@ Estas características ocorrem devido a granularidade da distribuição de cargas d
 \label{fig_forca_bruta}
 \end{figure}
 
-A proposta experimental principal desenvolvida neste artigo foi também comparada a um procedimento padrão encontrado na literatura. Ao utilizar um processo sequencial, com uma análise barra à barra do alimentador, é preciso realizar algum tipo de decisão, optando por priorizar alguma característica do sistema durante análise. O procedimento utilizado para comparação, que realiza tratamento de perdas e desvios de tensão, encontra-se descrito em \citeasnoun{alcantra}.
+A proposta experimental principal desenvolvida neste artigo foi também comparada a um procedimento encontrado na literatura. Ao utilizar um processo sequencial, com uma análise barra à barra do alimentador, é preciso realizar algum tipo de decisão, optando por priorizar alguma característica do sistema durante análise. As comparações entre as aplicações do PSO e o processo descrito na sequência encontram-se na \Tab \ref{tab_final_comparacao}.
 
-Após adaptações necessárias no algoritmo, para comportar redes extensas e a disponibilidade de recursos  utilizou-se o seguinte procedimento formal, aplicado à rede de teste proposta neste artigo. Neste tipo de análise, tanto a potência quanto a granularidade dos capacitores alocados precisa ser definida inicialmente. O procedimento tem os seguintes passos:
+\begin{table*}[!ht]
+  \centering
+  \begin{tabular}{| l | l | l | l |}
+  \hline
+  Tipo & VDI & Perdas & Alocações da alimentação para as pontas\\
+  \hline
+	PSO por Perdas: & 0,02321 & 13,4 kVA &  45; 85; 99; 117; 126; 128; 191 e 898\\
+  PSO por VDI:& 0,01157 &  61,8 kVA &  1146; 1156; 1187; 1639; 1698; 1725; 1874;\\
+  &&&1964; 2111 e 2318 \\
+	\hline
+	PSO (VDI e Perdas): & 0,02124 & 14,0 kVA & 60; 88; 104; 127; 131; 198; 244; 812 e 1307\\
+	\hline
+	Algoritmo Greedy:  & 0,02393 & 15,1  kVA & 1; 30; 96 e 2496 \\
+	Sem alocação:  & 0,02654 & 15,3  kVA & sem alocação \\
+	\hline
+\end{tabular}
+  \caption{Comparação: PSO x Algoritmo Guloso }
+  \label{tab_final_comparacao}
+\end{table*}
+
+O procedimento denominado Greedy na tabela, é pouco eficiente em redes muito longas. Ele pode ser facilemente reproduzido seguindo os oito passos abaixo, adaptados de \citeasnoun{alcantra}. Neste tipo de análise, tanto a potência quanto a granularidade dos capacitores alocados precisa ser definida inicialmente.
 
 \begin{enumerate}[a)]
 \item resolver o fluxo de carga e calcular as tensões do sistema;
@@ -126,24 +146,4 @@ Após adaptações necessárias no algoritmo, para comportar redes extensas e a disp
 \item voltar ao passo (e) enquanto for possível reduzir as perdas de potência ativa do sistema ou  o total dos bancos de capacitores instalados for menor do que 1500 kVAr.
 \end{enumerate}
 
-Após aplicar este procedimento, apenas quatro bancos foram alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada. As comparações entre as aplicações do PSO e o processo descrito acima encontram-se na \Tab \ref{tab_final_comparacao}.
-
-\begin{table*}[t]
-  \centering
-  \begin{tabular}{| l | l | l | l |}
-  \hline
-  Tipo & VDI & Perdas & Alocações da alimentação para as pontas\\
-  \hline
-	PSO por Perdas: & 0,02321 & 13,4 kVA &  45; 85; 99; 117; 126; 128; 191 e 898\\
-  PSO por VDI:& 0,01157 &  61,8 kVA &  1146; 1156; 1187; 1639; 1698; 1725; 1874;\\
-  &&&1964; 2111 e 2318 \\
-	\hline
-	PSO (VDI e Perdas): & 0,02124 & 14,0 kVA & 60; 88; 104; 127; 131; 198; 244; 812 e 1307\\
-	\hline
-	Algoritmo Greedy:  & 0,02393 & 15,1  kVA & 1; 30; 96 e 2496 \\
-	Sem alocação:  & 0,02654 & 15,3  kVA & sem alocação \\
-	\hline
-\end{tabular}
-  \caption{Comparação: PSO x Algoritmo Guloso }
-  \label{tab_final_comparacao}
-\end{table*} 
+Após aplicar este procedimento, apenas quatro bancos foram alocados. Por ser um algoritmo do tipo guloso (\textit{greedy}) o que ocorre é a possibilidade de se encontrar mínimos locais ou acabar aprisionado por um platô da função analisada.
