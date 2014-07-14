@@ -1,3 +1,5 @@
+%SEMPRE SEMPRE SEMPRE:
+%VER QUAL É A ÚLTIMA VERSÃO.
 function [f]=Funcoes(x,funcao,offset)
 % [f]=Funcoes(x,funcao)
 switch funcao
