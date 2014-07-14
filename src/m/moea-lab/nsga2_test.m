@@ -19,18 +19,25 @@
 %ZDT4 -> TERRIFIC "Zitzler–Deb–Thiele"
 %ZDT6 -> "Zitzler–Deb–Thiele"
 
-%my
-%SPHERES contínua
-
-%rng('default');
+rng('default');
 clear;
+close all;
 tic;
-pop = 120;
-gen = 1100;
-nsga_2('ZDT6',pop,gen);
-toc;
-%figure;
-%nsga_2('SPHERES',pop,gen);
-%toc;
-
-%print -painters -dpdf SCH.pdf
+pop = 75; %100
+gen = 6000; %5000
+s{1} = 'SCH';
+s{2} = 'FON';
+s{3} = 'POL';
+s{4} = 'KUR';
+s{5} = 'ZDT1';
+s{6} = 'ZDT2';
+s{7} = 'ZDT3';
+s{8} = 'ZDT6';
+%s{9} = 'ZDT4';
+for i = 1:length(s)
+    subplot(4,2,i);
+    nsga_2(s{i},pop,gen);
+    toc;
+end
+% subplot(5,2,10);
+% hist(randn(10000,1),100)

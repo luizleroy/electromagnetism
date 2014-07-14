@@ -154,10 +154,11 @@ for i = 1 : gen
     % offsprings of the current generation. The population size is two
     % times the initial population.
     
-    [main_pop,temp] = size(chromosome);
-    [offspring_pop,temp] = size(offspring_chromosome);
+    %temp ali em baixo...
+    [main_pop,~] = size(chromosome);
+    [offspring_pop,~] = size(offspring_chromosome);
     % temp is a dummy variable.
-    clear temp
+    %%%clear temp
     % intermediate_chromosome is a concatenation of current population and
     % the offspring population.
     intermediate_chromosome(1:main_pop,:) = chromosome;
@@ -177,21 +178,25 @@ for i = 1 : gen
     % last front is included in the population based on the individuals with
     % least crowding distance
     chromosome = replace_chromosome(intermediate_chromosome, M, V, pop);
-    if ~mod(i,100)
-        %clc
-        fprintf('%d generations completed\n',i);
-    end
+    %if ~mod(i,100)
+        %fprintf('%d generations completed\n',i);
+        %toc
+    %end
 end
 
 %% Result
 % Save the result in ASCII text format.
-%%%%%%save solution.txt chromosome -ASCII
+%save solution.txt chromosome -ASCII
 
 %% Visualize
 % The following is used to visualize the result if objective space
 % dimension is visualizable.
 if M == 2
-    plot(chromosome(:,V + 1),chromosome(:,V + 2),'.');
+    plot(chromosome(:,V + 1),chromosome(:,V + 2),'ok','MarkerFaceColor','b');
+    title(func);
+    xlabel('f_1(x)') % x-axis label
+    ylabel('f_2(x)') % y-axis label
+    %legend('Pareto front')
 elseif M ==3
     plot3(chromosome(:,V + 1),chromosome(:,V + 2),chromosome(:,V + 3),'.');
 end

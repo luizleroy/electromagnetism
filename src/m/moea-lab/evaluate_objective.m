@@ -16,7 +16,7 @@ function f = evaluate_objective(x, func, M, V)
 %% Check for functions'error:
 
 %% evaluate
-f = TableTestFunctions(x(:,1:V),func);
+f = MULTI_TestFunciton(x(:,1:V),func);
 
 %% Check for error
 if length(f) ~= M
