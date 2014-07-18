@@ -10,7 +10,7 @@ clock
 display('gerando base de dados...')
 %início
 [rna]=RNA_parametros();
-func = 'HOUSE'
+func = 'BODY'
 [x, y, rna] = FACTORY_buildFunction( rna, func );
 
 [x, ~, ~] = normIO(x);
@@ -34,12 +34,14 @@ rna.dim = n_var;
 rna.x = x_trein;
 rna.y = y_trein;
 %pop 75 gen 6000 => funções de teste...
-pop = 50
-gen = 30
+pop = 100
+gen = 6000
 nsga_2(rna,pop,gen);
 
 toc;
 
 %VALIDAÇÃO GRÁFICA DO ALGORITMO!!!
-[samples_mse,erroMax] = RNA_view(x_valid,y_valid,mins,maxs,rna)
+outt = dlmread('solution.txt');
+s_final = outt(1,)
+[samples_mse,erroMax] = RNA_view(s_final,x_valid,y_valid,mins,maxs,rna)
 

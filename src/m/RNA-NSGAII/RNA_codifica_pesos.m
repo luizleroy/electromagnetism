@@ -1,4 +1,4 @@
-function [w,wb]=RNA_codifica_pesos(S_k,j,n_entradas,rna)
+function [w,wb]=RNA_codifica_pesos(S_k,j,rna)
 
 for k=1:rna.n_camadas-1
    w{k}=zeros(rna.n_neur(k),rna.n_neur(k+1));

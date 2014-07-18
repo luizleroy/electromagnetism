@@ -1,4 +1,10 @@
-function [samples_mse,erroMax] = RNA_view(x_valid,y_valid,w,wb,mins,maxs,rna)
+function [samples_mse,erroMax] = RNA_view(x_valid,y_valid,mins,maxs,rna)
+outt = dlmread('solution.txt');
+[minino,ind] = min(outt(:,(rna.dim+1)));
+f1 = outt(ind,(rna.dim+1))
+f2 = outt(ind,(rna.dim+2))
+s = outt(ind,1:rna.dim);
+[w,wb]=RNA_codifica_pesos(s,1,rna);
 [~,tam] = size(x_valid);
 output = zeros(tam,2);
 for k=1:tam
@@ -21,7 +27,7 @@ title('Sample em ordem crescente!');
 toHist = output(:,2)-output(:,1);
 diff = abs(toHist);
 samples_mse = [tam sqrt(sum(diff.*diff))];
-erroMax = max(diff/max(max(abs(output))));
+erroMax = max(diff);
 figure;
 hist(toHist,10);
 title('Utilizando dados de validação para análise');

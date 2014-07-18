@@ -1,4 +1,4 @@
-function nsga_2(func, pop, gen)
+function nsga_2(rna, pop, gen)
 
 %% function nsga_2(pop,gen)
 % is a multi-objective optimization function where the input arguments are 
@@ -79,7 +79,9 @@ gen = round(gen);
 % range for the variables in the decision variable space. User has to
 % define the objective functions using the decision variables. Make sure to
 % edit the function 'evaluate_objective' to suit your needs.
-[M, V, min_range, max_range] = objective_description_function(func);
+M = 2;
+V = rna.dim;
+[min_range, max_range] = objective_description_function(rna);
 
 %% Initialize the population
 % Population is initialized with random values which are within the
@@ -88,7 +90,7 @@ gen = round(gen);
 % information is also added to the chromosome vector but only the elements
 % of the vector which has the decision variables are operated upon to
 % perform the genetic operations like corssover and mutation.
-chromosome = initialize_variables(pop, M, V, min_range, max_range, func);
+chromosome = initialize_variables(pop, M, V, min_range, max_range, rna);
 
 
 %% Sort the initialized population
@@ -147,7 +149,7 @@ for i = 1 : gen
     mum = 20;
     offspring_chromosome = ...
         genetic_operator(parent_chromosome, ...
-        M, V, mu, mum, min_range, max_range, func);
+        M, V, mu, mum, min_range, max_range, rna);
 
     % Intermediate population
     % Intermediate population is the combined population of parents and
@@ -178,22 +180,21 @@ for i = 1 : gen
     % last front is included in the population based on the individuals with
     % least crowding distance
     chromosome = replace_chromosome(intermediate_chromosome, M, V, pop);
-    %if ~mod(i,100)
-        %fprintf('%d generations completed\n',i);
-        %toc
-    %end
+    if ~mod(i,50)
+        fprintf('%d generations completed\n',i);
+        toc
+    end
 end
 
 %% Result
 % Save the result in ASCII text format.
-%save solution.txt chromosome -ASCII
+save solution.txt chromosome -ASCII
 
 %% Visualize
 % The following is used to visualize the result if objective space
 % dimension is visualizable.
 if M == 2
     plot(chromosome(:,V + 1),chromosome(:,V + 2),'ok','MarkerFaceColor','b');
-    title(func);
     xlabel('f_1(x)') % x-axis label
     ylabel('f_2(x)') % y-axis label
     %legend('Pareto front')

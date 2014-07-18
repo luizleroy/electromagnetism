@@ -16,7 +16,7 @@ function f = evaluate_objective(x, rna, M, V)
 %% Check for functions'error:
 
 %% evaluate
-f = Funcao_Objetivo(x(:,1:V),rna);
+f = Funcao(x(:,1:V),rna);
 
 %% Check for error
 if length(f) ~= M
