@@ -1,0 +1,3 @@
+Antigo repositório do NSGAII.
+Devido ao nome, este local deve ter todos os arquivos deletados por daqui a 3 mêses, e o diretório deletado em 1 mês.
+(29 de julho de 2014)
