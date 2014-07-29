@@ -180,7 +180,7 @@ for i = 1 : gen
     % last front is included in the population based on the individuals with
     % least crowding distance
     chromosome = replace_chromosome(intermediate_chromosome, M, V, pop);
-    if ~mod(i,50)
+    if ~mod(i,500)
         fprintf('%d generations completed\n',i);
         toc
     end

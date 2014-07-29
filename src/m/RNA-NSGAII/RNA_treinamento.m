@@ -3,19 +3,20 @@
 %ANN / Regression Problem
 
 tic; clear; close all;
-%rng('default');
+rng('default');
 display('Início do treinamento em:')
 format shortg;
 clock
 display('gerando base de dados...')
 %início
 [rna]=RNA_parametros();
-func = 'HOUSE'
+func = 'BODY'
 [x, y, rna] = FACTORY_buildFunction( rna, func );
 
 [x, ~, ~] = normIO(x);
-[y, mins, maxs] = normIO(y);
-
+%[y, mins, maxs] = normIO(y);
+maxs = -1000;
+mins = -1000000;
 % normalizacao das entradas e saidas
 %VEJA: decidi não trabalhar mais com normalização!!!
 %JÁ GERO MINHA NUVEM DE TESTES NORMALIZADA!
@@ -34,12 +35,12 @@ rna.dim = n_var;
 rna.x = x_trein;
 rna.y = y_trein;
 %pop 75 gen 6000 => funções de teste...
-pop = 50
-gen = 30
+pop = 25
+gen = 50000
 nsga_2(rna,pop,gen);
 
 toc;
 
 %VALIDAÇÃO GRÁFICA DO ALGORITMO!!!
-[samples_mse,erroMax] = RNA_view(x_valid,y_valid,mins,maxs,rna)
+[samples_mse,erroMax, w, wb] = RNA_view(x_valid,y_valid,mins,maxs,rna)
 
