@@ -1,142 +1,90 @@
-%função mono-objetivo: mapear todo o estado para 1 valor correlacionado
-%com as medidas através da rede neural
-
-function [ff]=FactoryFF(func,x)
-
-%... ...
-
-if nargin < 1
-    error('You have choose one function!');
+function [f]=FACTORY_MULTI(func,x)
+if nargin < 2
+    error('Not valid number of param.');
 end
-
-number_of_objectives = 2;
-if number_of_objectives < 2
-    error('This is a multi-objective optimization function hence the minimum number of objectives is two');
-end
+[L,C] = size(x);
 switch func
-    case 'SPHERES';
-        number_of_decision_variables = 2;
-        a=-2; b=2;
-        for i = 1 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = a;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = b;
-        end
+    case 'SPHERES'
+        f(:,1)=sum(x.^2); % centro no vetor nulo
+        f(:,2)=(x(:,1)-1).^2+sum(x(:,2:C).^2); %deslocamento na primeira dim.
     case 'SCH'
-        number_of_decision_variables = 1;
-        a = -1000; b = 1000;
-        % Obtain the minimum possible value for each decision variable
-        min_range_of_decesion_variable(1) = a;
-        % Obtain the maximum possible value for each decision variable
-        max_range_of_decesion_variable(1) = b;
+        %convex
+        f(:,1)= x.^2;
+        f(:,2)=(x-2).^2;
     case 'FON'
-        number_of_decision_variables = 3;
+        %nonconvex
         a = -4; b = 4;
-        for i = 1 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = a;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = b;
-        end
+        x = a + (b-a).*rand(L,C);
+        invSqrt3 = 1/sqrt(3);
+        f(:,1) = (x(:,1) - invSqrt3).^2 + (x(:,2) - invSqrt3).^2 + (x(:,3) - invSqrt3).^2;
+        f(:,1) = 1 - exp(-f(:,1));
+        f(:,2) = (x(:,1) + invSqrt3).^2 + (x(:,2) + invSqrt3).^2 + (x(:,3) + invSqrt3).^2;
     case 'POL'
-        number_of_decision_variables = 2;
-        a = -pi; b = pi; %a = -5; b = 5; n = 3;
-        for i = 1 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = a;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = b;
-        end
+       %nonconvex and disconnected
+        A1 = 0.5*sin(1) - 2*cos(1) + sin(2) - 1.5*cos(2);
+        A2 = 1.5*sin(1) - cos(1) + 2*sin(2) - 0.5*cos(2);                
+        x = -pi + 2*pi.*rand(L,C);
+        B1 = 0.5*sin(x(:,1)) - 2*cos(x(:,1)) + sin(x(:,2)) - 1.5*cos(x(:,2));
+        B2 = 1.5*sin(x(:,1)) - cos(x(:,1)) + 2*sin(x(:,2)) - 0.5*cos(x(:,2));
+        f(:,1) = 1 + (A1 - B1).^2 + (A2 - B2).^2;
+        f(:,2) = (x(:,1) + 3).^2 + (x(:,2) + 1).^2; 
     case 'KUR'
-        number_of_decision_variables = 3;
-        a = -5; b = 5;
-        for i = 1 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = a;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = b;
+        %nonconvex
+        x = -5 + 10.*rand(L,C);
+        f(:,1)=-10*(exp(-0.2*sqrt(x(:,1).^2+x(:,2).^2))+exp(-0.2*sqrt(x(:,2).^2+x(:,3).^2)));
+        f(:,2)= zeros(L,1);
+        for j=1:3
+            f(:,2) = f(:,2) + (abs(x(:,j))).^0.8 + 5*sin(x(:,j).^3);
         end
     case 'ZDT1'
-        number_of_decision_variables = 30;
-        for i = 1 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = 0;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = 1;
+        %convex
+        g(:,1) = ones(L,1);
+        for j=2:L
+            g(:,1) = g(:,1) + (9/(L-1))*(x(:,j));
         end
+        f(:,1)=x(:,1);
+        f(:,2)=g(:,1).*(1 - sqrt(x(:,1)./g(:,1)));
     case 'ZDT2'
-        number_of_decision_variables = 30;
-        for i = 1 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = 0;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = 1;
+         %nonconvex
+        n = C;
+        g(:,1) = ones(L,1);
+        for j=2:n
+            g(:,1) = g(:,1) + (9/(n-1))*(x(:,j));
         end
+        f(:,1)=x(:,1);
+        f(:,2)=g(:,1).*(1 - (x(:,1)./g(:,1)).^2);
     case 'ZDT3'
-        number_of_decision_variables = 30;
-        for i = 1 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = 0;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = 1;
+        %convex and disconected
+        n = L;
+        x = rand(L,C);
+        g(:,1) = ones(L,1);
+        for j=2:n
+            g(:,1) = g(:,1) + (9/(n-1))*(x(:,j));
         end
+        f(:,1)=x(:,1);
+        f(:,2)=g(:,1).*(1 - sqrt(x(:,1)./g(:,1)) -( x(:,1)./g(:,1)).*sin(10*pi*x(:,1)));
     case 'ZDT4'
-        number_of_decision_variables = 10;
-        min_range_of_decesion_variable(1) = 0;
-        max_range_of_decesion_variable(1) = 1;
-        for i = 2 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = -0.5;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = 0.5;
+        %nonconvex
+        a = -5; b = 5; n = C;
+        x = [rand(L,1),(a + (b-a).*rand(L,n-1))];
+        g(:,1) = ones(L,1) + 10*(n-1);
+        for j=2:n
+            g(:,1) = g(:,1) + x(:,j).^2 - 10*cos(4*pi*x(:,j));
         end
+        f(:,1)=x(:,1);
+        f(:,2)=g(:,1).*(1 - sqrt(x(:,1)./g(:,1)));
     case 'ZDT6'
-        number_of_decision_variables = 10;
-        for i = 1 : number_of_decision_variables
-            % Obtain the minimum possible value for each decision variable
-            min_range_of_decesion_variable(i) = 0;
-            % Obtain the maximum possible value for each decision variable
-            max_range_of_decesion_variable(i) = 1;
+        %nonconvex, nonunifromly and spaced
+        n = C;
+        x = rand(L,n);
+        g(:,1)=zeros(L,1);
+        for j = 2:n
+            g(:,1) = g(:,1) + x(:,j);
         end
+        g(:,1) = (g(:,1)./(n-1)).^(0.25);
+        g(:,1) = 1 + 9*g(:,1);
+        f(:,1) = 1 - exp(-4*x(:,1)).*((sin(6*pi*x(:,1))).^6);
+        f(:,2) = g(:,1).*(1 - (f(:,1)./g(:,1)).^2);
     otherwise
         error('Not implementation function!');
-end
-%-----
-hardCode = 0;
-if (hardCode)
-    g = sprintf('Input the number of objective: ');
-    % Obtain the number of objective function
-    number_of_objectives = input(g);
-    if number_of_objectives < 2
-        error('This is a multi-objective optimization function hence the minimum number of objectives is two');
-    end
-    g = sprintf('\nInput the number of decision variables: ');
-    % Obtain the number of decision variables
-    number_of_decision_variables = input(g);
-    clc
-    for i = 1 : number_of_decision_variables
-        clc
-        g = sprintf('\nInput the minimum value for decision variable %d : ', i);
-        % Obtain the minimum possible value for each decision variable
-        min_range_of_decesion_variable(i) = input(g);
-        g = sprintf('\nInput the maximum value for decision variable %d : ', i);
-        % Obtain the maximum possible value for each decision variable
-        max_range_of_decesion_variable(i) = input(g);
-        clc
-    end
-    g = sprintf('\n Now edit the function named "evaluate_objective" appropriately to match your needs.\n Make sure that the number of objective functions and decision variables match your numerical input. \n Make each objective function as a corresponding array element. \n After editing do not forget to save. \n Press "c" and enter to continue... ');
-    % Prompt the user to edit the evaluate_objective function and wait until
-    % 'c' is pressed.
-    x = input(g, 's');
-    if isempty(x)
-        x = 'x';
-    end
-    while x ~= 'c'
-        clc
-        x = input(g, 's');
-        if isempty(x)
-            x = 'x';
-        end
-    end
 end
