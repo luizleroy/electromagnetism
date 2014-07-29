@@ -1,4 +1,4 @@
-function f = non_domination_sort_mod(x, M, V)
+function f = KANGAL_non_domination_sort_mod(x, M, V)
 
 %% function f = non_domination_sort_mod(x, M, V)
 % This function sort the current popultion based on non-domination. All the

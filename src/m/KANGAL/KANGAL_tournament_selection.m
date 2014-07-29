@@ -1,4 +1,4 @@
-function f = tournament_selection(chromosome, pool_size, tour_size)
+function f = KANGAL_tournament_selection(chromosome, pool_size, tour_size)
 
 %% function tournament_selection(chromosome, pool_size, tour_size) 
 % is the selection policy for selecting the individuals for the mating 

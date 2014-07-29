@@ -1,4 +1,4 @@
-function f = evaluate_objective(x, func, M, V)
+function f = KANGAL_evaluate_objective(x, ObjFunc, M, V)
 
 %% function f = evaluate_objective(x, M, func)
 % Function to evaluate the objective functions for the given input vector
@@ -16,11 +16,11 @@ function f = evaluate_objective(x, func, M, V)
 %% Check for functions'error:
 
 %% evaluate
-try
-f = MULTI_TestFunciton(x(:,1:V),func);
-catch
-    error('f = MULTI_TestFunciton(x(:,1:V),func);:\nBuscar funções teste tabeladas MULTIOBJETIVO (em //SRV-PED-D435/~/MATLAB/)');
-end
+%try
+f = FACTORY_MULTI(ObjFunc.func,x(:,1:V));
+%catch
+%    error('Buscar funções teste tabeladas MULTIOBJETIVO (em //SRV-PED-D435/~/MATLAB/)');
+%end
 
 %% Check for error
 if length(f) ~= M

@@ -1,4 +1,4 @@
-function [chromosome] = nsga_2(ObjFunc, pop, gen)
+function [chromosome] = KANGAL_nsga_2(ObjFunc, pop, gen)
 
 %% function [chromosome] = nsga_2(pop,gen)
 % is a multi-objective optimization function where the input arguments are 
@@ -53,11 +53,10 @@ gen = round(gen);
 % define the objective functions using the decision variables. Make sure to
 % edit the function 'evaluate_objective' to suit your needs.
 
-%ImplementaÃ§Ã£o abaixo flexibiliza o uso do NSGAII para aplicaÃ§Ãµes prÃ¡ticas
+%Implementação abaixo flexibiliza o uso do NSGAII para aplicações práticas
 M = ObjFunc.M; 
 V = ObjFunc.dim;
-min_range = ObjFunc.min_range; 
-max_range = ObjFunc.max_range;
+[ObjFunc,min_range,max_range] = INITIALIZE(ObjFunc.func);
 
 %% Initialize the population
 % Population is initialized with random values which are within the
@@ -66,7 +65,7 @@ max_range = ObjFunc.max_range;
 % information is also added to the chromosome vector but only the elements
 % of the vector which has the decision variables are operated upon to
 % perform the genetic operations like corssover and mutation.
-chromosome = initialize_variables(pop, M, V, min_range, max_range, ObjFunc);
+chromosome = KANGAL_initialize_variables(pop, M, V, min_range, max_range, ObjFunc);
 
 
 %% Sort the initialized population
@@ -75,7 +74,7 @@ chromosome = initialize_variables(pop, M, V, min_range, max_range, ObjFunc);
 % corresponding to their position in the front they belong. At this stage
 % the rank and the crowding distance for each chromosome is added to the
 % chromosome vector for easy of computation.
-chromosome = non_domination_sort_mod(chromosome, M, V);
+chromosome = KANGAL_non_domination_sort_mod(chromosome, M, V);
 
 %% Start the evolution process
 % The following are performed in each generation
@@ -111,7 +110,7 @@ for i = 1 : gen
     % rank and if individuals with same rank are encountered, crowding
     % distance is compared. A lower rank and higher crowding distance is
     % the selection criteria.
-    parent_chromosome = tournament_selection(chromosome, pool, tour);
+    parent_chromosome = KANGAL_tournament_selection(chromosome, pool, tour);
 
     % Perfrom crossover and Mutation operator
     % The original NSGA-II algorithm uses Simulated Binary Crossover (SBX) and
@@ -124,7 +123,7 @@ for i = 1 : gen
     mu = 20;
     mum = 20;
     offspring_chromosome = ...
-        genetic_operator(parent_chromosome, ...
+        KANGAL_genetic_operator(parent_chromosome, ...
         M, V, mu, mum, min_range, max_range, ObjFunc);
 
     % Intermediate population
@@ -148,17 +147,17 @@ for i = 1 : gen
     % before the replacement operator is performed on the intermediate
     % population.
     intermediate_chromosome = ...
-        non_domination_sort_mod(intermediate_chromosome, M, V);
+        KANGAL_non_domination_sort_mod(intermediate_chromosome, M, V);
     % Perform Selection
     % Once the intermediate population is sorted only the best solution is
     % selected based on it rank and crowding distance. Each front is filled in
     % ascending order until the addition of population size is reached. The
     % last front is included in the population based on the individuals with
     % least crowding distance
-    chromosome = replace_chromosome(intermediate_chromosome, M, V, pop);
-    %if ~mod(i,100)
-        %fprintf('%d generations completed\n',i);
-        %toc
-    %end
+    chromosome = KANGAL_replace_chromosome(intermediate_chromosome, M, V, pop);
+%     if ~mod(i,10)
+%         fprintf('%d generations completed\n',i);
+%         toc
+%     end
 end
     
