@@ -1,14 +1,9 @@
-%% antigamente era ... function [ f ] = functionTable( pop, func )
-function [ f ] = MULTI_TestFunciton(x,func) %TODO inserir offset ???
+function [ f ] = TestFunction_MULTI(x,func)
 offset = 0.0;
-[pop,n] = size(x);
 switch func
-    case 'gustavo';
-        display('gustavo:');
-%        a=-2; b=2;
-%        x = a + (b-a).*rand(pop,2);
-        f(:,1)=x(:,1).^2+x(:,2).^2;
-        f(:,2)=(x(:,1)-1).^2+x(:,2).^2;
+    case 'SPHERES'
+        f(:,1)=x(:,1).^2+x(:,2).^2 + offset;
+        f(:,2)=(x(:,1)-1).^2+x(:,2).^2 + offset;
     case 'SCH'
         %convex
         f(:,1)= x.^2;
@@ -98,8 +93,6 @@ switch func
         f(:,1) = 1 - exp(-4*x(:,1)).*((sin(6*pi*x(:,1))).^6);
         f(:,2) = g(:,1).*(1 - (f(:,1)./g(:,1)).^2);
     otherwise
-        f = -1;
-        display('Not implementation function!');
+        error('Not implementation function!');
 end
-
 end

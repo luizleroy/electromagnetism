@@ -36,19 +36,19 @@ clc;
 
 rng('default');
 
-pop = 100;
-gen = 50;
-s{1} = 'SCH'; %SPHERES
-s{2} = 'FON';
-s{3} = 'POL';
-s{4} = 'KUR';
-s{5} = 'ZDT1';
-s{6} = 'ZDT2';
-s{7} = 'ZDT3';
-s{8} = 'ZDT6';
-s{9} = 'ZDT4';
+pop = 50;
+gen = 300;
+s{1} = 'SCH'; %
+s{2} = 'SPHERES'; %FON
+% s{3} = 'POL';
+% s{4} = 'KUR';
+% s{5} = 'ZDT1';
+% s{6} = 'ZDT2';
+% s{7} = 'ZDT3';
+% s{8} = 'ZDT6';
+% s{9} = 'ZDT4';
 for i = 1:length(s)
-    subplot(3,3,i);
+    subplot(2,1,i);
     ObjFunc = INITIALIZE(s{i});
     chro = KANGAL_nsga_2(ObjFunc,pop,gen);
     

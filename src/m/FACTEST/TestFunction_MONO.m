@@ -1,16 +1,13 @@
-function [f]=MONO_TestFunciton(x,funcao)
+function [f]=TestFunction_MONO(x,func)
 offset = 0.0;
-% [f]=Funcoes(x,funcao)
-switch funcao
-    case 'Rastrigin' %função número 11 da lista de funções teste
+desloc = 0.0;
+switch func
+    case 'rastrigin'
         f = offset + 10*length(x) + sum(x.^2 - 10*cos(2*pi*x));
-    case 'Sphere' %função número 1 e número 8 da lista de funções teste
-        [l,c] = size(x);
-        if((l == 1) || (c == 1))
-            f = offset + sum(x.^2);
-        else
-            error('A entrada da função Sphere deve ser um vetor, não uma matriz.');
-        end
+    case 'SPHERE'
+        x = x - desloc;
+        xx = x.^2;
+        f = offset + sum(xx,2);
     case 'DeJong_1' %função número 3 da lista de funções teste
         f = offset + sum(round(x));
     case 'DeJong_2' %função número 4 da lista de funções teste
@@ -76,6 +73,6 @@ switch funcao
             f = f + 1/(j + somatorio1);
         end
         f = offset + (1/((1/500) + f)) - 0.9980038378;
-    otherwise
-        f = offset + sum(x + 10*sin(5*x) + 7*cos(4*x) + sin(x));
+     otherwise
+        error('Not implementation function!');
 end
