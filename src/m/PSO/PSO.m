@@ -2,6 +2,9 @@ function [ best ] = PSO( ObjFunc, n_part, iter_max )
 
 [V_lim,C,W]=PSO_PARAMETROS(ObjFunc);
 
+%valor absoluto da quantidade de mutações nas partículas
+mut = round(0.05*n_part);
+
 [~, min_range, max_range] = INITIALIZE(ObjFunc.func);
 
 S_k = rand(n_part,ObjFunc.dim);
@@ -25,6 +28,13 @@ for j=1:iter_max
             +C(2)*rand(1,length(s_pbest(t,:))).*(s_gbest(j,:)-S_k(t,:));
         S_k(t,:)=S_k(t,:)+V_k(t,:);
     end
+    %mutation
+    for m=1:mut
+        a_par = randi(n_part,1,1);
+        a_dim = randi(ObjFunc.dim,1,1);
+        S_k(a_par,a_dim) = S_k(a_par,a_dim) + S_k(a_par,a_dim)*(2*rand -1);
+    end
+    
     FF=TestFunction_MONO(S_k,ObjFunc.func);
     for i=1:n_part
         if pbest(i)>FF(i)

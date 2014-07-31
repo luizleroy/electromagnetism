@@ -17,7 +17,7 @@ function f = KANGAL_evaluate_objective(x, ObjFunc, M, V)
 
 %% evaluate
 %try
-f = FACTORY_MULTI(ObjFunc.func,x(:,1:V));
+f = TestFunction_MULTI(x(:,1:V),ObjFunc.func);
 %catch
 %    error('Buscar funções teste tabeladas MULTIOBJETIVO (em //SRV-PED-D435/~/MATLAB/)');
 %end

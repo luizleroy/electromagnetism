@@ -32,13 +32,12 @@ addpath(factest);
 kangal = [myPh,'\KANGAL'];
 addpath(kangal);
 clear ph myPh factest kangal
-clc;
 
-rng('default');
+%rng('default');
 
 pop = 50;
 gen = 300;
-s{1} = 'SCH'; %
+s{1} = 'SPHERES'; % SCH
 s{2} = 'SPHERES'; %FON
 % s{3} = 'POL';
 % s{4} = 'KUR';
