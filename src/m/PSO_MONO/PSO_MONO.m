@@ -12,18 +12,11 @@ addpath(pso);
 clear ph myPh factest pso
 
 %rng('default');
-n_part=299;
-iter_max=300;
+n_part=500;
+iter_max=500;
 
-s{1} = 'SPHERE';
-s{2} = 'SCHWEFEL_2';
-% s{3} = 'POL';
-% s{4} = 'KUR';
-% s{5} = 'ZDT1';
-% s{6} = 'ZDT2';
-% s{7} = 'ZDT3';
-% s{8} = 'ZDT6';
-% s{9} = 'ZDT4';
+% s{8} = 'ESPHERE';
+% s{9} = 'SCHWEFEL_2';
 for i = 1:length(s)
     display(s{i});
     ObjFunc = INITIALIZE(s{i});
