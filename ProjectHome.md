@@ -1,0 +1,6 @@
+Electric power is the rate at which electric energy is transferred by an electric circuit. The SI unit of power is the watt, one joule per second.
+Electric power is usually produced by electric generators, but can also be supplied by sources such as electric batteries. It is generally supplied to businesses and homes by the electric power industry through an electric power grid. Electric power is usually sold by the kilowatt hour (3.6 MJ) which is the product of power in kilowatts multiplied by running time in hours. Electric utilities measure power using an electricity meter, which keeps a running total of the electric energy delivered to a customer.
+
+Electromagnetism is the physics of the electromagnetic field: a field which exerts a force on particles that possess the property of electric charge, and is in turn affected by the presence and motion of those particles.
+
+A changing magnetic field produces an electric field (this is the phenomenon of electromagnetic induction, the basis of operation for electrical generators, induction motors, and transformers). Similarly, a changing electric field generates a magnetic field. Because of this interdependence of the electric and magnetic fields, it makes sense to consider them as a single coherent entity - the electromagnetic field.
