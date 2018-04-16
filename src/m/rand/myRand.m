@@ -1,3 +1,0 @@
-%myRand
-[u, m_w, m_z] = randUniform(m_w, m_z);
-u = u/7.393804792359236e+04 %empírico: mairo valor encontrado, para normalização...
